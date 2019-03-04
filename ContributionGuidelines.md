@@ -6,7 +6,7 @@
 * Only original work will be accepted.
  * This means that any tutorials found elsewhere on the web cannot be submitted (again).
 * If your Tutorial requires a server it should work on a new server.
- * If a user has just ordered a server, they should be able to follow the tutorial step by step, without first having to install or configure anything. If that is a prerequesite for your tutorial though, please make sure there is already a tutorial explaining that, and then make sure to link to that other tutorial at the beginning of yours.
+ * If a user has just ordered a server, they should be able to follow the tutorial step by step, without first having to install or configure anything. If that is a prerequisite for your tutorial though, please make sure there is already a tutorial explaining that, and then make sure to link to that other tutorial at the beginning of yours.
 * Write in a clear, easy to understand way.
  * These tutorials will be read by users with a wide range of experience. Make sure beginners can still follow what is being done. This means it is important not to skip any steps, no matter how obvious or self-explanatory they may seem. Feel free to include screenshots, to show exactly what the user should be seeing.
  * If you use acronyms, make sure to write them out the first time you use them.
@@ -22,7 +22,7 @@ Tutorials should all have the same basic layout:
  * Conclusion
 
 ### Title
-The title should make it clear what the goal of your tutorial is. Don't stuff everything into the title though, this should be a summary that gives users an immediate idea of what the tutorial is about. e.g. Installing `<software>` on `<Operating System>`
+The title should make clear what the goal of your tutorial is. Don't stuff everything into the title though, this should be a summary that gives users an immediate idea of what the tutorial is about. e.g. Installing `<software>` on `<Operating System>`
 
 ### Introduction
 The first paragraph or paragraphs are there for you to explain what your tutorial will be doing. Make sure users know exactly what they will end up with if they follow your tutorial, and let them know if they need any specific prerequisites. You can link to other tutorials that your tutorial builds on, and add recommendations for what users should know.
@@ -61,7 +61,7 @@ Username: holu (short for Hetzner OnLine User)
 * IP: `<10.0.0.1>`
 
 ## Graphic
-You are also welcome to send us a graphic for the Indroduction area. Graphics should be created in a ratio of 16:9 and be max. 250kb in size.
+You are also welcome to send us a graphic for the Introduction area. Graphics should be created in a ratio of 16:9 and be max. 250kb in size.
 
 ## Template
 To help you get started, we've prepared a template that you can build on. It includes a basic layout for your tutorial, some examples of formatting, and a number of tips and tricks for setting everything up. Please find that here:
