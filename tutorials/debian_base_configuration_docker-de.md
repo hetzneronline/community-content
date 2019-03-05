@@ -15,13 +15,13 @@ Wir werden ...
   
 Wenn Docker nicht auf dem Server benötigt wird, kann dieser Schritt natürlich auch ausgelassen werden.
 
- Ich habe ausserdem eine [Cloud-Init](https://cloudinit.readthedocs.io/en/latest/) Konfiguration erstellt, mit welcher alle Schritte die wir in diesem Tutorial durchführen, automatisch beim erstellen eines Servers angewendet werden können.
+ Ich habe außerdem eine [Cloud-Init](https://cloudinit.readthedocs.io/en/latest/) Konfiguration erstellt, mit welcher alle Schritte die wir in diesem Tutorial durchführen, automatisch beim erstellen eines Servers angewendet werden können.
  
 ## Schritte
 
 ### Sudo-Benutzer erstellen
 
-Da wir in einem der nächsten Schritte das Einloggen als Root unterbinden werden, benötigen zunächst einen neuen Nutzer, mit dem wir uns einloggen und den Server administrieren können.
+Da wir in einem der nächsten Schritte das Einloggen als Root unterbinden werden, benötigen wir zunächst einen neuen Nutzer, mit dem wir uns einloggen und den Server administrieren können.
 
 Wir erstellen den Benutzer `holu` mit folgendem Befehl:
 ```
@@ -38,7 +38,7 @@ holu ALL=(ALL) NOPASSWD:ALL
 
 ### SSH-Serverkonfiguration
 
-Für zusätzliche Sicherheit passen wir die Konfiguration des SSH-Servers an. Dazu Öffnen wir `/etc/ssh/sshd_config` mit einem Texteditor unserer Wahl (welche selbstverständlich auf [vim](https://www.vim.org/) fallen sollte), löschen den Inhalt der Datei und fügen stattdessen die unten stehende Konfiguration ein. Auf die wichtigsten Einstellungen gehe ich weiter unten noch gesondert ein.
+Für zusätzliche Sicherheit passen wir die Konfiguration des SSH-Servers an. Dazu öffnen wir `/etc/ssh/sshd_config` mit einem Texteditor unserer Wahl (welche selbstverständlich auf [vim](https://www.vim.org/) fallen sollte), löschen den Inhalt der Datei und fügen stattdessen die unten stehende Konfiguration ein. Auf die wichtigsten Einstellungen gehe ich weiter unten noch gesondert ein.
 ```
 Protocol 2
 Port 44933
@@ -69,7 +69,7 @@ AllowUsers holu
 
 `Port 44933` Das ändern des Ports erhöht zwar nicht die Sicherheit, allerdings können wir so die meisten automatisierten Login versuche umgehen, da diese meist nur den Standardport verwenden.
 
-`PermitRootLogin no` Verbietet den Login als Root über SSH
+`PermitRootLogin no` Verbietet den Login als Root über SSH.
 
 `PasswordAuthentication no` Verbietet den Login mit Passwörtern. Wir deaktivieren diese Möglichkeit, da der Login mit einem öffentlichen Schlüssel sicherer ist.
 
@@ -83,11 +83,11 @@ AllowUsers holu
 
 #### Erstellen eines SSH-Schlüsselpaars
 
-Im vorherigen Schritt haben wir den Login mit Passwörtern deaktiviert, also müssen wir und nun auf die einzige verbleibende Möglichkeit, der Authentifizierung mit einem SSH-Schlüsselpaar, einstellen.
+Im vorherigen Schritt haben wir den Login mit Passwörtern deaktiviert, also müssen wir uns nun auf die einzige verbleibende Möglichkeit, der Authentifizierung mit einem SSH-Schlüsselpaar, einstellen.
 
 Zunächst müssen wir auf unserem lokalen Rechner ein Schlüsselpaar generieren. Wenn bereits ein Schlüsselpaar vorliegt, kann dieser Schritt natürlich übersprungen werden.
 
-Unter GNU/Linux können wir ein Schlüsselpaar mit dem folgendem Befehl erzeugen. Nutzer die von Windows heimgesucht werden, können z.b. das Programm [PuTTYgen](https://www.puttygen.com/) verwenden.
+Unter GNU/Linux können wir ein Schlüsselpaar mit dem folgendem Befehl erzeugen. Nutzer die von Windows heimgesucht werden, können z.B. das Programm [PuTTYgen](https://www.puttygen.com/) verwenden.
 
 ```bash
 ssh-keygen \
@@ -100,9 +100,9 @@ ssh-keygen \
 
 Das Schlüsselpaar (bestehend aus den Dateien `id_ed25519` und `id_ed25519.pub`) sollte sich nun im Home-Verzeichnis des lokalen Benutzers unter `~/.ssh befinden`. *Der private Schlüssel (die Datei ohne .pub) sollte, ähnlich wie ein Passwort, sicher aufbewahrt und nicht weitergegeben werden.*
 
-#### Hinterlegen des Öffentlichen Schlüssels
+#### Hinterlegen des öffentlichen Schlüssels
 
-Damit wir uns mit dem unserem privaten Schlüssel authentifizieren können, muss der dazugehörige Öffentliche Schlüssel auf dem Server hinterlegt werden. Dazu erstellen wir im SSH-Verzeichnis des Benutzers 'holu' die Datei `authorized_keys` und fügen dort unseren öffentlichen Schlüssel (Den Inhalt von id_ed25519.pub) ein und passen die Dateirechte so an, dass niemand ausser dem Benutzer 'holu' auf diese Datei zugreifen kann (Andernfalls würde der SSH-Service auf Grund des aktivierten 'StrictMode' nicht starten).
+Damit wir uns mit dem unserem privaten Schlüssel authentifizieren können, muss der dazugehörige öffentliche Schlüssel auf dem Server hinterlegt werden. Dazu erstellen wir im SSH-Verzeichnis des Benutzers 'holu' die Datei `authorized_keys` und fügen dort unseren öffentlichen Schlüssel (den Inhalt von id_ed25519.pub) ein und passen die Dateirechte so an, dass niemand außer dem Benutzer 'holu' auf diese Datei zugreifen kann (andernfalls würde der SSH-Service auf Grund des aktivierten 'StrictMode' nicht starten).
 
 ```bash
 mkdir -p /home/holu/.ssh
@@ -127,7 +127,7 @@ ssh -p 44933 holu@<your_host>
 
 ### Einrichtung der Firewall
 
-Zum Einrichten einer Firewall werden wir das Programm 'ufw' (eine Abstraktion von iptables) verwenden, da die Regeln so deutlich einfacher und Komfortabler als mit iptables direkt verwaltet werden können.
+Zum Einrichten einer Firewall werden wir das Programm 'ufw' (eine Abstraktion von iptables) verwenden, da die Regeln so deutlich einfacher und komfortabler als mit iptables direkt verwaltet werden können.
 
 Das Paket 'ufw' ist nicht in der Standardinstallation von Debian enthalten und kann über die Paketverwaltung nachinstalliert werden.
 ```
@@ -159,7 +159,7 @@ Da Debian keine aktuelle Version von Docker in den offiziellen Paketquellen bere
 
 #### Installation
 
-Wenn die Paketquellen eingebunden sind, kann docker ganz normal über die Paketverwaltung installiert werden.
+Wenn die Paketquellen eingebunden sind, kann Docker ganz normal über die Paketverwaltung installiert werden.
 
 ```bash
 sudo apt install \
@@ -171,7 +171,7 @@ sudo apt install \
 
 #### Zugriff auf Docker
 
-Standardmäßig kann docker nur als root verwendet werden. Damit der Benutzer 'holu' docker selbst (ohne sudo) werdenden kann, muss dieser zur Gruppe 'docker' hinzugefügt werden.
+Standardmäßig kann Docker nur als root verwendet werden. Damit der Benutzer 'holu' Docker selbst (ohne sudo) verwenden kann, muss dieser zur Gruppe 'docker' hinzugefügt werden.
 
 ```bash
 sudo usermod -aG docker holu
