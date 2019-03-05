@@ -1,0 +1,249 @@
+# Basic configuration of a Debian server
+
+## Introduction
+
+In this tutorial, we will equip a newly created Debian server (Debian 9 Stretch) with a secure base configuration and install docker.
+
+We will ...
+  - create an unprivileged Sudo user
+  - Prohibit password login
+  - lock the root user
+  - change the SSH port
+  - set up a firewall
+  - Install Docker and docker-compose
+  - give our Sudo user access to Docker
+  
+If Docker is not required on the server, this step can of course be omitted.
+
+ I have also created a [Cloud-Init](https://cloudinit.readthedocs.io/en/latest/) configuration that allows all the steps we do in this tutorial to be applied automatically when creating a server.
+ 
+## Steps
+
+### Create Sudo user
+
+Since one of the next steps will prevent us from logging in as root, we first need a new user with whom we can log in and administer the server.
+
+We create the user `holu` with the following command:
+```
+adduser --disabled-password holu
+```
+Since we want to deactivate the login with passwords, we do not need a password for our user and therefore deactivate it with the parameter `-d`.
+
+The newly created user 'holu' currently has no special permissions. However, since we want to use the user as a replacement for 'root', we will give holu [Sudo](https://www.sudo.ws/man/1.8.26/sudo.man.html) permissions, allowing this user to execute commands as root using Sudo.
+
+To assign the permissions to the user, we create the file `/etc/sudoers.d/90-holu` with the following content:
+```
+holu ALL=(ALL) NOPASSWD:ALL
+```
+
+### SSH
+
+#### SSH server configuration
+
+For additional security, we adjust the configuration of the SSH server. To do this we open `/etc/ssh/sshd_config` with a text editor of our choice (which of course should fall on [vim](https://www.vim.org/)), delete the contents of the file and insert the configuration below instead. The most important settings are explained below.
+```
+Protocol 2
+Port 44933
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+UsePrivilegeSeparation yes
+KeyRegenerationInterval 3600
+SyslogFacility AUTH
+LogLevel INFO
+PermitRootLogin no
+StrictModes yes
+IgnoreRhosts yes
+RhostsRSAAuthentication no
+HostbasedAuthentication no
+PubkeyAuthentication yes
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+UsePAM yes
+X11Forwarding no
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+AllowUsers holu
+```
+
+`Protocol 2` Ensures that the server only accepts connections via secure protocol version 2.
+
+`Port 44933` Changing the port does not increase security, but we can bypass most automated login attempts as they usually use only the default port.
+
+`PermitRootLogin no` Prohibits login as root via SSH
+
+`PasswordAuthentication no` Forbids login with passwords. We set this option because the login with a public key is more secure.
+
+`PubkeyAuthentication yes` Enables authentication using SSH key pairs.
+
+`StrictModes yes` Prevents the SSH server from starting if certain files have too loose permissions.
+
+`AllowUsers holu` This option provides a whitelist for all users who are allowed to log in via SSH. We only allow our 'holu' user.
+
+**Important**: *The server or the SSH service must not be restarted before the next steps are completed, otherwise the new configuration will become active, which will lock us out of the server.
+
+#### Creating an SSH key pair
+
+In the previous step we disabled the login with passwords, so we have to set and now set to the only remaining option, authentication with an SSH key pair.
+
+First, we need to generate a key pair on our local machine. If a key pair already exists, this step can of course be skipped.
+
+Under GNU/Linux we can create a key pair with the following command. Users haunted by Windows can, for example, use the [PuTTYgen](https://www.puttygen.com/) program to create a key pair.
+
+```bash
+ssh-keygen \
+  -o \
+  -a 100 \
+  -t ed25519 \
+  -f ~/.ssh/id_ed25519 \
+  -C "$(whoami)@$(hostname)"
+```
+
+The key pair (consisting of the files `id_ed25519` and `id_ed25519.pub`) should now be located in the local user's home directory under `~/.ssh`. *The private key (the file without .pub) should be kept safe, similar to a password, and not passed on.
+
+#### Depositing the public key
+
+To be able to authenticate ourselves with our private key, the corresponding public key must be deposited on the server. Therefore we create the file `authorized_keys` in the SSH directory of the user 'holu' and insert our public key (the contents of id_ed25519.pub) there and adjust the file permissions so that nobody but the user 'holu' can access this file (otherwise StrictMode won't let us start the ssh service).
+
+```bash
+mkdir -p /home/holu/.ssh
+vim /home/holu/.ssh/authorized_keys
+chmod 600 /home/holu/.ssh/authorized_keys
+chown holu:holu /home/holu/.ssh/authorized_keys
+```
+
+#### Activating the new configuration
+
+Now that our key is stored on the server, we can activate the new configuration of the SSH server by restarting the SSH server.
+```bash
+systemctl restart sshd
+```
+
+We should now be able to connect to the server with the 'holu' user via the new SSH port, and authenticate using our SSH key pair.
+```
+ssh -p 44933 holu@<your_host>
+```
+
+**From here all steps are performed with the user 'holu'**.
+
+### Firewall setup
+
+To set up a firewall we will use the program 'ufw' (an abstraction of iptables), because the rules can be managed much easier and more comfortable than with iptables directly.
+
+The 'ufw' package is not included in the default Debian installation and can be installed from the package manager.
+```
+sudo apt install ufw
+```
+
+We now create a rule that blocks all incoming connections that were not explicitly allowed.
+```bash
+sudo ufw default deny incoming
+```
+
+Before we activate the firewall, we must of course release our SSH port, otherwise we lock ourselves out of the server.
+```bash
+sudo ufw allow 44933/tcp
+```
+
+We can now activate the firewall with the following command.
+```bash
+sudo ufw enable
+```
+
+With the command `ufw status` all created rules can be listed. This command must also be run as root.
+
+### (Optional) Docker Installation
+
+#### Adding the repository
+
+Since Debian does not provide a recent version of Docker in the official repositories, the repositories of Docker are required to download via the package manager. The [Official Documentation](https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository) describes how to include them.
+
+#### Installation
+
+If the package sources are included, docker can be installed normally via the package manager.
+
+```bash
+sudo apt install \
+  docker-ce \
+  docker-ce-cli \
+  containerd.io \
+  docker-compose
+```
+
+#### Access to Docker
+
+By default, docker can only be used as root. In order for the user to become 'holu' docker itself (without sudo), it must be added to the 'docker' group.
+
+```bash
+sudo usermod -aG docker holu
+```
+
+**Note: Users in the Docker group effectively have root privileges.  More information can be found here: [Docker security \| Docker Documentation](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface)**
+
+### Cloud init
+
+Some vendors, including Hetzner Cloud, support [Cloud-Init](https://cloudinit.readthedocs.io/en/latest/) for configuring servers directly after creation. The following Cloud-Init configuration will automatically perform all the steps shown in this article.
+
+Variables (marked with '<>') must be replaced before using the configuration.
+
+```
+#cloud-config
+users:
+  - name: <username>
+    ssh-authorized_keys:
+    - <your ssh public key here>
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups:
+      - sudo
+      - docker
+    shell: /bin/bash
+package_upgrade: true
+packages:
+  - ufw
+  - vim
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg2
+  - software-properties-common
+runcmd:
+  - curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+  - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+  - apt-get update -y
+  - apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose
+  - ufw default deny incoming
+  - ufw allow <ssh_port>/tcp
+  - echo "y" | ufw enable
+write_files:
+  - path: /etc/ssh/sshd_config
+    content: |
+      Protocol 2
+      Port <ssh_port>
+      HostKey /etc/ssh/ssh_host_rsa_key
+      HostKey /etc/ssh/ssh_host_ecdsa_key
+      HostKey /etc/ssh/ssh_host_ed25519_key
+      UsePrivilegeSeperation yes
+      KeyRegenerationInterval 3600
+      SyslogFacility AUTH
+      LogLevel INFO
+      PermitRootLogin no
+      StrictModes yes
+      IgnoreRhosts yes
+      RhostsRSAAuthentication no
+      HostbasedAuthentication no
+      PubkeyAuthentication yes
+      PasswordAuthentication no
+      ChallengeResponseAuthentication no
+      UsePAM yes
+      X11Forwarding no
+      PrintMotd no
+      AcceptEnv LANG LC_*
+      Subsystem	sftp	/usr/lib/openssh/sftp-server
+      AllowUsers <username>
+```
+
+## Conclusion
+
+Ready! We now have a Debian server with a solid base configuration.
+
