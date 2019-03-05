@@ -181,7 +181,7 @@ sudo usermod -aG docker holu
 
 ### Cloud init
 
-Einige Anbieter, darunter auch Hetzner Cloud, unterstützen [Cloud-Init](https://cloudinit.readthedocs.io/en/latest/) zur Konfiguration von Servern direkt nach der Erstellung. Die Nachfolgende Cloud-Init-Konfiguration führt alle in diesem Artikel gezeigten Schritte automatisch durch.
+Einige Anbieter, darunter auch [Hetzner Cloud](https://cloud.hetzner.com), unterstützen [Cloud-Init](https://cloudinit.readthedocs.io/en/latest/) zur Konfiguration von Servern direkt nach der Erstellung. Die Nachfolgende Cloud-Init-Konfiguration führt alle in diesem Artikel gezeigten Schritte automatisch durch.
 
 Variablen (durch '<>' gekennzeichnet) müssen vor der Verwendung der Konfiguration ersetzt werden.
 
