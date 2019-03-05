@@ -3,7 +3,7 @@
 
 Welcome to the Hetzner Community Project. This Repository holds the Community Contributed Content.
 
-More Information will be publicly announced at 13th Match.
+More Information will be publicly announced on March 13th.
 
 
 ## Contribution Guide 
