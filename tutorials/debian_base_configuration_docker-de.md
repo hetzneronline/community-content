@@ -15,7 +15,7 @@ Wir werden ...
   
 Wenn Docker nicht auf dem Server benötigt wird, kann dieser Schritt natürlich auch ausgelassen werden.
 
- Ich habe ausserdem eine [Cloud-Init](https://cloudinit.readthedocs.io/en/latest/) Konfiguration erstellt, mit welcher alle Schritte die wir in diesem Tutorial durchführen, automatisch beim erstellen eines Servers anwenden kann.
+ Ich habe ausserdem eine [Cloud-Init](https://cloudinit.readthedocs.io/en/latest/) Konfiguration erstellt, mit welcher alle Schritte die wir in diesem Tutorial durchführen, automatisch beim erstellen eines Servers angewendet werden können.
  
 ## Schritte
 
@@ -29,16 +29,14 @@ adduser --disabled-password holu
 ```
 Da wir den Login mit Passwörtern deaktivieren wollen, benötigen wir für unseren Benutzer auch kein Passwort und deaktivieren es daher mit dem Parameter `--disabled-password`
 
-Der neu angelegte Benutzer 'holu' hat aktuell noch keine speziellen Berechtigungen. Da wir den Benutzer allerdings als Ersatz für 'root' verwenden wollen, werden wir holu [Sudo](https://www.sudo.ws/man/1.8.26/sudo.man.html)-Berechtigungen erteilen, wodurch dieser Nutzer mithilfe von Sudo Befehle als root ausführen kann.
+Der neu angelegte Benutzer 'holu' hat aktuell noch keine speziellen Berechtigungen. Da wir den Benutzer allerdings als Ersatz für 'root' verwenden wollen, werden wir holu [Sudo](https://www.sudo.ws/man/1.8.26/sudo.man.html)-Berechtigungen erteilen, wodurch dieser Befehle als root ausführen kann.
 
-Um dem Benutzer die Rechte zuzuweisen erstellen wir die Datei unter `/etc/sudoers.d/90-holu` mit folgendem Inhalt:
+Um dem Benutzer die Rechte zuzuweisen erstellen wir die Datei `/etc/sudoers.d/90-holu` mit folgendem Inhalt:
 ```sudo
 holu ALL=(ALL) NOPASSWD:ALL
 ```
 
-### SSH
-
-#### SSH-Serverkonfiguration
+### SSH-Serverkonfiguration
 
 Für zusätzliche Sicherheit passen wir die Konfiguration des SSH-Servers an. Dazu Öffnen wir `/etc/ssh/sshd_config` mit einem Texteditor unserer Wahl (welche selbstverständlich auf [vim](https://www.vim.org/) fallen sollte), löschen den Inhalt der Datei und fügen stattdessen die unten stehende Konfiguration ein. Auf die wichtigsten Einstellungen gehe ich weiter unten noch gesondert ein.
 ```
@@ -89,7 +87,7 @@ Im vorherigen Schritt haben wir den Login mit Passwörtern deaktiviert, also mü
 
 Zunächst müssen wir auf unserem lokalen Rechner ein Schlüsselpaar generieren. Wenn bereits ein Schlüsselpaar vorliegt, kann dieser Schritt natürlich übersprungen werden.
 
-Unter GNU/Linux können wir ein Schlüsselpaar mit dem folgendem Befehl erzeugen. Nutzer die von Windows heimgesucht werden, können z.b. das Programm [PuTTYgen](https://www.puttygen.com/) verwenden um ein Schlüsselpaar zu erzeugen.
+Unter GNU/Linux können wir ein Schlüsselpaar mit dem folgendem Befehl erzeugen. Nutzer die von Windows heimgesucht werden, können z.b. das Programm [PuTTYgen](https://www.puttygen.com/) verwenden.
 
 ```bash
 ssh-keygen \
@@ -100,7 +98,7 @@ ssh-keygen \
   -C "$(whoami)@$(hostname)"
 ```
 
-Das Schlüsselpaar (bestehend aus den Dateien `id_ed25519` und `id_ed25519.pub`) sollten sich nun im Home-Verzeichnis des lokalen Benutzers unter `~/.ssh befinden`. *Der private Schlüssel (die Datei ohne .pub) sollte, ähnlich wie ein Passwort, sicher aufbewahrt und nicht weitergegeben werden.*
+Das Schlüsselpaar (bestehend aus den Dateien `id_ed25519` und `id_ed25519.pub`) sollte sich nun im Home-Verzeichnis des lokalen Benutzers unter `~/.ssh befinden`. *Der private Schlüssel (die Datei ohne .pub) sollte, ähnlich wie ein Passwort, sicher aufbewahrt und nicht weitergegeben werden.*
 
 #### Hinterlegen des Öffentlichen Schlüssels
 
