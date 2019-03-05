@@ -6,7 +6,7 @@ This is the first Part of a Series of Tutorials called **Real-time Applications 
 
 This is what the App will look like in the End:
 
-[![../assets/small.gif](../assets/real-time-apps-with-go-and-reactjs.gif)](../assets/real-time-apps-with-go-and-reactjs.mp4)
+[![../assets/real-time-apps-with-go-and-reactjs.gif](../assets/real-time-apps-with-go-and-reactjs.gif)](../assets/real-time-apps-with-go-and-reactjs.mp4)
 
 We gonna cover every step from an empty text editor to configuring your CI for the dashboard and deploy the docker container we will build.
 
