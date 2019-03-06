@@ -99,9 +99,7 @@ You will need a golang compiler, for development i would [**recommend installing
 
 Alternative: But you could also build a executable for your OS with docker (NOT recommended, go run is faster in dev)
 
-*GOOS and GOARCH have to match your machine of course, i.e. GOOS=linux  GOARCH=amd64*
-
-`docker run --rm -v "$PWD":/app -w /app -e GOOS=darwin -e GOARCH=amd64 golang:1.12-alpine go build main.go`
+`docker run --rm -v "$PWD":/app -w /app -e GOOS=$(uname -s | tr '[A-Z]' '[a-z]') golang:1.12-alpine go build main.go`
 
 Then execute with
 
