@@ -1,4 +1,6 @@
-# Prosody XMPP Server on Debian 9
+# Installing Prosody XMPP Server on Debian 9
+
+## Introduction
 
 Prosody is a modern and well-known xmpp server written in Lua.
 This tutorial will help you to deploy a state of the art xmpp server which passes all test in the [compliance tester](https://compliance.conversations.im/) but also has some further tweaks.
@@ -40,7 +42,7 @@ abuse@example.com, support@example.com, security@example.com
 
 Your admin E-Mail address will be: holu@example.com
 
-## Setup DNS Records
+## Step 1 - Setup DNS Records
 Setup following DNS records:
 
 `example.com. 7200 IN A 10.0.0.1`
@@ -69,7 +71,7 @@ Setup following DNS records:
 `_xmpp-server._tcp.conference.example.com. 14400 IN SRV 10 10 5269 xmpp.example.com.`
 
 
-## Installation
+## Step 2 - Installation
 First we add the official repository to get the latest ("trunk") versions
 ```bash 
 wget https://prosody.im/files/prosody-debian-packages.key -O- | apt-key add -
@@ -135,7 +137,7 @@ git clone https://github.com/lixmal/mod_img2url.git /opt/external-prosody-module
 ln -s ../external-prosody-mod/mod_img2url/mod_img2url.lua
 ```
 
-## Configuration
+## Step 3 - Configuration
 
 Time for the configuration file. Move the original configuration file away `mv /etc/prosody/prosody.cfg.lua /etc/prosody/prosody.cfg.lua.old`
 
@@ -143,8 +145,7 @@ Public registration is disabled by default, you can enable it if you remove the 
 
 Edit `/etc/prosody/prosody.cfg.lua` and add the content below.
 <details>
-  <summary>(Click to 
-      expand) </summary>
+  <summary>(Click to expand) prosody.cfg.lua</summary>
     
 ```lua
 pidfile = "/var/run/prosody/prosody.pid"
@@ -357,7 +358,8 @@ Component "vjud.example.com" "vjud"
 ```
 </details>
 
-### Register Let's Encrypt Certificates
+### Step 3.1 - Register Let's Encrypt Certificates
+**Note:** If you have pointed `example.com` to another IP address please generate the certificate for `example.com` on the other server and copy it over with for example [scp](http://www.scp-wiki.net/).
 
 We will use [certbot](https://certbot.eff.org/) from [EFF](https://www.eff.org/) for the Let's Encrypt certificates.
 ```bash
@@ -380,7 +382,7 @@ chmod a+x ./certbot-auto
 ```
 You will get an email 30 (and 7) days before the certificates expire to holu@example.com. You will also get a notification via XMPP 7 days before the certificates expire.
 
-### Install the certificates
+### Step 3.2 - Install the certificates
 
 ```bash
 mkdir /usr/lib/prosody/cert/
@@ -405,12 +407,14 @@ mkdir /usr/lib/prosody/cert/pubsub.example.com
 cp -L /etc/letsencrypt/live/pubsub.example.com/fullchain.pem /usr/lib/prosody/cert/pubsub.example.com/fullchain.pem ;
 cp -L /etc/letsencrypt/live/pubsub.example.com/privkey.pem /usr/lib/prosody/cert/pubsub.example.com/privkey.pem ;
 
-mkdir /usr/lib/prosody/    cert/vjud.example.com
+mkdir /usr/lib/prosody/cert/vjud.example.com
 cp -L /etc/letsencrypt/live/vjud.example.com/fullchain.pem /usr/lib/prosody/cert/vjud.example.com/fullchain.pem ;
-cp -L /etc/letsencrypt/live/vjud.example.com/privkey.pem /usr/lib/prosody/cert/vjud.example.com/privkey.pem
+cp -L /etc/letsencrypt/live/vjud.example.com/privkey.pem /usr/lib/prosody/cert/vjud.example.com/privkey.pem ;
+
+chown root:prosody -R /usr/lib/prosody/cert/
 ```
 
-### Check configuration, start prosody server and create the admin user
+## Step 4 - Check configuration, start prosody server and create the admin user
 
 Run `prosodyctl check` to automatically check your configuration file for issues.  
 You can safely ignore `SRV target xmpp.example.com. contains unknown client port: 443` here because we use SSLH to bind to 443 and not prosody itself.
@@ -425,15 +429,14 @@ Check the logfile for further errors.
 Lets create the admin user.
 `prosodyctl adduser holu@example.com`
 
-You can now log in via any XMPP client. The most popular clients are [Gajim](https://gajim.org/) for desktop and [Conversations](https://conversations.im/) for mobile usage. A new and modern clients is [Dino](https://dino.im/) for example. For more clients take a look [here](https://xmpp.org/software/clients.html).
+You can now log in via any XMPP client.
 
-
-### Compliance Tester
+## Step 5 - Optional:  Compliance Tester
 You should create a seperate user for the tester as you have to submit credentials.
 `prosodyctl adduser compliance@example.com`
 
 Enter the credentials into the [Compliance Tester](https://compliance.conversations.im/add/) and submit them.
-You should pass here all tests except two informal tests for XEP-0156 and XEP-0363, which are not important for ranking nor for the features.
+You should pass here all tests except the informal tests for XEP-0156, which is not important for ranking nor for the features.
 The XEP-0077 only passes if you have enabled `mod_register` in the configuration file. You should not enable it for a private server and create new accounts with `prosodyctl`
 You can also subscribe to periodic reports for this server at the bottom left after you submitted the credentials.
 
@@ -448,6 +451,29 @@ Reporting:
 - [Issue Tracker](https://issues.prosody.im/)
 - [Security Issues](mailto:developers@prosody.im)
 
+
+## Conclusion
+We now have a fully featured state of the art XMPP server. You can start chatting with the most popular clients are [Gajim](https://gajim.org/) for desktop and [Conversations](https://conversations.im/) for mobile usage. A new and modern clients is [Dino](https://dino.im/) for example. For more clients take a look [here](https://xmpp.org/software/clients.html).
+
+**Please do not forget to update your packages regularly with `apt-get update && apt-get upgrade`, otherwise prosody does not receive any updates.**
+You can also setup a cronjob for this if you want: Execute `crontab -e` and add `@weekly apt-get update && apt-get upgrade` at the bottom.
+
+As noticed below we have all features which are required for 100% in the compliance tester: https://compliance.conversations.im/
+Next to this, we have more (security) features:
+- Enforced transport encryption
+- Privacy enhanced push notifications because of disabled message body
+- A opt-in user directory
+- Bidirectional Server-to-Server Connections
+- HSTS header for web
+- BOSH under `https://xmpp.example.com:5281/http-bind/`
+- Websocket under `wss://xmpp.snopyta.org:5281/xmpp-websocket` or `https://xmpp.example.com:5281/xmpp-websocket`
+
+
+Extra features for the administrator:
+- Notification on new registrations
+- Serverwide announcements to all users
+- Information message when certificates threaten to expire
+- Information message when unencrypted connection from another XMPP server fails
 
 
 # Optional advanced features
@@ -624,7 +650,100 @@ on-timeout: "timeout";
 And restart SSLH to apply the changes: `systemctl restart sslh`
 
 
+## XEP-0156: Discovering Alternative XMPP Connection Methods (HTTP)
+Although XMPP specifies the use of TCP as the method of connecting to an XMPP server, alternative connection methods exist, including the [BOSH (XEP-0124)](https://prosody.im/doc/modules/mod_bosh) method (for which XMPP Over BOSH (XEP-0206) is the XMPP profile) and the websocket subprotocol. For some of these methods, it is necessary to discover further parameters before connecting, such as the HTTP URL of an alternative connection manager.
+
+### General information
+We will create two files `host-meta` and `host-meta.json`. Both files have to be located under the domain `example.com` in the folder `/.well-known`, you cannot use a subdomain here. If have `example.com` pointed to another servers IP address you have to deploy the files there.
+
+<details>
+    <summary>(Click to expand) Content of host-meta</summary>
+
+```xml
+<?xml version='1.0' encoding='utf-8'?>
+<XRD xmlns='http://docs.oasis-open.org/ns/xri/xrd-1.0'>
+  <Link rel="urn:xmpp:alt-connections:xbosh"
+        href="https://xmpp.example.com:5281/http-bind" />
+  <Link rel="urn:xmpp:alt-connections:websocket"
+        href="wss://xmpp.example.com:5281/xmpp-websocket" />
+</XRD>
+```
+</details>
+
+<details>
+    <summary>(Click to expand) Content of host-meta.json</summary>
+
+```json
+{
+  "links": [
+    {
+      "rel": "urn:xmpp:alt-connections:xbosh",
+      "href": "https://xmpp.example.com:5281/http-bind"
+    },
+    {
+      "rel": "urn:xmpp:alt-connections:websocket",
+      "href": "wss://xmpp.example.com:5281/xmpp-websocket"
+    }
+  ]
+}
+```
+</details>
+
+If you have prosody installed **without** a webserver and exposed via port 443 you can remove `:5281` in both `host-meta` files.
+Otherwise you keep it as it is or you deploy a reverse proxy for both. We will not explain in this tutorial on how to do this.
+
+### With a webserver (nginx)
+Add both files from above to your document root in the folder `.well-known`. Create the folder if it does not exist as below.
+`mkdir /var/www/example.com/.well-known`
+
+and change permissions to your www (`www-data` by default) user: `chown www-data:www-data -R /var/www/example.com/.well-known/`
+
+We also need to set the Header `Access-Control-Allow-Origin "*"` in our virtual host for the domain `example.com`.
+Virtual hosts are located under `/etc/nginx/sites-available/*`
+```nginx
+location /.well-known/host-meta {
+    default_type 'application/xrd+xml';
+    add_header Access-Control-Allow-Origin '*' always;
+}
+location /.well-known/host-meta.json {
+    default_type 'application/jrd+json';
+    add_header Access-Control-Allow-Origin '*' always;
+}
+```
+
+To apply these changes reload nginx with `systemctl reload nginx`
+
+### With a webserver (Apache)
+Add both files from above to your document root in the folder `.well-known`. Create the folder if it does not exist as below.
+`mkdir /var/www/example.com/.well-known`
+
+and change permissions to your www (`www-data` by default) user: `chown www-data:www-data -R /var/www/example.com/.well-known/`
+
+We also need to set the Header `Access-Control-Allow-Origin "*"` in our virtual host for the domain `example.com`.
+Virtual hosts are located under `/etc/apache2/sites-available/*`
+```apache
+<Location ~ "/\.well-known/host-meta(\.json)?">
+    Header set Access-Control-Allow-Origin "*"
+</Location>
+```
+
+To apply these changes reload Apache with `systemctl reload apache2`
+
+### Without a webserver
+Add `"http_files";` in the configuration file `/etc/prosody/prosody.cfg.lua` to the array `modules_enabled = { }`.
+Outside the modules_enabled array add
+
+```
+http_files_dir = "/var/www/prosody/"
+```
+
+and save the configuration file.
+Now you have to create the folder `.well-known` with `mkdir -p /var/www/prosody/.well-known` and add both files from above into it.
+Change permissions with `chown root:prosody -R /var/www/prosody/` and restart prosody `prosodyctl restart`
+
+
+
 ## IRC Gateway with Biboumi
 [Biboumi](https://biboumi.louiz.org/) is a Free, Libre and Open Source XMPP gateway that connects to IRC servers and translates between the two protocols. Its goal is to let XMPP users take part in IRC discussions, using their favourite XMPP client.
 
-You can find more detailed information about the installation progress in the [biboumi documentation](https://doc.biboumi.louiz.org/admin.html)
+You can find more detailed information about the installation progress in the [biboumi documentation](https://doc.biboumi.louiz.org/admin.html).
