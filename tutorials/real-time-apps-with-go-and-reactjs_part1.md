@@ -286,7 +286,7 @@ Since *concurrency is the core concept of golang*, the keyword for creating a ne
 
 ## Conclusion
 
-We just built a Realtime Chat app in 45 Lines of Go.
+We just built a real-time Chat app in 45 Lines of Go.
 
 The `/say` endpoint processes `name` and `message`.
 The `/listen` endpoint *keep-alive*s Connections and forwards input from `/say`
