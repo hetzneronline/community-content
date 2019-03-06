@@ -216,7 +216,7 @@ func main() {
 
 The Arrow Syntax "<-" belongs to one of the core concepts of concurrency in golang: `channel`s, it blocks the routine until it receives data from a `channel`.
 
-> A `channel` in go is a typed conduit that can receive data`channel <- data` and data can be read from `data <- channel` Writing to or Reading from a Channel BLOCKS the subroutine. [Example](https://gobyexample.com/channels)
+> A `channel` in go is a typed conduit that can receive data `channel <- data` and data can be read from `data <- channel` Writing to or Reading from a Channel BLOCKS the subroutine. [Example](https://gobyexample.com/channels)
 
 ## Step 4 - Connecting the Handlers
 
