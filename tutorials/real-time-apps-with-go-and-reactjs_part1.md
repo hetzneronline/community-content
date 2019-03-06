@@ -169,7 +169,7 @@ func sayHandler(w http.ResponseWriter, r *http.Request) {
 
 Test: `curl` (or open it in any web browser)
 
-```sdafsdf
+```bash
 $ curl localhost:4000/say -d 'name=Florian'
 Florian%+
 ```
