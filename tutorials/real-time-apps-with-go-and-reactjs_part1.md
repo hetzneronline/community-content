@@ -33,6 +33,13 @@ We gonna cover every step from an empty text editor to configuring your CI for t
     
 -   Part 5: Continious Integration and Deployment Setup (not yet released)
     
+At reviewing the Tutorial with a Colleague @schaeferthomas he stated that "real-time" can be understood in different ways. For this Tutorial i use it in the Context of Public Networking Appliactions using the Definition of Oxford English:
+
+> \[adjective\] (real-time)Computation of or relating to a system in which input data is processed within milliseconds so that it is available virtually immediately as feedback, e.g., in a missile guidance or airline booking system:*real-time signal processing*
+> 
+> -   Oxford Pocket Dictionary of Current English
+>
+
 
 ## Introduction
 
@@ -247,7 +254,9 @@ Since Concurrency is the main concept of go, the keyword for creating a new co(g
 
 ## Conclusion
 
-And that's it. We just build a Realtime Chat app in 45 Lines of Go.
+And that's it. We just built a Realtime Chat app in 45 Lines of Go.
+
+#### Disclaimer: This is not production Ready Code, for simplicity reason we omitted all the Error Checking and Input Sanitization
 
 ```go
 package main
@@ -296,3 +305,5 @@ func main() {
 	http.ListenAndServe(":4000", nil)
 }
 ```
+
+In the next Part we will built the Server-Sent-Event Protocol ourself and connect it to a JavaScript Client for Realtime Browser Action. Thanks for Reading.
