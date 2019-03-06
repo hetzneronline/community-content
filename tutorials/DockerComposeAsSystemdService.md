@@ -1,20 +1,20 @@
-# Run multiple docker-compose services on Debian/Ubuntu
+# Run multiple Docker Compose services on Debian/Ubuntu
 
 ## Introduction
-This tutorial will show you how you can run multiple docker-compose services via a systemd service template.
+This tutorial will show you how you can run multiple Docker Compose services via a systemd service template.
 
 ### Prerequisites
 * Server with Debian/Ubuntu
 * Docker already installed and running
   * [Tutorial for Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
   * [Tutorial for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-* `docker-compose` installed at `/usr/local/bin/docker-compose` as instructed in the [official tutorial](https://docs.docker.com/compose/install/) (otherwise you may need to adapt the path in the examples)
+* Docker Compose installed at `/usr/local/bin/docker-compose` as instructed in the [official tutorial](https://docs.docker.com/compose/install/) (otherwise you may need to adapt the path in the examples)
 
 ## Steps
 
-### Create docker-compose files
+### Create Docker Compose files
 
-For this tutorial we will store our docker-compose service configurations under `/etc/docker-compose`.
+For this tutorial we will store our Docker Compose service configurations under `/etc/docker-compose`.
 
 ```bash
 mkdir /etc/docker-compose
@@ -26,7 +26,7 @@ Just as an example, let's say we want to run [watchtower](https://hub.docker.com
 mkdir /etc/docker-compose/watchtower
 ```
 
-And we need the according docker-compose file at `/etc/docker-compose/watchtower/docker-compose.yml`:
+And we need the according Docker Compose file at `/etc/docker-compose/watchtower/docker-compose.yml`:
 
 ```
 version: "3"
@@ -71,11 +71,11 @@ WantedBy=multi-user.target
 ```
 
 This service template will:
-* try to pull new versions of the used docker images on startup and reload of the systemd service
+* try to pull new versions of the used Docker images on startup and reload of the systemd service
 * try to build the images if it's configured this way in the `docker-compose.yml` on startup and reload of the systemd service
 * remove orphan containers (e.g. after you changed a containers name or removed a container from the `docker-compose.yml`)
 
-If you wonder why the start timeout is a bit long, some docker images may need some time to be built which is done when starting the service.
+If you wonder why the start timeout is a bit long, some Docker images may need some time to be built which is done when starting the service.
 
 Now we make systemd reload the service files:
 
@@ -91,7 +91,7 @@ echo '0  4    * * *   root    /bin/systemctl reload docker-compose@*.service' >>
 
 Please note that this only works as intended in combination with 'watchtower' as shown above as new images will not automatically be used. 
 
-With this setup we can now start a docker-compose service (in this case 'watchtower'):
+With this setup we can now start a Docker Compose service (in this case 'watchtower'):
 
 ```bash
 systemctl start docker-compose@watchtower
@@ -104,7 +104,7 @@ systemctl enable docker-compose@watchtower
 ```
 
 ## Conclusion
-You have now setup an environment where you can easily start different docker-compose services as systemd services. For each additional service you just need to:
+You have now setup an environment where you can easily start different Docker Compose services as systemd services. For each additional service you just need to:
 * create the according `/etc/docker-compose/servicename` directory
 * create at least a `/etc/docker-compose/servicename/docker-compose.yml` file (and whatever else you need for the service)
 * start the service via `systemctl start docker-compose@servicename`
