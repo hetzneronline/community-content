@@ -41,6 +41,10 @@ services:
     command: --cleanup --no-pull
 ```
 
+For more info about the options specified under `command` take a look at [watchtower](https://hub.docker.com/r/v2tec/watchtower/).
+Here we specify that old images should new removed after updating to a new image (`--cleanup`).
+We also tell watchtower that it should not check for newer images itself (`--no-pull`). That is because it's actually recommended to use this option if you are building your own images (without pushing them to the Docker Registry). We will take care of pulling new images regularly later. If you don't plan on building your own images then you can just omit `--no-pull` and also skip step 3.
+
 ## Step 2 - Create the systemd service template
 
 Now we create the [systemd service template](https://www.freedesktop.org/software/systemd/man/systemd.service.html#Service%20Templates) at `/etc/systemd/system/docker-compose@.service`:
