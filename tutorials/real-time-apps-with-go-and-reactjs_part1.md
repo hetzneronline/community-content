@@ -2,13 +2,13 @@
 
 ## About the Series
 
-Welcome to the first Part of a Series of Tutorials called **Real-time Applications with Go and ReactJS**. We will build a Live Dashboard that Monitors Servers and receives Webhooks by GitlabCI (or any CI really), rendering this Data live to every Client that is connected **without any delay**.
+Welcome to the first Part of a Series of Tutorials called **Real-time Applications with Go and ReactJS**. We build a Live Dashboard that Monitors Servers and receives Webhooks by GitlabCI (or any CI really), rendering this Data live to every Client that is connected **without any delay**.
 
 After the Series, this is what the App will look like:
 
 [![../assets/real-time-apps-with-go-and-reactjs.gif](../assets/real-time-apps-with-go-and-reactjs.gif)](../assets/real-time-apps-with-go-and-reactjs.mp4)
 
-We are going to cover every step from an empty text editor to configuring your CI for the dashboard and deploy the docker container we will build.
+We are going to cover every step from an empty text editor to configuring your CI for the dashboard and deploy the docker container we build.
 
 **Technologies covered**
 
@@ -23,20 +23,20 @@ We are going to cover every step from an empty text editor to configuring your C
 
 **Series Index**
 
--   Part 1: Basic HTTP Eventstreaming Server (*)
+-   Part 1: Building a real-time HTTP Server (*)
     
--   Part 2: Implementing the SSE Protocol Standard (not yet released)
+-   Part 2: Implementing SSE Protocol Standards (not yet released)
     
--   Part 3: Building a Basic UI with ReactJS (not yet released)
+-   Part 3: Creating a Basic UI with ReactJS (not yet released)
     
 -   Part 4: Visualizing Real-time Data with ReactJS (not yet released)
     
--   Part 5: CI/CD Setup for Go & ReactJS Applications with Docker (not yet released)
+-   Part 5: Getting Ready for Production (not yet released)
     
     
 **About the Definition of Real-time in Computing**
 
-At Reviewing the Tutorial with a Colleague @schaeferthomas, he stated that "real-time" could be understood in different ways. For this Tutorial I use it in the Context of Public Networking Applications using the Definition of Oxford English:
+At Reviewing the Tutorial with my Colleague @schaeferthomas, he stated that "real-time" could be understood in different ways. For this Tutorial I use it in the context of Public Networking Applications using this definition:
 
 > \[adjective\] (real-time)Computation of or relating to a system in which input data is processed within milliseconds so that it is available virtually immediately as feedback, e.g., in missile guidance or airline booking system.
 > 
@@ -57,13 +57,13 @@ At Reviewing the Tutorial with a Colleague @schaeferthomas, he stated that "real
 -   Minimal Knowledge of Go
     
 
-If you did not yet have any contact with golang, no worries, I am not going to dive deep into the mechanics of golang. You should be able to follow even if you haven't used golang yet. But wouldn't that be a great time to make the first contact with Go?
+If you did not yet have any contact with golang, no worries, I am not going to dive deep into the mechanics of golang. You should be able to follow even if you haven't used golang yet. However, wouldn't that be a great time to make the first contact with Go?
 
 > To Follow Along without any Knowledge in golang, I recommend using [gobyexample.com](https://gobyexample.com) as a reference.
 
 ### What we are going to build in this part
 
-We are going to use the core `net/http` package to build a very basic real-time server that keeps connections to an endpoint `/listen` alive and takes input at `/say` to we will have the most minimal possible real-time chat app and see the awesomeness of go.
+We are going to use the core `net/http` package to build a very basic real-time server that keeps connections to an endpoint `/listen` alive and takes input at `/say`. 
 
 [![asciicast](https://asciinema.org/a/231626.svg)](https://asciinema.org/a/231626)
 
@@ -84,7 +84,7 @@ Code goes to `main.go`, create it:
 
 `touch main.go`
 
-Then add the Template for our Application in your favourite editor:
+Then add the template for our Application in your favourite editor:
 
 ```go
 package main
@@ -96,7 +96,7 @@ func main() {
 }
 ```
 
-You will need a golang compiler, for development, I would [**recommend installing golang**](https://golang.org/dl/) and using the builtin development compiler.
+You need a golang compiler. For development, I would [**recommend installing golang**](https://golang.org/dl/) and using the builtin development compiler.
 
 `go run main.go`
 
@@ -109,21 +109,21 @@ Then execute with
 `./main`
 
 
-## Step 1 - Implementing a HTTP Endpoint `/say`
+## Step 1 - Implementing the `/say` Handler 
 
-Starting an HTTP Server in Go is very straight forward. The [core package `net/http`](https://golang.org/pkg/net/http) provides the `ListenAndServe(address string, handler Handler)` function. The Function will run till it may receive an unrecoverable error, returning the Error message. Since it is Blocking, you should add the Statement at the end of `func main`.
+Starting an HTTP Server in Go is very straight forward. The [core package `net/http`](https://golang.org/pkg/net/http) provides the `ListenAndServe(address string, handler Handler)` function. The Function runs till it may receive an unrecoverable error, returning the Error message. Since it is Blocking, you should add the Statement at the end of `func main`.
 
 ```go
 log.Fatal( http.ListenAndServe(":4000", nil) )
 ```
 
-We will implement HTTP Handlers with the `http.HandleFunc(urlPattern string, handlerFunction Handler)` Function. It takes a Pattern that describes the URL, in our example `/say` and a Callback Function that is going to execute on any request to that URL.
+We implement HTTP Handlers with the `http.HandleFunc(urlPattern string, handlerFunction Handler)` Function. It takes a Pattern that describes the URL, in our example `/say` and a Callback Function that is going to execute on any request to that URL.
 
 The Callback function receives a `ResponseWriter` interface which has a `Write([]byte])` function.
 
 > The Write Method takes a byte array. That's great for HTTP/2 which is a binary protocol, unlike HTTP.
 
-In our case, we want to return just a UTF-8 String. Gladly, this isn't C (even if it looks like it is) and the byte array type has a very convenient interface for converting our String to a byte array: `[]byte("string here")`.
+In our case, we want to return a UTF-8 String. Gladly, this isn't C (even if it looks like it is) and the byte array type has a very convenient interface for converting our String to a byte array: `[]byte("string here")`.
 
 Now we stick the Parts together:
 
@@ -149,7 +149,7 @@ $ curl localhost:4000/say
 Hi%
 ```
 
-## Step 2 - Process Form Input
+## Step 2 - Processing Input-Data
 
 
 The Web and HTTP(S)(/2) is a core construct in Go; actually, golang was made for Web Development and Networking.
@@ -158,7 +158,7 @@ Of course, it comes with parsing functions for URL and POST/PATCH/PUT Body.
 
 `Request.FormValue(key String)` returns a String with the Value of the Key.
 
-We will exchange the static "Hi" with the String we read from a Requests URL or Body.
+We exchange the static "Hi" with the String we read from a Requests URL or Body.
 
 ```go
 func sayHandler(w http.ResponseWriter, r *http.Request) {
@@ -176,7 +176,7 @@ Florian%+
 
 For our Application, we need another Parameter `message`.
 
-> Usually, in golang, you would create a [`struct`](https://gobyexample.com/structs) now. But as said in the Intro: This is not a golang tutorial, and I want to keep the code short and understandable for People not programming in golang yet.
+> Usually, in golang, you would create a [`struct`](https://gobyexample.com/structs) now. However, this is not a golang tutorial, let's keep it simple.
 
 ```go
 func sayHandler(w http.ResponseWriter, r *http.Request) {
@@ -187,12 +187,12 @@ func sayHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-## Step 3 - Implementing the Endpoint `/listen`
+## Step 3 - Implementing the `/listen` Handler
 
 For the `listenHandler` we do the same as we did for the `sayHandler`, but without parsing any input. 
-We will instead tell the Client that the connection should be kept alive.
+We instead tell the Client that the connection should be kept alive.
 
-We create a new Handler `listenHandler` and set the **HTTP Header "Connection" to "keep-alive"** to tell the Client not to terminate the Connection. Also, we will set **HTTP Header "Content-Type" to "text/event-stream"**.
+We create a new Handler `listenHandler` and set the **HTTP Header "Connection" to "keep-alive"** to tell the Client not to terminate the Connection. Also, we set **HTTP Header "Content-Type" to "text/event-stream"**.
 
 To make sure that we are not Terminating the Connection from our side early, we wait for the Close event of the Client.
 
@@ -218,11 +218,11 @@ The Arrow Syntax "<-" belongs to one of the core concepts of concurrency in gola
 
 > A `channel` in go is a typed conduit that can receive data`channel <- data` and data can be read from `data <- channel` Writing to or Reading from a Channel BLOCKS the subroutine. [Example](https://gobyexample.com/channels)
 
-## Step 4 - Streaming input Data to the Listeners
+## Step 4 - Connecting the Handlers
 
 We have a `/say` Endpoint, receiving Data from the Client. And a `/listen` Endpoint supposed to send the data we receive on `/say` to connected clients.
 
-Now let us combine those. To do that, we need a new `channel` for every listener connected to send the data; we will list them in a global map of channels like so:
+Now let us combine those. To do that, we need a new `channel` for every listener connected to send the data; we list them in a global map of channels like so:
 
 `var messageChannels = make(map[chan []byte]bool)`
 
@@ -266,9 +266,9 @@ func listenHandler(w http.ResponseWriter, r *http.Request) {
 
 **sayHandler**
 
-In the sayHandler we will write to the `messageChannels` the listeners added. We do this in a dedicated thread, so we don't let the client wait till we channelled and processed all the data.
+In the sayHandler we write to the `messageChannels` the listeners added. We do this in a dedicated thread, so we don't let the client wait till we channelled and processed all the data.
 
-Since *concurrency is the core concept of golang*, the keyword for creating a new thread is **`go`**
+Since *concurrency is the core concept of golang*, the keyword for creating a new thread is **`go`**.
 
 ```go
 // sayHandler Function
@@ -291,7 +291,7 @@ We just built a Realtime Chat app in 45 Lines of Go.
 The `/say` endpoint processes `name` and `message`.
 The `/listen` endpoint *keep-alive*s Connections and forwards input from `/say`
 
-Test it with `curl` or just visit localhost:4000/listen at your favourite web browser and send events with curl /say in Terminal!
+Test it with `curl` or visit localhost:4000/listen at your favourite web browser and send events with curl /say in Terminal!
 
 #### Disclaimer: This is not production Ready Code, for simplicity reason we omitted all the Error Checking and Input Sanitization
 
