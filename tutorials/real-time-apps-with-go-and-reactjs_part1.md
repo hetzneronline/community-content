@@ -29,9 +29,9 @@ We gonna cover every step from an empty text editor to configuring your CI for t
     
 -   Part 3: Building a Basic UI with ReactJS (not yet released)
     
--   Part 4: Visualizing Real-time Data with React (not yet released)
+-   Part 4: Visualizing Real-time Data with ReactJS (not yet released)
     
--   Part 5: Continuous Integration and Deployment Setup (not yet released)
+-   Part 5: CI/CD Setup for Go & ReactJS Applications with Docker (not yet released)
     
 At Reviewing the Tutorial with a Colleague @schaeferthomas he stated that "real-time" can be understood in different ways. For this Tutorial i use it in the Context of Public Networking Applications using the Definition of Oxford English:
 
@@ -289,6 +289,7 @@ Test it with `curl`!
 package main
 
 import (
+	"log"
 	"net/http"
 )
 
@@ -311,16 +312,16 @@ func listenHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Connection", "keep-alive")
 
 	_messageChannel := make(chan []byte)
-	messageChannels[_messageChannel] =  true
+	messageChannels[_messageChannel] = true
 
 	for {
 		select {
-			case _msg := <- _messageChannel:
-				w.Write(append(_msg,[]byte("\r\n")...))
-				w.(http.Flusher).Flush()
-			case <-r.Context().Done():
-				delete(messageChannels, _messageChannel)
-				return;
+		case _msg := <-_messageChannel:
+			w.Write(append(_msg, []byte("\r\n")...))
+			w.(http.Flusher).Flush()
+		case <-r.Context().Done():
+			delete(messageChannels, _messageChannel)
+			return
 		}
 	}
 }
@@ -329,8 +330,7 @@ func main() {
 	http.HandleFunc("/say", sayHandler)
 	http.HandleFunc("/listen", listenHandler)
 
-	print("started")
-	http.ListenAndServe(":4000", nil)
+	log.Fatal(http.ListenAndServe(":4000", nil))
 }
 ```
 
