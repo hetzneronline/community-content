@@ -76,13 +76,13 @@ WantedBy=multi-user.target
 ```
 
 This service template will:
-* try to pull new versions of the used Docker images on startup and reload of the systemd service
-* try to build the images if it's configured this way in the `docker-compose.yml` on startup and reload of the systemd service
-* remove orphan containers (e.g. after you changed a containers name or removed a container from the `docker-compose.yml`)
+* Try to pull new versions of the used Docker images on startup and reload of the systemd service
+* Try to build the images if it's configured this way in the `docker-compose.yml` on startup and reload of the systemd service
+* Remove orphan containers (e.g. after you changed a containers name or removed a container from the `docker-compose.yml`)
 
 If you wonder why the start timeout is a bit long, some Docker images may need some time to be built which is done when starting the service.
 
-Now we make systemd reload the service files:
+Now we make systemd reload the service files so we can actually use it:
 
 ```bash
 systemctl daemon-reload
@@ -90,7 +90,7 @@ systemctl daemon-reload
 
 ## Step 3 - Regularly pull and build new Docker images (optional)
 
-Since in the service template we configured it to pull and build our images on a reload of the systemd service we can also create a cronjob for this so we will regularly pull/build new images:
+Since we configured the service template to pull and build our images on a reload of the systemd service we can also create a cronjob for that so we can benefit from regularly pulled/built images:
 
 ```bash
 echo '0  4    * * *   root    /bin/systemctl reload docker-compose@*.service' >> /etc/crontab
@@ -115,8 +115,8 @@ systemctl enable docker-compose@watchtower
 
 ## Conclusion
 
-You have now setup an environment where you can easily start different Docker Compose services as systemd services. For each additional service you just need to:
-* create the according `/etc/docker-compose/servicename` directory
-* create at least a `/etc/docker-compose/servicename/docker-compose.yml` file (and whatever else you need for the service)
-* start the service via `systemctl start docker-compose@servicename`
-* (optional) start the service on boot with `systemctl enable docker-compose@servicename`
+You have now set up an environment where you can easily start different Docker Compose services as systemd services. For each additional service you just need to:
+* Create the according `/etc/docker-compose/servicename` directory
+* Create at least a `/etc/docker-compose/servicename/docker-compose.yml` file (and whatever else you need for the service)
+* Start the service via `systemctl start docker-compose@servicename`
+* (Optional) Start the service on boot with `systemctl enable docker-compose@servicename`
