@@ -6,6 +6,8 @@ This tutorial will show you how you can run multiple Docker Compose services via
 
 **Prerequisites**
 * Server with Debian/Ubuntu
+  * [Tutorial for Debian](https://www.debian.org/releases/stable/amd64/)
+  * [Tutorial for Ubuntu](https://help.ubuntu.com/lts/installation-guide/amd64/index.html)
 * Docker already installed and running
   * [Tutorial for Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
   * [Tutorial for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
