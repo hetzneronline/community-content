@@ -81,15 +81,7 @@ Code goes to `main.go`, so just do
 
 `touch main.go`
 
-You will need a golang compiler, for development i would [**recommend installing golang**](https://golang.org/dl/) and using 
-
-`go run main.go`
-
-Alternative: But you could also build a executable for your OS with docker (NOT recommended, go run is faster in dev)
-
-`docker run --rm -v "$PWD":/app -w /app -e GOOS=darwin -e GOARCH=amd64 golang:1.12-alpine go build main.go`
-
-Template for our Application:
+Then add the Template for our Application in your favorite editor:
 
 ```go
 package main
@@ -100,6 +92,21 @@ func main() {
         log.Println("Starting with Golang")
 }
 ```
+
+You will need a golang compiler, for development i would [**recommend installing golang**](https://golang.org/dl/) and using 
+
+`go run main.go`
+
+Alternative: But you could also build a executable for your OS with docker (NOT recommended, go run is faster in dev)
+
+*GOOS and GOARCH have to match your machine of course, i.e. GOOS=linux  GOARCH=amd64*
+
+`docker run --rm -v "$PWD":/app -w /app -e GOOS=darwin -e GOARCH=amd64 golang:1.12-alpine go build main.go`
+
+Then execute with
+
+`./main`
+
 
 ## Step 1 - Implementing a HTTP Endpoint `/say`
 
