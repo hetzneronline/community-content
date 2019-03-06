@@ -130,7 +130,7 @@ func sayHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
     http.HandleFunc("/say", sayHandler)
-    http.ListenAndServe(":8080", nil)
+    http.ListenAndServe(":4000", nil)
 }
 ```
 
@@ -183,7 +183,7 @@ func sayHandler(w http.ResponseWriter, r *http.Request) {
 For the `listenHandler` we do exactly the same as we did for the `sayHandler`, but without parsing any input. 
 We will instead tell the Client that the connection should be kept alive.
 
-We create a new Handler `listenHandler` and set the **HTTP Header "Connection" to "keep-alive"** to tell the Client to not terminate the Connection.
+We create a new Handler `listenHandler` and set the **HTTP Header "Connection" to "keep-alive"** to tell the Client to not terminate the Connection. Also we will set **HTTP Header "Content-Type" to "text/event-stream"**.
 
 To make sure that we are not Terminating the Connection from our side early, we wait for the Close event of the Client.
 
@@ -191,7 +191,8 @@ To make sure that we are not Terminating the Connection from our side early, we 
 //......
 func listenHandler(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Connection", "keep-alive")
-
+    w.Header().Set("Content-Type", "text/event-stream")
+    
     select {
         case <-r.Context().Done():
             return;
@@ -281,7 +282,7 @@ We just built a Realtime Chat app in 45 Lines of Go.
 The `/say` endpoint processes `name` and `message`.
 The `/listen` endpoint *keep-alive*s Connections and forwards input from `/say`
 
-Test it with `curl`!
+Test it with `curl` or just visit localhost:4000/listen at your favorite web browser and send events with curl /say in Terminal!
 
 #### Disclaimer: This is not production Ready Code, for simplicity reason we omitted all the Error Checking and Input Sanitization
 
@@ -301,7 +302,7 @@ func sayHandler(w http.ResponseWriter, r *http.Request) {
 
 	go func() {
 		for messageChannel := range messageChannels {
-			messageChannel <- []byte(name + " " + message)
+			messageChannel <- []byte(name + " " + message + "\r\n")
 		}
 	}()
 
@@ -310,6 +311,7 @@ func sayHandler(w http.ResponseWriter, r *http.Request) {
 
 func listenHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Connection", "keep-alive")
+	w.Header().Set("Content-Type", "text/event-stream")
 
 	_messageChannel := make(chan []byte)
 	messageChannels[_messageChannel] = true
@@ -317,7 +319,7 @@ func listenHandler(w http.ResponseWriter, r *http.Request) {
 	for {
 		select {
 		case _msg := <-_messageChannel:
-			w.Write(append(_msg, []byte("\r\n")...))
+			w.Write(_msg)
 			w.(http.Flusher).Flush()
 		case <-r.Context().Done():
 			delete(messageChannels, _messageChannel)
@@ -330,6 +332,7 @@ func main() {
 	http.HandleFunc("/say", sayHandler)
 	http.HandleFunc("/listen", listenHandler)
 
+	log.Println("Running at :4000")
 	log.Fatal(http.ListenAndServe(":4000", nil))
 }
 ```
