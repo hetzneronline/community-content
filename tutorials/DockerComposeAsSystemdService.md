@@ -1,18 +1,17 @@
 # Run multiple Docker Compose services on Debian/Ubuntu
 
 ## Introduction
+
 This tutorial will show you how you can run multiple Docker Compose services via a systemd service template.
 
-### Prerequisites
+**Prerequisites**
 * Server with Debian/Ubuntu
 * Docker already installed and running
   * [Tutorial for Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
   * [Tutorial for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 * Docker Compose installed at `/usr/local/bin/docker-compose` as instructed in the [official tutorial](https://docs.docker.com/compose/install/) (otherwise you may need to adapt the path in the examples)
 
-## Steps
-
-### Create Docker Compose files
+## Step 1 - Create Docker Compose files
 
 For this tutorial we will store our Docker Compose service configurations under `/etc/docker-compose`.
 
@@ -40,7 +39,7 @@ services:
     command: --cleanup --no-pull
 ```
 
-### Create the systemd service template
+## Step 2 - Create the systemd service template
 
 Now we create the [systemd service template](https://www.freedesktop.org/software/systemd/man/systemd.service.html#Service%20Templates) at `/etc/systemd/system/docker-compose@.service`:
 
@@ -83,13 +82,17 @@ Now we make systemd reload the service files:
 systemctl daemon-reload
 ```
 
+## Step 3 - Regularly pull and build new Docker images (optional)
+
 Since in the service template we configured it to pull and build our images on a reload of the systemd service we can also create a cronjob for this so we will regularly pull/build new images:
 
 ```bash
 echo '0  4    * * *   root    /bin/systemctl reload docker-compose@*.service' >> /etc/crontab
 ```
 
-Please note that this only works as intended in combination with 'watchtower' as shown above as new images will not automatically be used. 
+Please note that this only works as intended in combination with 'watchtower' as shown above as new images will not automatically be used.
+
+## Step 4 - Start Docker services
 
 With this setup we can now start a Docker Compose service (in this case 'watchtower'):
 
@@ -104,6 +107,7 @@ systemctl enable docker-compose@watchtower
 ```
 
 ## Conclusion
+
 You have now setup an environment where you can easily start different Docker Compose services as systemd services. For each additional service you just need to:
 * create the according `/etc/docker-compose/servicename` directory
 * create at least a `/etc/docker-compose/servicename/docker-compose.yml` file (and whatever else you need for the service)
