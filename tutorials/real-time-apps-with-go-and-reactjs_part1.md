@@ -31,9 +31,9 @@ We gonna cover every step from an empty text editor to configuring your CI for t
     
 -   Part 4: Visualizing Realtime Data with React (not yet released)
     
--   Part 5: Continious Integration and Deployment Setup (not yet released)
+-   Part 5: Continuous Integration and Deployment Setup (not yet released)
     
-At reviewing the Tutorial with a Colleague @schaeferthomas he stated that "real-time" can be understood in different ways. For this Tutorial i use it in the Context of Public Networking Appliactions using the Definition of Oxford English:
+At Reviewing the Tutorial with a Colleague @schaeferthomas he stated that "real-time" can be understood in different ways. For this Tutorial i use it in the Context of Public Networking Appliactions using the Definition of Oxford English:
 
 > \[adjective\] (real-time)Computation of or relating to a system in which input data is processed within milliseconds so that it is available virtually immediately as feedback, e.g., in a missile guidance or airline booking system:*real-time signal processing*
 > 
@@ -58,7 +58,7 @@ If you did not yet have any contact with golang, no worries. I am not gonna dive
 
 ### What we gonna build in this part
 
-We gonna use the builtin `net/http` package to build a very basic real-time server that keeps connections to an endpoint `/listen` alive and takes input at `/say` to we will have the most minimal possible real-time chat app and see the awesomeness of go.
+We gonna use the core `net/http` package to build a very basic real-time server that keeps connections to an endpoint `/listen` alive and takes input at `/say` to we will have the most minimal possible real-time chat app and see the awesomeness of go.
 
 [![asciicast](https://asciinema.org/a/231626.svg)](https://asciinema.org/a/231626)
 (https://asciinema.org/a/231626)
@@ -82,15 +82,15 @@ Starting an HTTP Server in Go is as easy as it gets. The Standard `net/http` Mod
 http.ListenAndServe(":4000", nil)
 ```
 
-To implement Handler, one possibility is using the `http.HandleFunc(urlPattern string, handlerFunction Handler)` Method. It takes a Pattern that describes the url, in our example simply `/say` and a Callback Function thats gonna execute on any request to that url.
+To implement Handler, one possibility is using the `http.HandleFunc(urlPattern string, handlerFunction Handler)` Method. It takes a Pattern that describes the url, in our example simply `/say` and a Callback Function that is gonna execute on any request to that URL.
 
-Lets implement the Callback. The Callback function receives a ResponseWriter interface which has a `Write([]byte]) `.
+The Callback function receives a `ResponseWriter` interface which has a `Write([]byte])` function.
 
-> The Write Method takes a byte array. That's great for HTTP/2 which is a binary protocol unlike HTTP.
+> The Write Method takes a byte array. That's great for HTTP/2 which is a binary protocol, unlike HTTP.
 
-In our case we want to return just a UTF-8 String. Gladly, this isn't C (even if it looks like it is) and the byte array type has a very convenient interface for converting our String to a bytearray: `[]byte("string here")`.
+In our case, we want to return just a UTF-8 String. Gladly, this isn't C (even if it looks like it is) and the byte array type has a very convenient interface for converting our String to a byte array: `[]byte("string here")`.
 
-Now we just stick the Parts together:
+Now we stick the Parts together:
 
 ```go
 package main
@@ -107,7 +107,7 @@ func main() {
 }
 ```
 
-Testing it by curl:
+Testing it with `curl`:
 
 ```bash
 $ curl localhost:4000/say
@@ -118,11 +118,11 @@ Hi%
 
 The Web and HTTP(S)(/2) is a native construct for Go, actually its made for Webdevelopment and Networking.
 
-So of course, it comes with parsing functions for URL and POST/PATCH/PUT Bodys.
+Of course, it comes with parsing functions for URL and POST/PATCH/PUT Body.
 
 `Request.FormValue(key String)` returns a String with the Value of the Key.
 
-So we will just exchange the static "Hi" with the String we read from an Requests URL or Body.
+We will exchange the static "Hi" with the String we read from an Requests URL or Body.
 
 ```go
 func sayHandler(w http.ResponseWriter, r *http.Request) {
@@ -140,7 +140,7 @@ Florian%+
 
 For our Chat Application we need another Parameter `message`.
 
-> Usually in Go you would create structs now, but as said in the Intro: This is not a go tutorial and i want to keep the Code short and understandable for People not programming in Go yet.
+> Usually in Go you would create `structs` now, but as said in the Intro: This is not a go tutorial and i want to keep the Code short and understandable for People not programming in Go yet.
 
 ```go
 func sayHandler(w http.ResponseWriter, r *http.Request) {
@@ -153,9 +153,9 @@ func sayHandler(w http.ResponseWriter, r *http.Request) {
 
 ## Step 3 - Implementing the Endpoint `/listen`
 
-For the listenHandler we do exactly the same as before, but without parsing any input. We will instead tell the Client that the connection should be kept alive.
+For the `listenHandler` we do exactly the same as we did for the sayHandler, but without parsing any input. We will instead tell the Client that the connection should be kept alive.
 
-We create a new Handler `listenHandler` and set the HTTP Header "Connection" to "keep-alive" to tell the Client to not terminate the Connection.
+We create a new Handler `listenHandler` and set the **HTTP Header "Connection" to "keep-alive"** to tell the Client to not terminate the Connection.
 
 To make sure that we are not Terminating the Connection from our side early, we wait for the Close event of the Client.
 
@@ -178,7 +178,7 @@ func main() {
 
 The Arrow Syntax "<-" is one of the Core Concepts of Concurrency in Go, it blocks the routine till it receives data from a `channel`.
 
-> A `channel` in go is a typed conduit that can reiceive data`channel <- data` and data can be read from `data <- channel` Writing or Reading from a Channel BLOCKS the subroutine.
+> A `channel` in go is a typed conduit that can reiceive data`channel <- data` and data can be read from `data <- channel` Writing to or Reading from a Channel BLOCKS the subroutine.
 
 ## Step 4 - Streaming input Data to the Listeners
 
@@ -234,9 +234,9 @@ func listenHandler(w http.ResponseWriter, r *http.Request) {
 
 **sayHandler**
 
-In the sayHandler, instead of writing to the output, we should now write to the messageChannels the listener added. We do this in an own routine so we dont let the client wait till we channeled and processed all the data.
+In the sayHandler, instead of writing to the output, we should now write to the messageChannels the listeners added. We do this in an own routine so we dont let the client wait till we channeled and processed all the data.
 
-Since Concurrency is the main concept of go, the keyword for creating a new co(go)routine is `go`
+Since Concurrency is the main concept of golang, the keyword for creating a new co(go)routine is `go`
 
 ```go
 // sayHandler Function
@@ -250,11 +250,11 @@ Since Concurrency is the main concept of go, the keyword for creating a new co(g
     w.Write([]byte("ok"))
 ```
 
-> pay attention to the `}()` at the end, we are creating and instantly invoking the function here.
+> pay attention to the `}()`: We are creating and instantly invoking the function. 
 
 ## Conclusion
 
-And that's it. We just built a Realtime Chat app in 45 Lines of Go.
+We just built a Realtime Chat app in 45 Lines of Go.
 
 #### Disclaimer: This is not production Ready Code, for simplicity reason we omitted all the Error Checking and Input Sanitization
 
