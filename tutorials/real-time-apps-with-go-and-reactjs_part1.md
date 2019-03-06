@@ -94,12 +94,10 @@ Template for our Application:
 ```go
 package main
 
-import (
-	"log"
-)
+import "log"
 
 func main() {
-	log.Println("Starting with Golang")
+        log.Println("Starting with Golang")
 }
 ```
 
