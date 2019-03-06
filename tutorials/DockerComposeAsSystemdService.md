@@ -96,7 +96,8 @@ Since in the service template we configured it to pull and build our images on a
 echo '0  4    * * *   root    /bin/systemctl reload docker-compose@*.service' >> /etc/crontab
 ```
 
-Please note that this only works as intended in combination with 'watchtower' as shown above as new images will not automatically be used.
+Please note that this only works as intended in combination with watchtower as shown above in step 1 as new images will not automatically be used.
+When the systemd service is reloaded Docker Compose will pull and build new images. Watchtower will then automatically pick up those new images and restart the according containers with the new images.  
 
 ## Step 4 - Start Docker services
 
