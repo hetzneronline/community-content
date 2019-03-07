@@ -30,7 +30,7 @@ The following table lists all currently known working models and versions
 (information is subject to change)
 
 | Model                             | vSphere/ESXi Version              |
-|-----------------------------------|:---------------------------------:|
+|-----------------------------------|---------------------------------|
 | AX50-SSD/AX60-SSD                 | from 6.5a (additional NIC required) |
 | AX160                             | from 6.5a                         |
 | PX92                              | from 6.5                          |
