@@ -1,6 +1,6 @@
-#Docker
+# Docker
 
-##Einführung
+## Einführung
 
 In dieser Anleitung soll die Installation und Konfiguration von Docker auf einem Server erläutert werden. Auf Basis von CentOS sollen folgende Komponenten zum Laufen gebracht werden:
 
@@ -26,7 +26,7 @@ Unter Windows sind [Putty](http://www.putty.org/) als Kommandozeilentool und [Wi
 
     
 
-##Basiskonfiguration von CentOS und Installation von Docker
+## Basiskonfiguration von CentOS und Installation von Docker
 
 Nach der Installation von CentOS sollte zunächst ein Update durchgeführt werden:
 
@@ -46,7 +46,7 @@ Ob alles korrekt installiert wurde lässt sich überprüfen mit:
 `root@CentOS-73-64-minimal ~]# systemctl status docker.service`
 Die Ausgabe sollte `Active: active(running) since...` enthalten
 
-##Konfiguration der MariaDB und Einführung in Grundlegende Docker Befehle
+## Konfiguration der MariaDB und Einführung in Grundlegende Docker Befehle
 
 Damit Ghost und die ownCloud auf eine zentrale Datenbank zugreifen können, muss diese als erster Container installiert werden. In dieser Anleitung wurde entschieden, dass die Daten im Homeverzeichnis abgelegt werden sollen und der Standard Port 3306 verwendet wird.
 
@@ -108,7 +108,7 @@ Anschließend sollte es möglich sein, sich mit der mySQL/MariaDb Datenbank zu v
 Mit dem Kommando `docker logs ghost-mysql` ist es möglich das Log des Container anzusehen:
 ![alt text](https://wiki.hetzner.de/images/thumb/4/45/Dockerlogs.png/450px-Dockerlogs.png "Logo Title Text 1")
 
-##Konfiguration von Ghost als Blog
+## Konfiguration von Ghost als Blog
 
 Als nächstes ist Ghost auf der Maschine zu installieren.
 
@@ -167,7 +167,7 @@ Hat alles geklappt, dann ist der Blog wieder über „http“ verfügbar und in 
 
 ![alt text](https://wiki.hetzner.de/images/thumb/d/d9/Displaydbheidi.png/800px-Displaydbheidi.png "Logo Title Text 1")
 
-##ownCloud und GitLab einrichten
+## ownCloud und GitLab einrichten
 
 Prinzipiell ist für diese beiden Dienste ähnlich vorzugehen, wie bereits für Ghost beschrieben.
 
@@ -193,7 +193,7 @@ Zum Einrichten von Gitlab kann folgender Befehl verwendet werden:
 
 `docker run --detach --name gitlab --hostname git.vr-worlds.de --sysctl net.core.somaxconn=1024 --ulimit sigpending=62793 --ulimit nproc=131072 --ulimit nofile=60000 --ulimit core=0 --publish 8443:443 --publish 8083:80 --publish 8022:22 --publish 8060:8060 --restart always --volume /home/data/gitlab/config:/etc/gitlab:z --volume /home/data/gitlab/logs:/var/log/gitlab:z --volume /home/data/gitlab/data:/var/opt/gitlab:z --volume /etc/localtime:/etc/localtime gitlab/gitlab-ce`
 
-##NGINX Einrichten
+## NGINX Einrichten
 
 Die NGINX soll so konfiguriert werden, dass Anfragen an den Port 80 an die entsprechenden Docker-Container durchgereicht werden. Erfolgen soll dies aufgrund der angegebenen Sub-Domain:
 
@@ -291,7 +291,7 @@ Nachdem die Konfiguration durchgeführt wurde, kann die `nginx` neu gestartet we
 
 Sollte es nicht funktionieren, kann `docker logs hier weiterhelfen: 
 ![alt text](https://wiki.hetzner.de/images/thumb/d/dc/Loghelp.png/450px-Loghelp.png "Logo Title Text 1")
-##Konfiguration von Shipyard
+## Konfiguration von Shipyard
 
 Zuletzt wird Shipyard für die Remote Steuerung der Container hinzugefügt:
 
@@ -319,7 +319,7 @@ Anschließend kann der Container neu gebaut werden mittels `docker-compose up -d
 ![alt text](https://wiki.hetzner.de/images/a/ae/Compose3.png "Logo Title Text 1")
 
 
-###Konfiguration über Docker-Compose zentral steuern
+### Konfiguration über Docker-Compose zentral steuern
 
 Damit die Automatisierung von Docker wirklich zum tragen kommt, werde ich nun die komplette Konfiguration in einem neuen Docker-Compose File zusammen führen:
 
@@ -339,7 +339,7 @@ Nun können wir alle Container wieder löschen und dann mit „docker-compose“
 
 ![alt text](https://wiki.hetzner.de/images/0/06/Test2.png "Logo Title Text 1")
 
-##Konfiguration der Firewall bei Hetzner
+## Konfiguration der Firewall bei Hetzner
 
 Eine beispielhafte Konfiguration sieht wie folgt aus: 
 
@@ -354,6 +354,6 @@ Die Regel #2 ermöglicht es, sich auf dem Server mit ssh zu verbinden. Man muss 
 Die Regel #3 ist dafür zuständige damit mittels „http“ (port 80) und „https“ (Port 443) auf das System zugegriffen werden kann.
 
 Die Regel #4 ist notwendig, damit der Linux Host auch antworten kann. Selbstverständlich kann man die Regeln noch weiter optimieren.
-##Zusammenfassung
+## Zusammenfassung
 
 In diesem Artikel wurde gezeigt, welche Schritte notwendig sind, um eine Konfiguration mit NGINX Proxy und ein paar anderen Containern zum funktionieren zu bringen.

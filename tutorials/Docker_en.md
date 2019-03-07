@@ -1,5 +1,5 @@
-#Docker
-##Introduction
+# Docker
+## Introduction
 This Guide covers the installation and configuration of Docker. CentOS is used as the OS. 
 
 The following components should be installed and running when finishing the tutorial:
@@ -15,7 +15,7 @@ The following components should be installed and running when finishing the tuto
 
 When using Windows, a Commandlinetool (e.g. [Putty](http://www.putty.org/)) and a FileTransferTool (e.g. [WinScp](https://winscp.net/eng/index.php)) are required. Linux offers these functionalites natively.
 
-##Base configuration for CentOS und Docker installation
+## Base configuration for CentOS und Docker installation
 After installing CentOS, you should first perform an update:
 
 `yum -y update`
@@ -35,7 +35,7 @@ To check wether docker is running type in:
 
 The output should contain: `Active: active(running) since...` 
 
-##Configuring MariaDB and learning basic Docker commands
+## Configuring MariaDB and learning basic Docker commands
 Since you want Ghost and ownCloud to have access to a central database, you first need to set this database up as the first container.
 You could decide, for example, to store data in Home.
 
@@ -98,7 +98,7 @@ You can use the command `docker logs ghost-mysql` to view the container log:
 
 ![alt text](https://wiki.hetzner.de/images/thumb/4/45/Dockerlogs.png/450px-Dockerlogs.png "Logo Title Text 1")
 
-##Configuring Ghost as a blog service
+## Configuring Ghost as a blog service
 
 The next step is to install Ghost.
 
@@ -157,7 +157,7 @@ If everything has worked so far, then you should be able to access the blog via 
 
 ![alt text](https://wiki.hetzner.de/images/thumb/d/d9/Displaydbheidi.png/800px-Displaydbheidi.png "Logo Title Text 1")
 
-##Setting up ownCloud and GitLab
+## Setting up ownCloud and GitLab
 
 In theory, the setup for both of these services is similar to Ghost.
 
@@ -186,7 +186,7 @@ To install GitLab one can use the following command:
 
 `docker run --detach --name gitlab --hostname git.vr-worlds.de --sysctl net.core.somaxconn=1024 --ulimit sigpending=62793 --ulimit nproc=131072 --ulimit nofile=60000 --ulimit core=0 --publish 8443:443 --publish 8083:80 --publish 8022:22 --publish 8060:8060 --restart always --volume /home/data/gitlab/config:/etc/gitlab:z --volume /home/data/gitlab/logs:/var/log/gitlab:z --volume /home/data/gitlab/data:/var/opt/gitlab:z --volume /etc/localtime:/etc/localtime gitlab/gitlab-ce`
 
-##Setting up NGINX
+## Setting up NGINX
 
 Your NGINX should be configured in such a way that requests to port 80 are forwarded to the relevant Docker container.
 
@@ -286,7 +286,7 @@ If that does not work, it may be useful to use `docker logs` to look for a mista
 
 ![alt text](https://wiki.hetzner.de/images/thumb/d/dc/Loghelp.png/450px-Loghelp.png "Logo Title Text 1")
 
-##Configuring Shipyard
+## Configuring Shipyard
 The last service to add is Shipyard. It enables us to manage Docker containers remotely.
 
 The installation is pretty straightforward.
@@ -318,7 +318,7 @@ Then you can rebuild the container using `docker-compose up -d`:
 ![alt text](https://wiki.hetzner.de/images/a/ae/Compose3.png "Logo Title Text 1")
 
 
-###Centrally managing the configuration via Docker-Compose
+### Centrally managing the configuration via Docker-Compose
 
 To make sure that the automation from Docker is as effective as possible, we will now bring together the complete configuration in one new Docker-Compose file.
 
@@ -401,7 +401,7 @@ Now we can delete all of the containers and create new ones with `docker-compose
 
 ![alt text](https://wiki.hetzner.de/images/0/06/Test2.png "Logo Title Text 1")
 
-##Configuring the firewall with Hetzner's firewall tool
+## Configuring the firewall with Hetzner's firewall tool
 
 An exemplary configuration at Hetzner Online could look like this: 
 
@@ -416,6 +416,6 @@ Rule #2 allows you to connect with the server via SSH. You do not need to always
 Rule #3 allows you to access the system via "http" (port 80) and "https" (port 443).
 
 Rule #4 is really necessary to allow the Linux host to also respond.
-##Conclusion
+## Conclusion
 
 This article shows the necessary steps for getting a NGINX proxy and a few other containers to run together in a docker environment.
