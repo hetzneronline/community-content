@@ -72,7 +72,8 @@ Syncing disks.
 
 ## Überprüfung
 Nun wird das Dateisystem vor der Vergrößerung überprüft mit:
-`root@rescue ~ # e2fsck -f -C0 /dev/sda1
+
+`root@rescue ~ # e2fsck -f -C0 /dev/sda1`
 
 ```
 e2fsck 1.42.5 (29-Jul-2012)
