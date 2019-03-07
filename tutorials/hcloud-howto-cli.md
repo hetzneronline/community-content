@@ -7,15 +7,15 @@
   * Basic knowledge about the Hetzner Cloud
        * We assume that you know, what a server, an image, a server type or a volume is.
   * Visit Hetzner Cloud Console at [https://console.hetzner.cloud](https://console.hetzner.cloud), select your project, and create a new API Token.
-* hcloud-ci is installed
+* hcloud-cli is installed
   * Windows, FreeBSD
         * Grab your pre-built binary from [Github](https://github.com/hetznercloud/cli/releases/latest)
   * Linux
-        * Using [Linuxbrew](http://linuxbrew.sh/)
+        * Using [Linuxbrew](https://linuxbrew.sh/)
               * `brew install hcloud`
         * Grab your pre-built binary from [Github](https://github.com/hetznercloud/cli/releases/latest)
   * MacOS
-        * Using [Homebrew](http://homebrew.sh/)
+        * Using [Homebrew](https://brew.sh/)
               * `brew install hcloud`
         * Grab your pre-built binary from [Github](https://github.com/hetznercloud/cli/releases/latest)
  
@@ -164,7 +164,7 @@ ACTIVE   NAME
 ```
 
 
-Congratulations! You have created your first context, let' go to the next step!
+Congratulations! You have created your first context, let's go to the next step!
 
 **Add a server** 
 
@@ -189,7 +189,7 @@ You can grab any image you want from there, we will choose `ubuntu-18.04` for th
 
 So now you have all values which are needed for creating a basic server!
 
-The command to create a server is `hcloud server create`, so if you want to create a server with the server type `cx11` and the image `ubuntu-18.04` just run the command in your console
+The command to create a server is `hcloud server create`, so if you want to create a server with the server type `cx11` and the image `ubuntu-18.04` just run the following command in your console
 
 ```bash
 hcloud server create --image ubuntu-18.04 --type cx11 --name my-cool-server
