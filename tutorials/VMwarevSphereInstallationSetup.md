@@ -17,7 +17,7 @@ After installation the system has a 60-day test license. For the long-term use
 an individual license is required. A free single node license can be requested
 by registering on the [VMware website](https://www.vmware.com/products/vsphere-hypervisor.html)
 
-## Compatibility >
+## Compatibility
 
 The Dell PowerEdge models DX150, DX151, DX290, DX291  and DX141 are certified
 and compatible with all versions from 5.0 onwards. DX152 and DX292 are
@@ -26,42 +26,27 @@ compatible from 6.5 onwards.
 All other models are not certified by VMware, yet in most cases VMware vSphere/ESXi can be
 installed.
 
-+-----------------------------------+-----------------------------------+
 | Model                             | vSphere/ESXi Version              |
-+===================================+===================================+
+|-----------------------------------|:---------------------------------:|
 | AX50-SSD/AX60-SSD                 | from 6.5a additional Intel NIC    |
 |                                   | required                          |
-+-----------------------------------+-----------------------------------+
 | AX160                             | from 6.5a                         |
-+-----------------------------------+-----------------------------------+
 | PX92                              | from 6.5                          |
-+-----------------------------------+-----------------------------------+
 | PX91/PX121                        | from 5.5 Update 1                 |
-+-----------------------------------+-----------------------------------+
 | PX90/PX120                        | from 5.1                          |
-+-----------------------------------+-----------------------------------+
 | PX61                              | from 5.5 Update 3 / 6.0 Update 2  |
-+-----------------------------------+-----------------------------------+
 | PX61-NVMe                         | from 6.0 Update 2                 |
-+-----------------------------------+-----------------------------------+
 | PX60/PX70                         | from 5.5 Update 1                 |
-+-----------------------------------+-----------------------------------+
 | EX61/EX61-NVMe                    | from 6.5                          |
-+-----------------------------------+-----------------------------------+
 | EX41/EX41S/EX51/EX42\             | from 5.5 Update 3 / 6.0 Update 2\ |
 |                                   | (potentially an additional NIC    |
 |                                   | required)                         |
-+-----------------------------------+-----------------------------------+
 | EX40/EX60                         | 5.0 - 5.1 Update 2, since 5.5     |
 |                                   | additional NIC required           |
-+-----------------------------------+-----------------------------------+
 | EX6/EX6S/EX8/EX8S                 | from 5.0                          |
-+-----------------------------------+-----------------------------------+
 | EX4/EX4S/EX10                     | from 5.0 (with additional NIC)    |
-+-----------------------------------+-----------------------------------+
 | EQ4/EQ6/EQ8/EQ9                   | 5.0 - 5.1 Update 2, since 5.5     |
 |                                   | additional NIC required           |
-+-----------------------------------+-----------------------------------+
 (All information is subject to change)
 
 The models mentioned above should work with the appropriate version.
