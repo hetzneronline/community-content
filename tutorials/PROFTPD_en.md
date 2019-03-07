@@ -1,11 +1,11 @@
-#ProFTPD
-##Introduction
+# ProFTPD
+## Introduction
 
 ProFTPD is an FTP Server for Linux which allows its users to transfer data to and from their server via an FTP client (download/upload files) - It should be noted here once again that FTP by default operates totally unencrypted and all passwords, etc. are transmitted in clear text, which makes the FTP protocol an insecure protocal.
 
 This tutorial is based on Debian Squeeze. Aside from the general setting up and securing of the software the use of an explicit encryption is also described.
 
-##Installation and Configuration
+## Installation and Configuration
 For the basic installation of ProFTPD we let our package manager install the package `proftpd`:
 
 `apt-get install proftpd`
@@ -45,7 +45,7 @@ If you use `nano`: CTRl + X and confirm the save with Y. The shell `/bin/false` 
 
 `/etc/init.d/proftpd restart`
 
-##Creating a user for FTP
+## Creating a user for FTP
 Now we create a new user. In this example we are assuming it is a simple upload user, whose home directory is located in `/home/upload`.
 
 `adduser –home /home/upload –shell /bin/false upload`
@@ -58,7 +58,7 @@ The log of the client should state something like this right after resolving the
 
 With that our ProFTPD Server is ready for action.
 
-##Optional: Explicit Encryption via TLS
+## Optional: Explicit Encryption via TLS
 As already mentioned in the configuration section, for TLS encryption an include link needs to be made in `/etc/proftpd/tls.conf`:
 
 `Include /etc/proftpd/tls.conf`
@@ -107,5 +107,5 @@ It is important that you input the FQDN when asked for the Common Name. If you d
 
 
 Restart ProFTPD and configure FileZilla with `Request Explicit FTP over TLS` - The configuration `TLSRequired on` means that any connection attempts via the normal FTP port `21` are automatically rejected.
-##Conclusion
+## Conclusion
 By now you should have installed PROFTPD for transfering files and configured it so that you can establish a secure connection to your server.

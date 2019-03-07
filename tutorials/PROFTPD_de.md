@@ -1,10 +1,10 @@
-#PROFTPD
-##Einleitung
+# PROFTPD
+## Einführung
 Proftpd ist ein FTP-Server für Linux und ermöglicht es seinen Benutzern per FTP-Client Datentransfer zum Server hin bzw. auch zum Client hin durchzuführen (Download/Upload von Dateien) - Es sei dabei nochmal erwähnt, dass FTP standartmäßig absolut unverschlüsselt arbeitet und alle Passwörter, etc. im Klartext übertragen werden, was das FTP-Protokoll zu einem sicherheitsanfälligen Protokoll macht.
 
 Dieses Tutorial bezieht sich bei der Einrichtung auf Debian (squeeze). Neben der allgemeinen Einrichtung und Absicherung wird auch die Verwendung von einer expliziten Verschlüsselung beschrieben.
 
-##Installation und Konfiguration
+## Installation und Konfiguration
 Für die Grundinstallation von ProFTPD lassen wir unseren Paketmanager einfach das Paket `proftpd` installieren:
 
 `apt-get install proftpd`
@@ -35,12 +35,12 @@ Zur kurzen Erklärung einiger, der oben gesetzen Parameter:
 * DenyFilter: Wird verwendet um ein Sicherheitsproblem zu beheben.
 * RequireValidShell on - Damit sich ein Benutzer via FTP anmelden kann, muss die, dem Benutzer unter `/etc/passwd` zugeordnete Shell, in der Datei `/etc/shells` existieren und somit als `Valid Shell` gekennzeichnet sein.
 
-###Zusätzliche Einstellung für CX vServer: 
+### Zusätzliche Einstellung für CX vServer: 
 Da bei CX vServer die öffentliche IP 1:1 auf eine interne IP umgesetzt wird (der ProFTPd davon aber nichts weiß), müssen wir ihm dies mitteilen, so daß er sich entsprechend bei einem Client melden kann. Dazu fügen wir zur `proftpd.conf`folgende Option hinzu:
 
 `MasqueradeAddress <öffentliche IP>`
  
-###Weitere Konfiguration
+### Weitere Konfiguration
 Falls noch nicht für andere Zwecke bereits geschehen, muss jetzt noch die Shell `/bin/false` als Valid Shell hinzugefügt werden. Dieser Schritt ist denkbar einfach. Man öffnet die Datei `/etc/shells` und fügt einfach an das Ende der Datei folgende Zeile:
 
 `/bin/false`
@@ -49,7 +49,7 @@ Die Shell `/bin/false` ist dem System jetzt bekannt. Bevor wir weitermachen star
 
 `/etc/init.d/proftpd restart`
 
-##Benutzer für FTP anlegen
+## Benutzer für FTP anlegen
 Nun legen wir einen neuen Benutzer an. Ich gehe in diesem Beispiel einfach von einem Upload-Benutzer aus, dessen Stammverzeichnis unter `/home/upload` liegen soll.
 
 `adduser –home /home/upload –shell /bin/false upload`
@@ -62,7 +62,7 @@ Im Log des Clients sollte direkt nach der Auflösung des Hosts etwa folgendes st
 
 Damit meldet sich unser ProFTPD Server bereit zum Dienst.
 
-##Optional: Explizite Verschlüsselung per TLS
+## Optional: Explizite Verschlüsselung per TLS
 Wie bereits im Konfigurationsabschnitt erwähnt, muss für TLS in der `proftpd.conf` ein Include-Verweis auf `/etc/proftpd/tls.conf` erfolgt sein.
 
 `Include /etc/proftpd/tls.conf`
@@ -88,7 +88,7 @@ Jetzt muss jedoch noch das entsprechende Zertifikat erstellt werden, damit ProFT
 
 Startet anschließend ProFTPD neu und richtet FileZilla auf `Explizites FTP über TSL anfordern` - Durch den Konfigurationswert `TLSRequired on`werden jegliche Verbindungsversuche über das normale FTP-Protokoll `Port 21` automatisch abgewiesen.
 
-###Zusätzliche Konfiguration auf CX und/oder bei Verwendung von iptables
+### Zusätzliche Konfiguration auf CX und/oder bei Verwendung von iptables
 Da der verwendete TCP Port für die Datenverbindung bei passiven FTP, müssen diese entweder dynamisch freigegeben werden oder ein bestimmter Portbereich explizit erlaubt werden.
 
 * Variante 1 - Laden des `ip_nat_ftp` Kernelmoduls
@@ -102,5 +102,5 @@ Dazu wird in der `proftpd.conf` folgende Zeile hinzugefügt:
 Und die entsprechenden Ports in der Firewall freigeben:
 `iptables -A INPUT -p tcp -m tcp –dport 60000:60050 -j ACCEPT`
 
-##Fazit
+## Fazit
 Es sollte mit PROFTPD ein Tool für den Dateiaustausch mit dem Server installiert und die Ports so konfiguriert sein, dass sicher darauf zugegriffen werden kann.
