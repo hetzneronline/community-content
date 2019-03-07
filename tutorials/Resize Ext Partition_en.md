@@ -1,7 +1,7 @@
-#Resize EXT Partition
-##Introduction
+# Resize EXT Partition
+## Introduction
 The following is an example of resizing the disk after upgrading a CX10 to a CX30.
-##Preparations
+## Preparations
 Boot the server into the [rescue system](https://wiki.hetzner.de/index.php/Hetzner_Rescue-System/en).
 
 Check the current partition table (it should look similar to this depending on the model):
@@ -20,7 +20,7 @@ Disk identifier: 0x00051eb3
 ```
 
 Make a note of the start and end sectors just in case something goes wrong.
-##Formatting
+## Formatting
 Delete the partition and create a new one in its place:
 
 `root@rescue ~ # fdisk /dev/sda`
@@ -62,7 +62,7 @@ The partition table has been altered!
 Calling ioctl() to re-read partition table.
 Syncing disks.
 ```
-##Checking the File System
+## Checking the File System
 Do a file system check with:
 
 `root@rescue ~ # e2fsck -f -C0 /dev/sda1`
@@ -76,7 +76,7 @@ Pass 4: Checking reference counts
 Pass 5: Checking group summary information
 /dev/sda1: 26283/1638400 files (5.6% non-contiguous), 283813/6553088 blocks
 ```
-##Resizing the File System
+## Resizing the File System
 Resize the file system with:
 
 `# resize2fs /dev/sda1`
@@ -87,5 +87,5 @@ Resizing the filesystem on /dev/sda1 to 24999680 (4k) blocks.
 The filesystem on /dev/sda1 is now 24999680 blocks long.
 ```
 Reboot and check if the disk is larger.
-##Conclusion
+## Conclusion
 By now you should have resized the partition to your liking.

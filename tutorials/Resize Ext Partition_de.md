@@ -1,8 +1,8 @@
-#Vergrößern einer EXT Partition
-##Einleitung
+# Vergrößern einer EXT Partition
+## Einleitung
 Im Folgenden wird das Vergrößern der Partition und des Dateisystems nach einem Upgrade eines CX10 auf einen CX30 gezeigt.
 
-##Vorbereitung
+## Vorbereitung
 
 Booten des vServers in das [Rescue system](https://wiki.hetzner.de/index.php/Hetzner_Rescue-System).
 
@@ -24,7 +24,7 @@ Disk identifier: 0x00051eb3
 ```
 Um auf Nummer sicher zu gehen bietet es sich an, den Stand und Endsektoren der Partition für den Fehlerfall zu notieren.
 
-##Formatierung
+## Formatierung
 Nun kann die Partition gelöscht und neuerstellt werden:
 
 `root@rescue ~ # fdisk /dev/sda`
@@ -70,7 +70,7 @@ Calling ioctl() to re-read partition table.
 Syncing disks.
 ```
 
-##Überprüfung
+## Überprüfung
 Nun wird das Dateisystem vor der Vergrößerung überprüft mit:
 `root@rescue ~ # e2fsck -f -C0 /dev/sda1
 
@@ -84,7 +84,7 @@ Pass 5: Checking group summary information
 /dev/sda1: 26283/1638400 files (5.6% non-contiguous), 283813/6553088 blocks
 ```
 
-##Vergrößern des Dateisystems
+## Vergrößern des Dateisystems
 Nun ist alles bereit für die Vergrößerung des Dateisystems, die wir durchführen mit:
 `# resize2fs /dev/sda1`
 
@@ -94,5 +94,5 @@ Resizing the filesystem on /dev/sda1 to 24999680 (4k) blocks.
 The filesystem on /dev/sda1 is now 24999680 blocks long.
 ```
 Zum Abschluss sollte der Server neugestartet und die Größe überprüft werden.
-##Fazit
+## Fazit
 Nun sollten sie ihre Partition nach ihren Vorstellungen vergrößert und mit einem neuen Dateisystem versehen haben.
