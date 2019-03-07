@@ -100,7 +100,7 @@ setup with a virtual machine that will function as a router for the subnet.
 When ordering a subnet, please make sure to add a note to request it should be
 routed to the additional single IP address.
 
-** IPv4 **
+**IPv4**
 
 The confirmation mail for the subnet will contain add required information, for example:
 
@@ -118,7 +118,7 @@ Usable IP addresses:
 As the subnet is routed to the additional single IP, no dedicated virtual MAC address are required 
 and can neither be requested.
 
-** IPv6 **
+**IPv6**
 
 All servers come with a /64 IPv6 subnet. To see which IPv6 subnet your
 server has please check the \"IPs\" tab of the server in
@@ -132,10 +132,10 @@ the additional single IP). This can be done in
 [Hetzner Robot](https://robot.your-server.de), using the same symbol which is found next
 to additional single IPs to request virtual MAC addresses. In this
 case, the host running vSphere receives no IPv6 address. This is neither
-necessary nor possible because ESXi does not work with an fe80::1 gateway.
+necessary nor possible because ESXi does not work with an `fe80::1` gateway.
 
 In order to use IP addresses from a subnet in virtual machines, a dedicate
-\"router VM\" supplemented by an additional virtual network card from the new
+*router VM* supplemented by an additional virtual network card from the new
 subnet is necessary. The subnet itself requires a new vSwitch to which all
 virtual machines in the subnet must be connected.
 
