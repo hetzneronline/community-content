@@ -1,5 +1,5 @@
 ---
-path: "/community/tutorials/real-time-apps-with-go-and-reactjs_part1.md"
+path: "/community/tutorials/real-time-apps-with-go-and-reactjs_part1"
 date: "2019-03-07"
 title: "Real-time Applications with Go and ReactJS: Building a real-time HTTP Server"
 short_description: "We build a Live Dashboard that Monitors Servers and receives Webhooks by GitlabCI (or any CI really), rendering this Data live to every Client that is connected without any delay."
