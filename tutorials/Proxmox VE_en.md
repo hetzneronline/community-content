@@ -1,5 +1,5 @@
-#Proxmox VE
-##Introduction
+# Proxmox VE
+## Introduction
 Proxmox VE is an open source virtualization platform with support for OpenVZ (up to v3.4), KVM and as of version 4.0 for Linux Containers (LXC). Furthermore, since Proxmox 4.0 there is also full support for IPv6. For a more detailed changelog please visit the [official Roadmap](https://pve.proxmox.com/wiki/Roadmap) in the Proxmox VE Wiki.
 
 The installation is generally considered uncomplicated, since OpenVZ already does a lot of prepatory work, and only a few more things need to be configured.
@@ -8,15 +8,15 @@ Warning: As of version 4.0, support for OpenVZ has been removed and completely r
 
 ![alt text](https://wiki.hetzner.de/images/thumb/9/98/Startpage-with-cluster.png/800px-Startpage-with-cluster.png "Logo Title Text 1")
 
-##Before the installation
+## Before the installation
 First, some suggestions and advice before starting to setup the new environment:
 
 * Are only linux machines going to be used? Then under certain circumstances OpenVZ would be sufficient.
 * Should OpenVZ/LXC or KVM be used? Both have their advantages as well as disadvantages. A thoughtful decision and good research can provide less work/trouble in the future.
 * Although KVM is not as performant as OpenVZ/LXC, it provides a complete hardware virtualization and enables the operation of all of the most common operating systems (including Windows). A conversion of the virtual disks in formats such as VMDK is simple.
 
-##Installation
-###The Basics
+## Installation
+### The Basics
 
 Boot the server into the [Rescue-System](https://wiki.hetzner.de/index.php/Hetzner_Rescue-System).
 
@@ -31,7 +31,7 @@ Configure the RAID level, partitioning and hostname as required
 
 Save the configuration and after completion of the installation perform a restart
 
-###Adjust the APT sources (/etc/apt/sources.list)
+### Adjust the APT sources (/etc/apt/sources.list)
 
 The next step would be to adapt the APT sources:
 `echo "deb http://download.proxmox.com/debian stretch pve-no-subscription" >> /etc/apt/sources.list`
@@ -47,7 +47,7 @@ apt-get upgrade # Alle Pakete auf den aktuellsten Stand bringen
 apt-get dist-upgrade # Debian auf den aktuellsten Stand bringen
 ```
 
-###Install Proxmox VE
+### Install Proxmox VE
 Since Proxmox brings its own firmware, the existing firmware packages should first be uninstalled:
 
 `aptitude -q -y purge firmware-bnx2x firmware-realtek firmware-linux firmware-linux-free firmware-linux-nonfree`
@@ -62,7 +62,7 @@ After a restart, the Proxmox kernel should be loaded:
 # uname -rv
 4.13.13-1-pve #1 SMP PVE 4.13.13-31 (Mon, 11 Dec 2017 10:00:13 +0100)
 ```
-###Load the kernel module
+### Load the kernel module
 
 Check if the module `kvm` has been loaded:
 `lsmod | grep kvm`
@@ -83,7 +83,7 @@ modprobe kvm_amd
 ```
 Note: The kernel modules are required for the `KVM hardware virtualization`. If these are not present, no KVM guests can be started.
 
-##Network configuration
+## Network configuration
 First of all, it is important to decide which virtualization solution (`LXC`and/or `KVM`) and which variant (`bridged`/`routed`) will be used.
 
 LXC
@@ -114,9 +114,9 @@ Forwarding for IPv6 needs to be activated as well. This is also available in the
 
 `sysctl -w net.ipv6.conf.all.forwarding=1`
 
-##Administration
+## Administration
 After a successful installation the virtual machines can be administered at `https://server-IP:8006`.
-###Network Configuration Hostsystem Routed
+### Network Configuration Hostsystem Routed
 When using a routed setup, it is necessary to manually add the route to a virtual machine. Additionally, existing virtual MAC addresses should be removed from the respective IP addresses. Since a host route is set, IP addresses from other subnets are easily possible. So for example:
 
 ```
@@ -168,7 +168,7 @@ iface vmbr1 inet static
   
 To use IPv6 with multiple bridges (multiple IPv4 subnets or IPv4 single IPs and subnet), a smaller netmask must be used for IPv6.
 
-###Network Configuration Guest Routed
+### Network Configuration Guest Routed
 The IP of the bridge in the host system is always used as gateway ie. the main IP for single IPs, the IP configured from the subnet in the host system for subnets.
 
 ```
@@ -210,7 +210,7 @@ iface eth0 inet6 static
   gateway <IPv6 Address vmbr0> # e.g. 2001:db8::2
 ```
 
-###Network Configuration Bridged
+### Network Configuration Bridged
 When using KVM in bridged mode it is ABSOLUTELY necessary to apply for virtual MAC addresses for the single IPs in advance. The configuration of subnets is analogous.
 
 ```
@@ -242,7 +242,7 @@ iface vmbr1 inet static
        bridge_fd 0
 ```
 
-###Network Configuration Guest Bridged
+### Network Configuration Guest Bridged
 The gateway for single IPs is the gateway of the host system or the assigned IP. For subnets, the configuration is identical to the routed setup.
 
 ```
@@ -259,7 +259,7 @@ iface eth0 inet static
   pointopoint <Gateway of the additional IP>
   gateway <Gateway of the aditional IP>
 ```
-##Security
+## Security
 The Web Interface is protected by two different authentication methods: Proxmox VE standard authentication (Proxmox proprietary authentication) and Linux PAM standard authentication.
 
 Nevertheless, additional protection measures would be recommended to protect against the exploitation of any security vulnerabilities or various other attacks.
@@ -270,7 +270,7 @@ Here are several possibilities:
 
 * [Fail2ban against Bruteforce-Attacks](https://pve.proxmox.com/wiki/Fail2ban)
 
-##Conclusion
+## Conclusion
 By now you should have installed and configured Proxmox as a virtualization platform on your server.
 
 
