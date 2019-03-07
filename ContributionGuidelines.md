@@ -54,8 +54,8 @@ print s
 
 ## Terminology
 Many tutorials will need to include example usernames, hostnames, domains, and IPs. To simplify this all tutorials should use the same default examples, as outlined below.
-Username: holu (short for Hetzner OnLine User)
 
+* Username: `holu` (short for Hetzner OnLine User)
 * Hostname: `<your_host>`
 * Domain: `<example.com>`
 * IP: `<10.0.0.1>`
