@@ -69,7 +69,7 @@ AllowUsers holu
 
 `Protocol 2` Ensures that the server only accepts connections via secure protocol version 2.
 
-`Port 44933` Changing the port does not increase security, but we can bypass most automated login attempts as they usually use only the default port.
+`Port 44933` Changing the port does not increase security, but we can bypass most automated login attempts as they usually only use the default port.
 
 `PermitRootLogin no` Prohibits login as root via SSH
 
@@ -83,9 +83,9 @@ AllowUsers holu
 
 **Important**: *The server or the SSH service must not be restarted before the next steps are completed, otherwise the new configuration will become active, which will lock us out of the server.
 
-#### Creating an SSH key pair
+#### Creating a SSH key pair
 
-In the previous step we disabled the login with passwords, so we have to set and now set to the only remaining option, authentication with an SSH key pair.
+In the previous step we disabled the login with passwords, so we have to use now the only remaining option, authentication with a SSH key pair.
 
 First, we need to generate a key pair on our local machine. If a key pair already exists, this step can of course be skipped.
 
@@ -151,7 +151,7 @@ We can now activate the firewall with the following command.
 sudo ufw enable
 ```
 
-With the command `ufw status` all created rules can be listed. This command must also be run as root.
+With the command `ufw status` all created rules can be listed. This command must also be executed as root.
 
 ### (Optional) Docker Installation
 
