@@ -1,4 +1,17 @@
-# Installation des r8169-Treibers
+---
+path: "/community/tutorials/Installation des r8168 Treibers"
+date: "2019-03-07"
+title: "Installation des r8168 Treibers"
+short_description: "Treiberproblemen bei Realtek-Netzwerkchips beheben durch installation von r8168"
+tags: ["Hetzner Official"]
+views: "100"
+author: "Hetzner Online"
+author_img: "https://avatars3.githubusercontent.com/u/30047064?s=200&v=4"
+author_description: ""
+header_img: ""     
+---
+
+# Installation des r8168-Treibers
 ## Einleitung
 Der r8169-Treiber für den Realtek-Netzwerkchip funktioniert bis zur Kernelversion 4.16 nicht immer korrekt. Es können Timeouts entstehen, die Netzwerkkarte zwischen den Zuständen link up/link down wechseln sowie Bandbreitenprobleme oder sogar Systemabstürze vorkommen.
 
@@ -6,7 +19,7 @@ Eine Lösung des Problems besteht in der Installation des offiziellen r8168 Trei
 
 Dieser Artikel beschreibt, wie dabei vorzugehen ist.
 
-## Installation von kmod-r8168 aus elrepo.org
+## Option A) Installation von kmod-r8168 aus elrepo.org
 Die elrepo.org-Webseite bietet zusätzliche Pakete rund um Redhat Enterprise Linux Distributionen an, zu denen auch CentOS gehört. Um Pakete aus diesem Repository nutzen zu können, muss man dieses zunächst im System einbinden.
 
 HINWEIS: Wenn kein Standard-Kernel verwendet wird (Virtuozzo, OpenVZ, etc.) muss das Modul selbst kompiliert werden!
@@ -25,8 +38,8 @@ Zum Schluß kann nun einfach das Paket mit dem neuen Kernel-Modul installiert we
 
 Nach einem Neustart wird der geänderte Treiber verwendet. Er bleibt auch nach einer Aktualisierung des Kernels aktiv.
 
-## Installation aus den Quellen
-### Voraussetzungen
+## Option B) Installation aus den Quellen
+### 1) Voraussetzungen
 
 Es sollte zunächst der neueste Kernel via `yum` beziehungsweise `apt-get` installiert werden und gebootet sein.
 
@@ -46,15 +59,14 @@ Bei Proxmox liegen die Header im Paket pve-headers
 
 ``aptitude install pve-headers-`uname -r` ``
 
-### Herunterladen und Entpacken der Quellen
+### 2) Herunterladen und Entpacken der Quellen
 ```
 cd /tmp 
 wget http://mirror.hetzner.de/tools/Realtek/drivers/r8168-8.046.00.tar.bz2
 tar xf r8168-8.046.00.tar.bz2
 ```
 
-
-### Kompilieren des Treibers
+### 3) Kompilieren des Treibers
 Das Paket enthält ein `autorun.sh` Skript, welches automatisch den Treiber kompiliert und den vorhanden r8169 Treiber ersetzt. Hierbei wird die Netzwerkverbindung getrennt. Sie sollten dieses Skript daher in einer screen-Sitzung starten und nur dann benutzen, wenn Sie sich absolut sicher sind, dass das Kernelmodul ohne Fehler gebaut werden kann. Sie können dies zuvor durch `make modules` überprüfen.
 
 ```
@@ -77,10 +89,9 @@ Falls bei `make modules` keine Fehler aufgetreten sind, können Sie den Treiber 
 # ./autorun.sh
 ```
 
-
 Falls Sie keine Unterbrechung im laufenden Betrieb möchten oder den r8169 Treiber nur temporär deaktivieren möchten, können Sie stattdessen den Treiber wie unten beschrieben aktivieren.
 
-### Aktivieren des Treibers
+### 4) Aktivieren des Treibers
 #### CentOS
 In der Datei `/etc/modprobe.conf` muss der zuständige Treiber für die Schnittstelle `eth0 geändert werden. Hierfür muss der Eintrag
 
@@ -103,8 +114,6 @@ echo "service network restart" >> /tmp/r8168
 
 echo "service ipaliases restart" >> /tmp/r8168
 ```
-
-
 
 Das angelegte Skript ausführen:
 
@@ -139,5 +148,6 @@ Anschließend wird diese neu erzeugt.
 Abschließend kann der Server neu gebootet werden.
 
 Nach einer Aktualisierung des Kernels muss der Treiber gegebenenfalls neu kompiliert werden.
+
 ## Schluss
 Hier wurden zwei verschiedene Wege gezeigt, das Treiberproblem bei Realtek-Netzwerkchips zu beheben
