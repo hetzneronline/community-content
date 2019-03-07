@@ -217,7 +217,7 @@ hcloud server describe my-cool-server
 You can now see all the information about the server:
 
 ```
-ID:        2020522
+ID:        1234
 Name:        my-cool-server
 Status:        running
 Created:    Wed Mar  6 15:17:22 CET 2019 (17 minutes ago)
