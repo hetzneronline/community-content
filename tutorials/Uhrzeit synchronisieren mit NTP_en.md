@@ -1,8 +1,8 @@
-#Syncing the clock with NTP
-##Introduction
+# Syncing the clock with NTP
+## Introduction
 NTP (Network Time Protocol) is a protocol for synchronising the clock/time on a server with a central time server. In the Hetzner standard images the service has already been pre-configured to work with the Hetzner NTP servers.
 
-##Install the NTP daemon
+## Install the NTP daemon
 In order to configure NTP on a custom installation you will first need to install the NTP daemon. NTP is already present in each linux distribution as a package and can be easily installed.
 
 Debian:
@@ -17,7 +17,7 @@ OpenSuSE:
 
 Please install via YaSt
 
-##Configuring the NTP daemon
+## Configuring the NTP daemon
 Since January 2010 Hetzner runs three time servers using the NTP protocol. These are housed in three different locations and have the following addresses:
 
 * ntp1.hetzner.de
@@ -46,7 +46,7 @@ Here your server selects any German NTP server from a pool. This ensures that th
 
 After changing the NTP settings the NTP daemon has to be restarted, to let the changes take effect.
 
-##Security
+## Security
 As ntp is primarily a UDP-based protocol, it is vulnerable to being misused as part of [distributed amplification / reflection denial-of-service](http://thehackernews.com/2014/01/Network-Time-Protocol-Reflection-DDoS-Attack-Tool.html) attacks known as DRDoS.
 
 If possible you should upgrade to 4.2.7p26 or later. As an alternative all status requests can be blocked using the `noquery` statement.
@@ -87,7 +87,7 @@ server ntp3.hetzner.de iburst
 restrict    213.239.239.166 nomodify notrap nopeer noquery
 restrict -6 2a01:4f8:0:a112::2:2 nomodify notrap nopeer noquery
 ```
-##Manual time synchronization with NTP
+## Manual time synchronization with NTP
 It might be necessary to synchronize the time manually after you have installed the NTP daemon for the first time. You can do this with either ntpd or ntpdate (may need to be additionally installed):
 
 `ntpd -q -g`
@@ -98,12 +98,12 @@ The option `-g` means that ntpd will also synchronize if the time difference is 
 ntpdate NTP-Server
 ntpdate ptbtime1.ptb.de
 ```
-##Save the new time in the hardware clock
+## Save the new time in the hardware clock
 Last but not least you should save the current time into the hardware clock of the server:
 
 `hwclock --systohc`
 
 Otherwise a completely wrong time can show up after a reboot.
 
-##Conclusion
+## Conclusion
 By now you should have configured your server with a secure connection to synchronize the time with an external server.
