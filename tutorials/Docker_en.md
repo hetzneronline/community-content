@@ -40,8 +40,11 @@ Since you want Ghost and ownCloud to have access to a central database, you firs
 You could decide, for example, to store data in Home.
 
 You can create a data directory for this by entering:
-```mkdir /home/data
-mkdir /home/data/MariaDB```
+
+```
+mkdir /home/data
+mkdir /home/data/MariaDB
+```
 
 This Guide uses the following confiugration:
 
@@ -227,6 +230,7 @@ You can use `curl` to then run the installation:
 Docker Compose still does not have any execute permissions; you need to use `chmod to add these:
 
 ![alt text](https://wiki.hetzner.de/images/e/e0/Chmodax.png "Logo Title Text 1")
+
 Now we can see whether or not "docker-compose" is working properly:
 
 ![alt text](https://wiki.hetzner.de/images/c/ca/Testdockercompose.png "Logo Title Text 1")
@@ -235,6 +239,7 @@ Now we can see whether or not "docker-compose" is working properly:
 To do this, we create a directory in the root home directory and then enter docker-compose.yml`:
 
 ![alt text](https://wiki.hetzner.de/images/c/c8/Compose2.png "Logo Title Text 1")
+
 
 ```
 The file should look like this:
@@ -276,6 +281,7 @@ Then you can start the `nginx` using `docker-compose`:
 Once Nginx has started, you will need to create the configuration For each sub-domain, you will need to specify the transfer path to the relevant mapped Docker container:
 
 ![alt text](https://wiki.hetzner.de/images/4/43/Map.png "Logo Title Text 1")
+
 
 Once the configuration has been applied, you can restart the nginx:
 
@@ -397,6 +403,7 @@ services:
       - /home/data/Nginx/sites-enabled/:/etc/nginx/conf.d:z
       - /home/data/Nginx/certs/:/etc/nginx/certs:z
  ```
+ 
 Now we can delete all of the containers and create new ones with `docker-compose`:
 
 ![alt text](https://wiki.hetzner.de/images/0/06/Test2.png "Logo Title Text 1")

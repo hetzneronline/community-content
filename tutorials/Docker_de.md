@@ -89,9 +89,11 @@ Sollte das Docker-Image nicht starten, kann man ggf. ohne die Detach Option `-d`
 ![alt text](https://wiki.hetzner.de/images/thumb/5/5c/Detach.png/450px-Detach.png "Logo Title Text 1")
 
 In diesem Fall „chown“ error, hat die Option `:z` gefehlt, damit das Verzeichnis auch korrekt gemounted wird, so wäre es korrekt:
+
 ![alt text](https://wiki.hetzner.de/images/thumb/1/1c/Mount.png/450px-Mount.png "Logo Title Text 1")
 
 Die installierten Images (also die Basisplattform für jeden Container) kann man mit `docker images` angezeigt bekommen:
+
 ![alt text](https://wiki.hetzner.de/images/thumb/c/c0/Images.png/450px-Images.png "Logo Title Text 1")
 
 Mit dieser Konfiguration ist es anschließend möglich auch mit bspw. [HeidiSQL](https://www.heidisql.com/download.php) auf die Datenbank zugreifen zu können.
@@ -308,14 +310,17 @@ Anschließend ist shipyard über Port 8080 verfügbar und es wurden einige Conta
 Nun muss Shipyard nur noch in die nginx eingebunden und konfiguiert werden. In der nginx Konfiguration ist Folgendes zu ergänzen: 
 
 (`/home/data/Nginx/sites_enabled`)
+
 ![alt text](https://wiki.hetzner.de/images/thumb/b/bf/SiteEnabled.png/586px-SiteEnabled.png "Logo Title Text 1")
 
 
 Jetzt zahlt es sich erstmals aus über `docker-compose` die Konfiguration für Nginx gemacht zu haben, dann diese ist nun einfach zu erweitern:
+
 ![alt text](https://wiki.hetzner.de/images/5/50/Addshipyard.png "Logo Title Text 1")
 
 
 Anschließend kann der Container neu gebaut werden mittels `docker-compose up -d`:
+
 ![alt text](https://wiki.hetzner.de/images/a/ae/Compose3.png "Logo Title Text 1")
 
 
@@ -354,6 +359,6 @@ Die Regel #2 ermöglicht es, sich auf dem Server mit ssh zu verbinden. Man muss 
 Die Regel #3 ist dafür zuständige damit mittels „http“ (port 80) und „https“ (Port 443) auf das System zugegriffen werden kann.
 
 Die Regel #4 ist notwendig, damit der Linux Host auch antworten kann. Selbstverständlich kann man die Regeln noch weiter optimieren.
-## Zusammenfassung
+## Fazit
 
 In diesem Artikel wurde gezeigt, welche Schritte notwendig sind, um eine Konfiguration mit NGINX Proxy und ein paar anderen Containern zum funktionieren zu bringen.
