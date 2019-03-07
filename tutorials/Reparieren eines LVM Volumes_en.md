@@ -1,12 +1,12 @@
-#Recovery of LVM Volumes
-##Introcution
+# Recovery of LVM Volumes
+## Introcution
 If you see the warning below after a SSH login, then it's about time to recover the said logical partitions.
 
 `*** /dev/md2 should be checked for errors ***`
 `*** /dev/md1 should be checked for errors ***`
 This article shows you how to repair them.
 
-##Repair
+## Repair
 Warning: The logical partitions should not be mounted. Using the command `mount`, double check which partitions have which file systems, and which partitions are mounted. Here's an excerpt:
 
 ```
@@ -29,5 +29,5 @@ If you already know the file system type of the partition (command "mount"), the
 
 `/sbin/fsck -t ext3 /dev/md1`
 
-##Conclusion
+## Conclusion
 By now you should have repaired the errors in your logical partitions 

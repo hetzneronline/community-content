@@ -1,5 +1,5 @@
-#Reparieren eines LVM-Volumes
-##Einleitung
+# Reparieren eines LVM-Volumes
+## Einleitung
 Wenn Sie nach einem SSH Login diese Warnmeldungen angezeigt bekommen,
 `*** /dev/md2 should be checked for errors ***`
 `*** /dev/md1 should be checked for errors ***`
@@ -8,7 +8,7 @@ Wenn Sie nach einem SSH Login diese Warnmeldungen angezeigt bekommen,
 dann wird es Zeit, die angegebenen logischen Partitionen zu reparieren.
 In diesem Artikel soll nun erläutert werden, wie sie den Fehler beheben können.
 
-##Reparatur
+## Reparatur
 Achtung: Die logischen Partitionen dürfen nicht gemountet sein. Überprüfen Sie mit `mount`, welche Partitionen mit welchen Dateisystemen versehen und gemountet sind. Hier ein Auszug:
 
 ```
@@ -53,5 +53,5 @@ Danach müssen Sie auf Ihrem Rechner wiederum die Server Änderungen bestätigen
 
 `ssh-keygen -R <IP>`
 
-##Fazit
+## Fazit
 Mit den oben genannten Schritten sollten die Warnmeldungen verschwunden und die logischen Partitionen repariert sein.
