@@ -1,5 +1,6 @@
- #Private Cloud, einrichten zusätzlicher Floating-IPs
+# Private Cloud, einrichten zusätzlicher Floating-IPs
 
+## Einführung
 Sollten Sie neben dem bei der Private Cloud mitgeliefertem Subnetz, weitere Subnetze benötigen, können die folgenden Schritte hier Ihnen dabei helfen Ihr weiteres Subnetz so einzurichten, dass Sie dieses als *Floating-IP Pool* in Ihrer OpenStack Installation verwenden können.
 
 Um ein weiteres Subnetz als *floating-ip pool* verwenden zu können müssen zunächst ein paar Vorkehrungen an den OpenVSwitch Bridges vorgenommen werden:
@@ -8,13 +9,16 @@ Da im Regelfall nur ein einzelnes physikalisches Netzwerk zur Verfügung steht, 
 
 Im hier angegebenen Beispiel nennen wir dieses Bridge-Interface `br2`.
 
-##Erstellen des Bridge-Interfaces
+## Erstellen des Bridge-Interfaces
+
+Mit folgendem Befehl beginnen wir:
 
 `root@controller # ovs-vsctl add-br br2`
 
 Anlegen der Patch-Verbindung, in diesem Beispiel mit dem Namen `patch2-0` versehen, um unsere Intention entsprechend auszudrücken.
 
 Anschließend deklarieren wir diese Verbindung, und geben ein Gegenstück als entsprechendes "peer" an.
+
 
 ```
 root@controller # ovs-vsctl add-port br2 patch2-0
@@ -26,6 +30,7 @@ root@controller # ovs-vsctl set interface patch2-0 options:peer="patch0-2"
 
 Anschließend benötigen wir noch das andere "Ende" der Patch-Verbindung an br0.
 
+
 ``` 
 root@controller # ovs-vsctl add-port br0 patch0-2
 
@@ -34,7 +39,7 @@ root@controller # ovs-vsctl set interface patch0-2 type=patch
 root@controller # ovs-vsctl set interface patch0-2 options:peer="patch2-0"
 ```
 
-##Einstellungen an Neutron anpassen
+## Einstellungen an Neutron anpassen
 
 Da wir nun die entsprechenden Vorkehrungen an den Bridge-Interfaces vorgenommen haben, müssen wir noch an den OpenStack-Neutron Services ein paar Einstellungen anpassen:
 
@@ -60,6 +65,7 @@ Anschließend können Sie die IP-Adressen wie unter https://wiki.hetzner.de/inde
 
 Anschließend können Sie da weitere Netzwerk in Ihrer OpenStack Installation gleich wie folgt in der selben Terminal-Session einrichten.
 
+
 ```
 root@controller # source $HOME/adminrc.sh
 
@@ -74,3 +80,5 @@ Ersetzen Sie hier natürlich noch den Platzhalter <CIDR> mit der entsprechenden 
 Nun sollte es Ihnen möglich sein, weitere virtuelle Router von Ihrem Horizon Dashboard aus mit diesem Netzwerk zu verbinden und Floating-IPs an Instanzen dahinter weiterzuleiten.
 
 Bitte beachten Sie darüber hinaus, dass sofern Sie mehrere Router für ein einzelnes internes Netzwerk verwenden möchten, gegebenenfalls auch die Routen auf Ihren Instanzen entsprechen anzupassen sind. 
+## Fazit
+Hiermit haben sie weitere Subnetze eingerichtet.

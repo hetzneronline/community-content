@@ -1,5 +1,5 @@
- #Private Cloud, configuration of additional floating IPs
-
+# Private Cloud, configuration of additional floating IPs
+## Introduction
 If you need to have more usable floating IP addresses for your private cloud, you can use this article to configure your private cloud such that it can use an additional subnet as a *floating IP pool* in your OpenStack environment.
 
 First, you need to prepare some things with the OpenVSwitch bridges:
@@ -8,13 +8,14 @@ Since usually there is only one physical network available, which is connected t
 
 In our example, we simply call that additional bridge `br2`.
 
-##Creation of the interface:
+## Creation of the interface:
 
 `root@controller # ovs-vsctl add-br br2`
 
 When creating the patch connection, we call the endpoints `patch2-0` to document their intentions.
 
 Then we define the other end of the patch as its 'peer'.
+
 
 ```
 root@controller # ovs-vsctl add-port br2 patch2-0
@@ -26,6 +27,7 @@ root@controller # ovs-vsctl set interface patch2-0 options:peer="patch0-2"
 
 Then you need to also configure br0 in such a way that there is a patch interface peering with the other side.
 
+
 ```
 root@controller # ovs-vsctl add-port br0 patch0-2
 
@@ -34,7 +36,7 @@ root@controller # ovs-vsctl set interface patch0-2 type=patch
 root@controller # ovs-vsctl set interface patch0-2 options:peer="patch2-0"
 ```
 
-##Configuring OpenStack Neutron
+## Configuring OpenStack Neutron
 
 Now that our bridge interfaces have been prepared, we can start to adapt the configuration of the OpenStack networking service:
 
@@ -43,6 +45,7 @@ In the file `/etc/neutron/l3_agent.ini:`
 You need to set the directives for *gateway_id* and *network_bridge* to an empty string.
 
 It is crucially important to use an empty string here! Simply deleting the directives or leaving them empty will cause the services to use unsuatable defaults!
+
 
 ```
 gateway_external_network_id = ''
@@ -62,6 +65,7 @@ Finally we can create the network as an entity inside our OpenStack installation
 
 In this example we simply connect to our controller node and used the convenience scripts deployed there:
 
+
 ```
 root@controller # source $HOME/adminrc.sh
 
@@ -75,3 +79,5 @@ Replace the placeholders `<CIDR>` with the actual CIDR notation of your new subn
 Now you should be able to create additional, virtual routers from your dashboad and connect them to the `external2 network and assign floating IPs to instances behind that router.
 
 If you use several routers routing to the same internal network, please make sure to adjust the routes that your affected instances use. Alternatively, you can configure specific static routes! 
+## Conclusion
+By now you should have added new subnets to your server configuration.
