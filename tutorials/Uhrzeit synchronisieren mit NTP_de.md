@@ -44,7 +44,7 @@ Hier wird bei jedem Start des NTP Dienstes ein beliebiger deutscher Server ausge
 
 Abschliessend muss der `ntpd` neu gestartet werden.
 
-##Absicherung
+## Absicherung
 Da NTP ein UDP-basiertes Protokoll ist, kann es leicht für [DDoS-Angriffe](http://www.heise.de/-2087846.html) missbraucht werden. Da bei falscher Konfiguration die Antwort größer als die Anfrage ausfällt, wird so ein Angriff verstärkt.
 
 Falls möglich, sollte auf die Version 4.2.7p26 oder höher aktualisiert werden. Andernfalls können mittels `noquery` alle Statusabfragen unterbunden werden.
@@ -87,7 +87,7 @@ restrict    213.239.239.166 nomodify notrap nopeer noquery
 restrict -6 2a01:4f8:0:a112::2:2 nomodify notrap nopeer noquery
 ```
 
-##Mit NTP die Zeit manuell synchronisieren
+## Mit NTP die Zeit manuell synchronisieren
 Es kann notwendig sein, dass man einmal nachdem man den NTP Server installiert hat, die Zeit manuell synchronisiert. Dies geht entweder mit `ntpd` oder mit `ntpdate` (muss bei Debian Sarge zusätzlich installiert werden):
 
 `ntpd -q -g`
@@ -99,12 +99,12 @@ ntpdate NTP-Server
 ntpdate ptbtime1.ptb.de
 ```
 
-##Uhrzeit in Hardwareuhr schreiben
+## Uhrzeit in Hardwareuhr schreiben
 Dann sollte man noch mit
 
 `hwclock --systohc`
 
 die Uhr in die Hardwareclock schreiben, denn sonst kommt der Server eventuell nach einem Boot mit einer völlig falschen Zeit hoch.
 
-##Fazit
+## Fazit
 Nun sollte ihr Server auch bei einer individuellen Konfiguration die Zeit abgesichert mit einem Server ablgleichen.
