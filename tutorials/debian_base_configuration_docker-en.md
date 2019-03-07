@@ -27,7 +27,7 @@ We create the user `holu` with the following command:
 ```
 adduser --disabled-password holu
 ```
-Since we want to deactivate the login with passwords, we do not need a password for our user and therefore deactivate it with the parameter `-d`.
+Since we want to deactivate the login with passwords, we do not need a password for our user and therefore deactivate it with the parameter `--disabled-password`.
 
 The newly created user 'holu' currently has no special permissions. However, since we want to use the user as a replacement for 'root', we will give holu [Sudo](https://www.sudo.ws/man/1.8.26/sudo.man.html) permissions, allowing this user to execute commands as root using Sudo.
 
