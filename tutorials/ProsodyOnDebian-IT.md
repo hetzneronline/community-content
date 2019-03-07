@@ -18,7 +18,7 @@ Avrete bisogno Di almeno:
 
 - Un piccolo server virtuale
 - Un proprio dominio (example.com in questo tutorial)</p>
-- Conoscenza di base di Linux 
+- Conoscenza di base di Linux
 
 ## Presupposti
 Tutti i comandi sono eseguiti di default come utente root.
@@ -37,7 +37,7 @@ IPv6: `2001:db8:1234::1`
 Il tuo XMPP-ID (nome utente) sarà `holu`.
 
 Caricamento dei file: xmpp.example.com
-MUC (Multi User Chat): conference.example.com (others also use muc. or chat.)
+MUC (Multi User Chat): conference.example.com (altri usano anche muc. o chat.)
 Pubsub: pubsub.example.com
 Proxy: proxy.example.com
 Elenco utenti (VJUD): vjud.example.com
@@ -78,7 +78,7 @@ Impostazione in base ai record DNS:
 
 ## PAsso 2 - Installazione
 Per prima cosa aggiungiamo il repository ufficiale per ottenere le ultime versioni ("trunk")
-```bash 
+```bash
 wget https://prosody.im/files/prosody-debian-packages.key -O- | apt-key add -
 echo deb http://packages.prosody.im/debian $(lsb_release -sc) main | tee -a /etc/apt/sources.list.d/prosody.list
 ```
@@ -151,7 +151,7 @@ La registrazione pubblica è disabilitata per impostazione predefinita, è possi
 Edita `/etc/prosody/prosody.cfg.lua` e aggiungere il contenuto in fondo.
 <details>
   <summary>(Clicca per espandere) prosody.cfg.lua</summary>
-    
+
 ```lua
 pidfile = "/var/run/prosody/prosody.pid"
 
@@ -265,7 +265,7 @@ default_bookmarks = {
 
 hsts_header = "max-age=31556952"
 
-archive_expires_after = "4w" -- configure message archive 
+archive_expires_after = "4w" -- configure message archive
 max_archive_query_results = 20;
 mam_smart_enable = true
 default_archive_policy = "roster" -- archive only messages from users who are in your roster
@@ -303,12 +303,12 @@ Component "conference.example.com" "muc"
   name = "example.com chatrooms"
   restrict_room_creation = false
   max_history_messages = 30
-  
+
    ssl = {
      key = "/usr/lib/prosody/cert/conference.example.com/privkey.pem";
      certificate = "/usr/lib/prosody/cert/conference.example.com/fullchain.pem";
   }
-    
+
   modules_enabled = {
     "muc_mam"; -- message archive in muc
     "muc_mam_hints";
@@ -337,7 +337,7 @@ Component "xmpp.example.com" "http_upload"
 -- pubsub
 Component "pubsub.example.com" "pubsub"
   modules_enabled = { "pubsub_feeds", "pubsub_text_interface" }
-   
+
   ssl = {
      key = "/usr/lib/prosody/cert/pubsub.example.com/privkey.pem";
      certificate = "/usr/lib/prosody/cert/pubsub.example.com/fullchain.pem";
@@ -424,7 +424,7 @@ chown root:prosody -R /usr/lib/prosody/cert/
 Eseguire `prosodyctl check` per controllare automaticamente i problemi del file di configurazione.
 Si può tranquillamente ignorare `SRV target xmpp.example.example.com. contiene una porta client sconosciuta: 443` qui perché usiamo SSLH per legarci alla porta 443 e non prosody stessa.
 
-Se tutti i controlli passano possiamo ricominciare la prosodia e controllare lo stato se ha avuto successo.
+Se tutti i controlli passano possiamo ricominciare prosody e controllare lo stato se ha avuto successo.
 `prosodyctl start`
 `prosodyctl status`
 
