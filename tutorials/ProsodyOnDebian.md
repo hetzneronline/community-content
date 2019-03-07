@@ -1,4 +1,17 @@
-# Installing Prosody XMPP Server on Debian 9
+---
+path: "/community/tutorials/ProsodyOnDebian"
+date: "2019-03-07"
+title: "Installing and Configuring Prosody XMPP Server on Debian 9"
+short_description: "This tutorial will help you to deploy a state of the art xmpp server"
+tags: ["Hetzner Official", "Prosody"]
+views: "100"
+author: "Noah Seefried”
+author_img: "https://avatars0.githubusercontent.com/u/34218225?s=400&v=4"
+author_description: ""
+header_img: ""
+---
+
+# Installing and Configuring Prosody XMPP Server on Debian 9
 
 ## Introduction
 
