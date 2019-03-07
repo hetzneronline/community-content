@@ -1,5 +1,5 @@
-#LSI Raid Controller
-##Einführung
+# LSI Raid Controller
+## Einführung
 Dieser Artikel erläutert die Verwendung des von LSI entwickelten Programms zur Administration des Raid-Controllers. Sie finden es in unserem [Download-Bereich](http://download.hetzner.de/tools/LSI/).
 
 Die Zugangsdaten zu diesem Bereich haben Sie bereits mit der Fertigstellungsmail Ihres Root Servers erhalten.
@@ -9,7 +9,7 @@ Bitte beachten Sie beim Download die Lizenzvereinbarung.
 * Das Tool `MegaRAID Storage Manager (MSM)` dient zur Verwaltung des Controllers über eine graphische Oberfläche
 * Weitere Tools und Treiber erhalten Sie direkt über [LSI](http://www.lsi.com/products/storagecomponents/Pages/MegaRAIDSAS9260-4i.aspx)
 
-##Den Status eines Hardware-RAID auslesen
+## Den Status eines Hardware-RAID auslesen
 Um den Status der LSI RAID-Controller auszulesen muss das Commandline-Tool `megacli` von LSI installiert sein. Im [Rescue-System](https://wiki.hetzner.de/index.php/Hetzner_Rescue-System) ist dies bereits der Fall.
 
 Den Zustand des RAIDs erhält man mit folgendem Befehl (Zeige alle Logical Devices an allen Controllern):
@@ -45,7 +45,7 @@ Da dabei auch eine Menge unnützer Informationen herauskommt, empfiehlt es sich 
 
 `megacli -PDList -aAll | egrep "Enclosure Device ID:|Slot Number:|Inquiry Data:|Error Count:|state"`
 
-##Einrichten eines Hardware-RAID
+## Einrichten eines Hardware-RAID
 Bevor das Array angelegt werden kann, muss die bisherige Konfiguration eventuell gelöscht werden. Um nur die logischen Geräte zu löschen genügt ein `CfgLdDel`:
 
 `megacli -CfgLdDel -Lall -aAll`
@@ -73,24 +73,24 @@ RAID-0, 1 oder 5 wie oben erstellen mit einer Größe von 20GB:
 RAID-10 erstellen:
 `megacli -CfgSpanAdd -r10 -Array0[252:0,252:1] -Array1[252:2,252:3] WB RA Direct CachedBadBBU -a0`
 
-##Ein bestehendes Array (z.B. RAID5) erweitern
+## Ein bestehendes Array (z.B. RAID5) erweitern
 Nachdem die zusätzliche HDD eingebaut ist, wird das gewünschte Volume entsprechend rekonfiguriert. Hier ein Beispiel für das Hinzufügen einer HDD zu einem bestehen RAID5:
 
 `megacli -LDRecon -Start -r5 -Add -PhysDrv[252:3] -L0 -a0`
 
-##Festplatten als JBOD nutzen
+## Festplatten als JBOD nutzen
 Der LSI MegaRAID 9260 Controller beherrscht keinen JBOD-Modus, bei dem die Festplatten direkt durchgereicht werden. Es ist jedoch möglich, alle Festplatten als RAID-0 zu konfigurieren und so einzeln zu nutzen:
 
 `megacli -CfgEachDskRaid0 WB RA Direct CachedBadBBU -a0` 
 
-##Eine Festplatte als Hotspare setzen
+## Eine Festplatte als Hotspare setzen
 Über das `Drives`-Menü eine unbenutzte (`unconfigured good`) Festplatte auswählen und die Eigenschaften (`Properties`) aufrufen. Dort kann die Festplatte entweder als `dedizierte Hotspare` für ein Array oder als `Globale Hotspare` für alle Arrays konfiguriert werden. Über das `megacli` Tool ist dies auch möglich
 
 * als globale Hotspare: `megacli -PDHSP -Set -PhysDrv[252:2] -a0`
 * als dedizierte Hotspare für Array0: `megacli -PDHSP -Set -Dedicated -Array0 -PhysDrv[252:2] -a0`
 * Hotspare Status entfernen: `megacli -PDHSP  -Rmv -PhysDrv[252:2] -a0`
 
-##Ein Array als Bootlaufwerk setzen
+## Ein Array als Bootlaufwerk setzen
 Falls Array nicht bootfähig ist, kann man dies abfragen und auf ein logisches Device setzen:
 
 ```
@@ -107,7 +107,7 @@ Exit Code: 0x00
 ```
 
 
-##Die Konfiguration des Controllers sichern/wiederherstellen
+## Die Konfiguration des Controllers sichern/wiederherstellen
 Um die Konfiguration des Controller und aller Arrays zu sichern
 
 `# megacli -CfgSave -f raidcfg.txt -a0`
@@ -116,7 +116,7 @@ Um die Konfiguration des Controller wiederherzustellen
 
 `root@rescue ~ # megacli -CfgRestore -f raidcfg.txt -a0`
 
-##Ersetzen eine Festplatte im Array, wenn der Rebuild nicht automatisch startet
+## Ersetzen eine Festplatte im Array, wenn der Rebuild nicht automatisch startet
 Eine neue Festplatte sollte im Zustand `Unconfigured (good)` sein. Dies kann man mittels `PDList` überprüfen. Falls die Festplatte im Zustand `Unconfigured (bad)` ist, muß diese erst wie folgt nutzbar gemacht werden:
 
 ```
@@ -162,7 +162,7 @@ root@rescue ~ # megacli -PDRbld -ShowProg -PhysDrv [245:3] -aAll
 
 Rebuild Progress on Device at Enclosure 245, Slot 3 Completed 1% in 0 Minutes.
 ```
-##Die SMART Werte der Festplatten im RAID auslesen
+## Die SMART Werte der Festplatten im RAID auslesen
 Mittels `smartmontools` kann direkt auf die physischen Festplatten hinter dem Controller zugegriffen werden, z.B. für die erste Festplatte. Dazu muß zunächst mit dem `megacli` Tool die `Device ID` ermittelt werden:
 
 ```
@@ -176,7 +176,7 @@ Diese kann man nun als Option nach `megaraid` angeben, also z.B.
 
 Je nach Betriebssystem ist eine Aktualisierung der `smartmontools` oder des `Kernels` notwendig.
 
-##Nach Reboot RAID-Konfiguration leer
+## Nach Reboot RAID-Konfiguration leer
 In seltenen Fällen kann es sein, dass nach dem ersten Anlegen eines RAID-Verbunds keine Konfiguration mehr gefunden wird, nachdem man den Server neu startet.
 
 Um dieses Problem zu lösen, muss man die Konfiguration im Rescue System zweimal anlegen.
@@ -193,7 +193,7 @@ Löschen (in dem Fall Alles)
 Erneut Anlegen
 `megacli -CfgLdAdd -r1 [252:0,252:1] WB RA Direct CachedBadBBU -a0`
 
-##Firmware-Update LSI
+## Firmware-Update LSI
 Mit einem Firmware-Update falls vom Hersteller verfügbar wird die Firmware Ihres LSI RAID-Controllers immer auf dem aktuellem Stand gehalten bzw. es werden damit bekannte Fehler behoben oder auch Funktionen erweitert.
 
 Bevor Sie ein Firmware-Update durchführen, empfehlen wir immer zu einem Backup Ihrer Daten und der RAID-Konfiguration um einen möglichen Datenverlust zu vermeiden.
@@ -202,7 +202,7 @@ Eine Anleitung zum sichern/wiederherstellen der Konfiguration des RAID-Controlle
 
 Vorgehensweise:
 
-###RAID-Controller Modell / FW-Version auslesen
+### RAID-Controller Modell / FW-Version auslesen
 Um den Status der LSI RAID-Controller auszulesen muss das Commandline-Tool `megacli` von LSI installiert sein. Im Rescue-System ist dies bereits der Fall.
 
 Befehl - Syntax:
@@ -218,7 +218,7 @@ Product Name : LSI MegaRAID SAS 9260-4i
 Serial No: SV52117135
 FW Package Build: 12.15.0-0205
 ```
-###RAID-Controller FW-Update durchführen
+### RAID-Controller FW-Update durchführen
 In Abhängigkeit der auf dem RAID-Controller installierten Firmware Version, kann ein Zwischen-Update (nur bei Firmware Versionen älter als `12.12.0-0090`) erforderlich sein.
 
  Sollte die installierte Firmware Version älter als die Firmware Version `12.12.0-0090` sein, führen Sie bitte zuerst ein Zwischen-Update auf die Firmware Version `12.12.0-0090` durch, welche Ihnen auf unserem [Mirror] (http://mirror.hetzner.de/tools/LSI/firmware/) zum Download zur Verfügung steht.
@@ -242,7 +242,7 @@ Befehl - Syntax:
 
 `MegaCli -adpfwflash -f mr2108fw.rom -a0`
 
-###RAID-Controller Firmware-Update überprüfen
+### RAID-Controller Firmware-Update überprüfen
 Abschließend können Sie wie folgt die nun installierte FW-Version überprüfen.
 
 Befehl - Syntax:
@@ -258,5 +258,5 @@ Product Name : LSI MegaRAID SAS 9260-4i
 Serial No: SV52117135
 FW Package Build: 12.15.0-0205
 ```
-##Fazit
+## Fazit
 In diesem Artikel wurden verschiedene Möglichkeiten der Raidkonfiguration ihres Servers erläutert. Sie sollten jetzt den Server nach ihren Vorstellungen konfigurieren können.
