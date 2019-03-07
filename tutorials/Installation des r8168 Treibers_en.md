@@ -1,5 +1,5 @@
-#Installing the r8168 driver
-##Introduction
+# Installing the r8168 driver
+## Introduction
 The Linux r8169 driver for the Realtek network chips does not always work correctly up to kernel version 4.16. There can be timeouts and/or frequent link up/link down state changes, bandwidth problems and even system crashes may occur.
 
 One solution is to use the official Realtek r8168 driver (instead of r8169). It can be installed from external repositories or compiled by yourself. As an alternative, you can upgrade the kernel to version 4.17+.
@@ -7,7 +7,7 @@ One solution is to use the official Realtek r8168 driver (instead of r8169). It 
 This article describes how to setup the network driver.
 
 
-##Installing kmod-r8168 from elrepo.org
+## Installing kmod-r8168 from elrepo.org
 ELRepo is an RPM repository for Enterprise Linux packages. ELRepo supports Red Hat Enterprise Linux and its derivatives (CentOS, Scientific Linux and others). It is the easiest way to get the r8168 driver for the standard upstream kernels.
 
 NOTE: If you are using a special kernel like Virtuozzo, OpenVZ or something similar you MUST compile the module yourself!
@@ -33,30 +33,30 @@ Install the kmod-r8168 Realtek r8168 driver:
 
 After a reboot of the server the new driver will be used. It stays active even after kernel upgrades.
 
-##Installation from source
-###Prerequisites
+## Installation from source
+### Prerequisites
 Please make sure you are running the latest kernel available by running `yum` or `apt-get` and then rebooting.
 
-####CentOS
+#### CentOS
 On CentOS the header packages of the `kernel`, `kernel-devel` and `kernel-headers`, as well as the `compiler`, will need to be installed to replace the driver:
 `yum install gcc gcc-c++ kernel-devel kernel-headers`
 
-####Debian/Ubuntu
+#### Debian/Ubuntu
 In Debian/Ubuntu the name of the header package depends on the selected kernel. It can be for example `linux-headers-generic` or `linux-headers-server`. All the other required packages will be installed via `build-essentials`:
 ``aptitude install build-essential linux-headers-`uname -r` ``
 
-####Proxmox
+#### Proxmox
 In Proxmox the headers can be found in the pve-headers package
 
 ``aptitude install pve-headers-`uname -r` ``
 
-###Getting the sources
+### Getting the sources
 ```
 cd /tmp
 wget http://mirror.hetzner.de/tools/Realtek/drivers/r8168-8.046.00.tar.bz2
 tar xf r8168-8.046.00.tar.bz2
 ```
-###Compiling the driver
+### Compiling the driver
 The package contains an `autorun.sh` script that automatically compiles the drivers and replaces the present r8169 driver. Doing so means the network connection is lost. You should therefore start this script in a screen session and only use it if you are absolutely sure that the kernel module can be compiled without errors. You can check this beforehand through `make modules`.
 
 ```
@@ -75,8 +75,8 @@ cd r8168-8.046.00
 ```
 If you do not want an interruption of the system or you want to only temporarily disable the r8169 driver, you can instead compile the driver as shown below.
 
-###Activating the new driver
-####CentOS
+### Activating the new driver
+#### CentOS
 In the file `/etc/modprobe.conf` the appropriate driver for `eth0` needs to be edited. To do this the line
 
 `alias eth0 r8169`
@@ -102,7 +102,7 @@ After several seconds the server should be back online using the new network dri
 
 `rm -rf /root/r8168`
 
-####Debian/Ubuntu
+#### Debian/Ubuntu
 After installing the driver, update the module dependencies.
 
 `depmod -a`
@@ -124,5 +124,5 @@ Afterwards the initrd will be rebuilt.
 Now you can reboot the server.
 
 After a kernel update the driver might need to be recompiled.
-##Conclusion
+## Conclusion
 Either of the two ways shown here should eliminate the problems with the Realtek network chip.
