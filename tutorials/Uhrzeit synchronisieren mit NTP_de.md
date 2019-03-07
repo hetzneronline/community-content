@@ -1,8 +1,9 @@
-#Uhrzeit synchronisieren mit NTP
-##Einführung
+# Uhrzeit synchronisieren mit NTP
+
+## Einführung
 Das NTP (Network Time Protocol) ist dazu da, um die Zeit auf einem Server mit einem zentralen Zeitserver abzugleichen. In den Hetzner Standardimages ist dies bereits vorkonfiguriert. Hierbei werden die Hetzner NTP Server genutzt.
 
-##NTP installieren
+## NTP installieren
 Bei einer individuellen Installation ist dies nicht der Fall. Hier muß als erstes der NTP Daemon installiert werden. Dieser ist bei den einzelnen Distributionen schon als Paket vorhanden und kann ganz einfach installiert werden.
 
 Debian:
@@ -16,7 +17,7 @@ Gentoo:
 OpenSuSS:
 
 `zypper install ntp`
-##Den NTP Daemon konfigurieren
+## Den NTP Daemon konfigurieren
 Seit Januar 2010 bietet Hetzner drei Zeit-Server mit dem NTP-Protokoll an. Diese sind an drei unterschiedlichen Standorten untergebracht und haben folgende Adressen:
 
 * ntp1.hetzner.de
