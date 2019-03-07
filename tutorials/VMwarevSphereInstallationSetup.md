@@ -10,6 +10,7 @@ hardware.
 
 * software RAID is not supported
 * NAT and routing are not supported
+* Using a subnet requires setting up a router VM on a additional single IP
 
 **License**
 
@@ -22,14 +23,15 @@ by registering on the [VMware website](https://www.vmware.com/products/vsphere-h
 The Dell PowerEdge models DX150, DX151, DX290, DX291  and DX141 are certified
 and compatible with all versions from 5.0 onwards. DX152 and DX292 are
 compatible from 6.5 onwards.
-
 All other models are not certified by VMware, yet in most cases VMware vSphere/ESXi can be
 installed.
 
+The following table lists all currently known working models and versions
+(information is subject to change)
+
 | Model                             | vSphere/ESXi Version              |
 |-----------------------------------|:---------------------------------:|
-| AX50-SSD/AX60-SSD                 | from 6.5a additional Intel NIC    |
-|                                   | required                          |
+| AX50-SSD/AX60-SSD                 | from 6.5a (additional NIC required) |
 | AX160                             | from 6.5a                         |
 | PX92                              | from 6.5                          |
 | PX91/PX121                        | from 5.5 Update 1                 |
@@ -38,23 +40,15 @@ installed.
 | PX61-NVMe                         | from 6.0 Update 2                 |
 | PX60/PX70                         | from 5.5 Update 1                 |
 | EX61/EX61-NVMe                    | from 6.5                          |
-| EX41/EX41S/EX51/EX42\             | from 5.5 Update 3 / 6.0 Update 2\ |
-|                                   | (potentially an additional NIC    |
-|                                   | required)                         |
-| EX40/EX60                         | 5.0 - 5.1 Update 2, since 5.5     |
-|                                   | additional NIC required           |
+| EX41/EX41S/EX51/EX42\             | from 5.5 Update 3 / 6.0 Update 2 (may require additional NIC)
+| EX40/EX60                         | 5.0 - 5.1 Update 2, since 5.5 (additional NIC required)
 | EX6/EX6S/EX8/EX8S                 | from 5.0                          |
-| EX4/EX4S/EX10                     | from 5.0 (with additional NIC)    |
-| EQ4/EQ6/EQ8/EQ9                   | 5.0 - 5.1 Update 2, since 5.5     |
-|                                   | additional NIC required           |
-(All information is subject to change)
+| EX4/EX4S/EX10                     | from 5.0 (additional NIC required)    |
+| EQ4/EQ6/EQ8/EQ9                   | 5.0 - 5.1 Update 2, since 5.5 (additional NIC required) |
+
 
 The models mentioned above should work with the appropriate version.
 Newer versions may not be compatible.
-
-The installation of vSphere 5.5 or newer on the EX40, EX60 and some EX41/EX51
-models may require an additional compatible network card before the software
-can be used.
 
 Using a custom installation ISO with 3rd party / community drivers may allow
 installation without adding a compatible network card. Creating such an ISO is
@@ -63,24 +57,38 @@ out of scope for this guide.
 ## Step 1 - Installation
 
 When ordering the desired server, make sure to select "Rescue System" to ensure
-no other operating system present on the drives.
+no other operating system present on the drives. If needed a RAID controller
+can be added on non-NVMe models during the order process.  It must be
+configured prior to the installation. After the server has been provisioned,
+request a KVM console via [Hetzner Robot](https://robot.your-server.de). Using
+the KVM Console allows to connect a virtual DVD drive to the server from which
+vSphere can be installed.
 
-If needed a RAID controller can be added on non-NVMe models during the order process.
-It must be configured prior to the installation.
-
-After the server has been provisioned, request a KVM console via [Hetzner
-Robot](https://robot.your-server.de). Using the KVM Console allows to connect a
-virtual DVD drive to the server from which vSphere can be installed.
-
-After the server has been booted from the ISO image, the installer requires
-answers to a few simple questions like locale, root password and target drive.
+Insert the ISO into the virtual drive and boote the server from the image.  The
+installer only requires answers to a few questions like locale, root password
+and target drive.
 
 Once the installation is completed and the server has booted the installed system, you will be greeted
 with a welcome screen.
 
-![ESXi installed](../assets/VMwarevSphereInstallationSetup_installed.png "ESXi installed"){width="500"}
+To log in use the password that you entered during the installation. This is
+the root password for SSH as well as the password for the VMware vSphere Web Client.
 
-## Step 2 - &lt;summary of step>
+![vSphere installed](../assets/VMwarevSphereInstallationSetup_installed.png "vSphere installed")
+
+## Network configuration
+
+Before installing a virtual machine, additional IP addresses for these
+instances can be ordered via Hetzner Robot.  Either in form of a limited number
+of single IP addresses or for larger quantities in form subnets. Please note
+that using subnets will require setting up a virtual machine to act as router.
+
+When using single IP addresses, you must request a dedicated virtual MAC address for each IP.
+via Hetzner Robot. Configure the assigned MAC addresses in the network card settings
+of the virtual machine. Once this is done, the virtual machine can be installed and will receive
+its network settings via DHCP from the Hetzner network.
+
+![Setting assigned MAC address](../asssets/VMwarevSphereInstallationSetup_assign_mac.png)
 
 More instructions.
 ### Code Example
