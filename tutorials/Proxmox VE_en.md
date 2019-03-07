@@ -1,0 +1,276 @@
+#Proxmox VE
+##Introduction
+Proxmox VE is an open source virtualization platform with support for OpenVZ (up to v3.4), KVM and as of version 4.0 for Linux Containers (LXC). Furthermore, since Proxmox 4.0 there is also full support for IPv6. For a more detailed changelog please visit the [official Roadmap](https://pve.proxmox.com/wiki/Roadmap) in the Proxmox VE Wiki.
+
+The installation is generally considered uncomplicated, since OpenVZ already does a lot of prepatory work, and only a few more things need to be configured.
+
+Warning: As of version 4.0, support for OpenVZ has been removed and completely replaced with LXC. Please take note of this before you upgrade! For more information about converting OpenVZ containers to LXC, see the [Proxmox Wiki](https://pve.proxmox.com/wiki/Convert_OpenVZ_to_LXC)
+
+![alt text](https://wiki.hetzner.de/images/thumb/9/98/Startpage-with-cluster.png/800px-Startpage-with-cluster.png "Logo Title Text 1")
+
+##Before the installation
+First, some suggestions and advice before starting to setup the new environment:
+
+* Are only linux machines going to be used? Then under certain circumstances OpenVZ would be sufficient.
+* Should OpenVZ/LXC or KVM be used? Both have their advantages as well as disadvantages. A thoughtful decision and good research can provide less work/trouble in the future.
+* Although KVM is not as performant as OpenVZ/LXC, it provides a complete hardware virtualization and enables the operation of all of the most common operating systems (including Windows). A conversion of the virtual disks in formats such as VMDK is simple.
+
+##Installation
+###The Basics
+
+Boot the server into the [Rescue-System](https://wiki.hetzner.de/index.php/Hetzner_Rescue-System).
+
+Run [installimage](https://wiki.hetzner.de/index.php/Installimage) select and install the required Debian OS.
+
+In order to operate as stably as possible, it is recommended to use the appropriate version of Debian to match the Proxmox version, which is also used in the official pre-installation media:
+
+* since Proxmox 4.0: Debian 8 (jessie)
+* since Proxmox 5.0: Debian 9 (stretch)
+
+Configure the RAID level, partitioning and hostname as required
+
+Save the configuration and after completion of the installation perform a restart
+
+###Adjust the APT sources (/etc/apt/sources.list)
+
+The next step would be to adapt the APT sources:
+`echo "deb http://download.proxmox.com/debian stretch pve-no-subscription" >> /etc/apt/sources.list`
+
+Add the Key:
+`wget -q http://download.proxmox.com/debian/proxmox-ve-release-5.x.gpg -O /etc/apt/trusted.gpg.d/proxmox-ve-release-5.x.gpg`
+
+Now update the packages:
+
+```
+apt-get update # Paketlisten aktualisieren
+apt-get upgrade # Alle Pakete auf den aktuellsten Stand bringen
+apt-get dist-upgrade # Debian auf den aktuellsten Stand bringen
+```
+
+###Install Proxmox VE
+Since Proxmox brings its own firmware, the existing firmware packages should first be uninstalled:
+
+`aptitude -q -y purge firmware-bnx2x firmware-realtek firmware-linux firmware-linux-free firmware-linux-nonfree`
+
+After that, Proxmox can be installed.
+
+`apt-get install proxmox-ve`
+
+After a restart, the Proxmox kernel should be loaded:
+
+```
+# uname -rv
+4.13.13-1-pve #1 SMP PVE 4.13.13-31 (Mon, 11 Dec 2017 10:00:13 +0100)
+```
+###Load the kernel module
+
+Check if the module `kvm` has been loaded:
+`lsmod | grep kvm`
+
+If the module has not been loaded, then this will need to be done manually:
+
+For Intel CPUs:
+
+```
+modprobe kvm
+modprobe kvm_intel
+```
+For AMD CPUs:
+
+```
+modprobe kvm
+modprobe kvm_amd
+```
+Note: The kernel modules are required for the `KVM hardware virtualization`. If these are not present, no KVM guests can be started.
+
+##Network configuration
+First of all, it is important to decide which virtualization solution (`LXC`and/or `KVM`) and which variant (`bridged`/`routed`) will be used.
+
+LXC
+
+* Advantages: Lightweight. Fast. Lower RAM requirement.
+* Disadvantages: The kernel of the host system is used. Only Linux distributions can be used
+
+KVM
+
+* Advantages: Almost any operating systems can be installed. No modification to the VM needed.
+
+Routed
+
+* Advantages: Several IP addresses can be used on one VM. IPv6 can be used in all VMs.
+* Disadvantages: IP configuration cannot be obtained via DHCP for single IPs. Point-to-point setup is required for IP addresses from different networks.
+
+Bridged
+
+* Advantages: "Easier" configuration for novices.
+* Disadvantages: Additional MAC addresses must be requested via the Hetzner Robot. Only possible for single IPs. Multiple IP addresses can not be used in a VM. IPv6 can only be used on the host or in a single VM.
+
+
+With a routed setup the `vmbr0` is not connected with the physical interface. IP forwarding needs to be activated on the host system. This can be done automatically through `/etc/sysctl.conf` at boot time. (Please note that forwarding is disabled for the default Hetzner installation. This setting can be found in either `/etc/sysctl.conf` or in `/etc/sysctl.d/99-hetzner.conf)
+
+`sysctl -w net.ipv4.ip_forward=1`
+
+Forwarding for IPv6 needs to be activated as well. This is also available in the Hetzner standard installation and only needs to be activated.
+
+`sysctl -w net.ipv6.conf.all.forwarding=1`
+
+##Administration
+After a successful installation the virtual machines can be administered at `https://server-IP:8006`.
+###Network Configuration Hostsystem Routed
+When using a routed setup, it is necessary to manually add the route to a virtual machine. Additionally, existing virtual MAC addresses should be removed from the respective IP addresses. Since a host route is set, IP addresses from other subnets are easily possible. So for example:
+
+```
+# /etc/network/interfaces
+### Hetzner Online GmbH - installimage
+# Loopback device:
+auto lo
+iface lo inet loopback
+
+# device: eth0
+auto eth0
+iface eth0 inet static
+  address <Main-IP>
+  netmask 255.255.255.255
+  pointopoint <Gateway-IP>
+  gateway <Gateway-IP>
+
+iface eth0 inet6 static
+  address <Adress from the IPv6-Subnet> #e.g. 2001:db8::2
+  netmask 128
+  gateway fe80::1
+  up sysctl -p
+
+# for single-IPs
+auto vmbr0
+iface vmbr0 inet static
+  address <Main-IP>
+  netmask 255.255.255.255
+  bridge_ports none
+  bridge_stp off
+  bridge_fd 0
+  up ip route add <first addtional-IP>/32 dev vmbr0
+  up ip route add <second additional-IP>/32 dev vmbr0
+
+iface vmbr0 inet6 static
+  address <Adress from the IPv6-Subnet> #e.g. 2001:db8::2
+  netmask 64
+
+# for a Subnet
+auto vmbr1
+iface vmbr1 inet static
+  address <a usable Subnetz-IP>
+  netmask <Netmask of the Subnet>
+  bridge_ports none
+  bridge_stp off
+  bridge_fd 0
+  
+```
+  
+To use IPv6 with multiple bridges (multiple IPv4 subnets or IPv4 single IPs and subnet), a smaller netmask must be used for IPv6.
+
+###Network Configuration Guest Routed
+The IP of the bridge in the host system is always used as gateway ie. the main IP for single IPs, the IP configured from the subnet in the host system for subnets.
+
+```
+# /etc/network/interfaces
+### Example for single IPs from a different subnet
+# Loopback device:
+auto lo
+iface lo inet loopback
+
+# device: eth0
+auto eth0
+iface eth0 inet static
+  address <Additional IP>
+  netmask 255.255.255.255
+  pointopoint <Main IP>
+  gateway <Main IP>
+
+iface eth0 inet6 static
+  address <Address from the IPv6 Subnet> # e.g. 2001:db8::f001
+  netmask 64
+  gateway <IPv6 Address vmbr0> # e.g. 2001:db8::2
+
+# /etc/network/interfaces
+### Example for a subnet
+# Loopback device:
+auto lo
+iface lo inet loopback
+
+# device: eth0
+auto  eth0
+iface eth0 inet static
+  address <A usable Subnet IP>
+  netmask <Netmask of the Subnet>
+  gateway <IP from the Subnet configured in the Host System>
+
+iface eth0 inet6 static
+  address <Address from the IPv6 Subnet> # e.g. 2001:db8::f001
+  netmask 64
+  gateway <IPv6 Address vmbr0> # e.g. 2001:db8::2
+```
+
+###Network Configuration Bridged
+When using KVM in bridged mode it is ABSOLUTELY necessary to apply for virtual MAC addresses for the single IPs in advance. The configuration of subnets is analogous.
+
+```
+# /etc/network/interfaces
+### Hetzner Online GmbH - installimage
+# Loopback device:
+auto lo
+iface lo inet loopback
+
+auto vmbr0
+iface vmbr0 inet static
+       address <Main IP>
+       netmask 255.255.255.255
+       pointopoint <Gateway>
+       gateway <Gateway>
+       bridge_ports eth0
+       bridge_stp off
+       bridge_fd 1
+       bridge_hello 2
+       bridge_maxage 12
+
+# for a subnet
+auto vmbr1
+iface vmbr1 inet static
+       address <A usable Subnet IP>
+       netmask <Netmask of the Subnet>
+       bridge_ports none
+       bridge_stp off
+       bridge_fd 0
+```
+
+###Network Configuration Guest Bridged
+The gateway for single IPs is the gateway of the host system or the assigned IP. For subnets, the configuration is identical to the routed setup.
+
+```
+# /etc/network/interfaces
+# Loopback device:
+auto lo
+iface lo inet loopback
+
+# device: eth0
+auto eth0
+iface eth0 inet static
+  address <additional IP>
+  netmask 255.255.255.255
+  pointopoint <Gateway of the additional IP>
+  gateway <Gateway of the aditional IP>
+```
+##Security
+The Web Interface is protected by two different authentication methods: Proxmox VE standard authentication (Proxmox proprietary authentication) and Linux PAM standard authentication.
+
+Nevertheless, additional protection measures would be recommended to protect against the exploitation of any security vulnerabilities or various other attacks.
+
+Here are several possibilities:
+
+* [Two-Factor-Authentification](https://pve.proxmox.com/wiki/Two-Factor_Authentication)
+
+* [Fail2ban against Bruteforce-Attacks](https://pve.proxmox.com/wiki/Fail2ban)
+
+##Conclusion
+By now you should have installed and configured Proxmox as a virtualization platform on your server.
+
+
