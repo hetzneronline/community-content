@@ -1,0 +1,361 @@
+---
+path: "/community/tutorials/real-time-apps-with-go-and-reactjs_part1.en"
+date: "2019-03-07"
+title: "Real-time Applications with Go and ReactJS: Building a real-time HTTP Server"
+short_description: "We build a Live Dashboard that Monitors Servers and receives Webhooks by GitlabCI (or any CI really), rendering this Data live to every Client that is connected without any delay."
+tags: ["Go", "ReactJS"]
+author: "Florian Drechsler"
+author_img: "https://avatars3.githubusercontent.com/u/6449399?s=400&v=4"
+author_description: ""
+header_img: ""     
+---
+
+## About the Series
+
+Welcome to the first Part of a Series of Tutorials called **Real-time Applications with Go and ReactJS**. We build a Live Dashboard that Monitors Servers and receives Webhooks by GitlabCI (or any CI really), rendering this Data live to every Client that is connected **without any delay**.
+
+After the Series, this is what the App will look like:
+
+[![../assets/real-time-apps-with-go-and-reactjs.gif](../assets/real-time-apps-with-go-and-reactjs.gif)](../assets/real-time-apps-with-go-and-reactjs.mp4)
+
+We are going to cover every step from an empty text editor to configuring your CI for the dashboard and deploy the docker container we build.
+
+**Technologies covered**
+
+-   GoLang for the Server
+    
+-   HTTP/2 and Server-Sent Events (SSE)
+    
+-   ReactJS for the Client
+    
+-   Docker for Building the App and Deploying it
+    
+
+**Series Index**
+
+-   Part 1: Building a real-time HTTP Server (*)
+    
+-   Part 2: Implementing SSE Protocol Standards (not yet released)
+    
+-   Part 3: Creating a Basic UI with ReactJS (not yet released)
+    
+-   Part 4: Visualizing Real-time Data with ReactJS (not yet released)
+    
+-   Part 5: Getting Ready for Production (not yet released)
+    
+    
+**About the Definition of Real-time in Computing**
+
+At Reviewing the Tutorial with my Colleague @schaeferthomas, he stated that "real-time" could be understood in different ways. For this Tutorial I use it in the context of Public Networking Applications using this definition:
+
+> \[adjective\] (real-time)Computation of or relating to a system in which input data is processed within milliseconds so that it is available virtually immediately as feedback, e.g., in missile guidance or airline booking system.
+> 
+> -   Oxford Pocket Dictionary of Current English
+>
+
+
+## Introduction
+
+**Prerequisites**
+
+-   Basic Networking Knowledge
+    
+-   Basic Knowledge of HTTP
+    
+-   Some experience in Parallel or Concurrent Programming
+    
+-   Minimal Knowledge of Go
+    
+
+If you did not yet have any contact with golang, no worries, I am not going to dive deep into the mechanics of golang. You should be able to follow even if you haven't used golang yet. However, wouldn't that be a great time to make the first contact with Go?
+
+> To Follow Along without any Knowledge in golang, I recommend using [gobyexample.com](https://gobyexample.com) as a reference.
+
+### What we are going to build in this part
+
+We are going to use the core `net/http` package to build a very basic real-time server that keeps connections to an endpoint `/listen` alive and takes input at `/say`. 
+
+[![asciicast](https://asciinema.org/a/231626.svg)](https://asciinema.org/a/231626)
+
+**Results at over 9000 Requests per Second**
+
+```
+Requests      [total, rate]            45005, 9001.05
+Duration      [total, attack, wait]    5.000096946s, 4.99997s, 126.946µs
+Latencies     [mean, 50, 95, 99, max]  132.54µs, 126.556µs, 174.755µs, 255.119µs, 3.755665ms
+Success       [ratio]                  100.00%
+```
+
+We see that Go is tremendously fast at doing stuff not necessarily in parallel but in concurrency.
+
+### Compiler
+
+Code goes to `main.go`, create it:
+
+`touch main.go`
+
+Then add the template for our Application in your favourite editor:
+
+```go
+package main
+
+import "log"
+
+func main() {
+        log.Println("Starting with Go")
+}
+```
+
+You need a golang compiler. For development, I would [**recommend installing golang**](https://golang.org/dl/) and using the builtin development compiler.
+
+`go run main.go`
+
+Alternative: Build with Docker (NOT recommended, go run is faster in dev)
+
+`docker run --rm -v "$PWD":/app -w /app -e GOOS=$(uname -s | tr '[A-Z]' '[a-z]') golang:1.12-alpine go build main.go`
+
+Then execute with
+
+`./main`
+
+
+## Step 1 - Implementing the `/say` Handler 
+
+Starting an HTTP Server in Go is very straight forward. The [core package `net/http`](https://golang.org/pkg/net/http) provides the `ListenAndServe(address string, handler Handler)` function. The Function runs till it may receive an unrecoverable error, returning the Error message. Since it is Blocking, you should add the Statement at the end of `func main`.
+
+```go
+log.Fatal( http.ListenAndServe(":4000", nil) )
+```
+
+We implement HTTP Handlers with the `http.HandleFunc(urlPattern string, handlerFunction Handler)` Function. It takes a Pattern that describes the URL, in our example `/say` and a Callback Function that is going to execute on any request to that URL.
+
+The Callback function receives a `ResponseWriter` interface which has a `Write([]byte])` function.
+
+> The Write Method takes a byte array. That's great for HTTP/2 which is a binary protocol, unlike HTTP.
+
+In our case, we want to return a UTF-8 String. Gladly, this isn't C (even if it looks like it is) and the byte array type has a very convenient interface for converting our String to a byte array: `[]byte("string here")`.
+
+Now we stick the Parts together:
+
+```go
+package main
+
+import "net/http"
+
+func sayHandler(w http.ResponseWriter, r *http.Request) {
+    w.Write([]byte("Hi"))
+}
+
+func main() {
+    http.HandleFunc("/say", sayHandler)
+    http.ListenAndServe(":4000", nil)
+}
+```
+
+Testing it with `curl`:
+
+```bash
+$ curl localhost:4000/say
+Hi%
+```
+
+## Step 2 - Processing Input-Data
+
+
+The Web and HTTP(S)(/2) is a core construct in Go; actually, golang was made for Web Development and Networking.
+
+Of course, it comes with parsing functions for URL and POST/PATCH/PUT Body.
+
+`Request.FormValue(key String)` returns a String with the Value of the Key.
+
+We exchange the static "Hi" with the String we read from a Requests URL or Body.
+
+```go
+func sayHandler(w http.ResponseWriter, r *http.Request) {
+ w.Write([]byte(r.FormValue("name")))
+
+}
+```
+
+Test: `curl` (or open it in any web browser)
+
+```bash
+$ curl localhost:4000/say -d 'name=Florian'
+Florian%+
+```
+
+For our Application, we need another Parameter `message`.
+
+> Usually, in golang, you would create a [`struct`](https://gobyexample.com/structs) now. However, this is not a golang tutorial, let's keep it simple.
+
+```go
+func sayHandler(w http.ResponseWriter, r *http.Request) {
+    name := r.FormValue("name")
+    message := r.FormValue("message")
+
+     w.Write([]byte(name + " " + message))
+}
+```
+
+## Step 3 - Implementing the `/listen` Handler
+
+For the `listenHandler` we do the same as we did for the `sayHandler`, but without parsing any input. 
+We instead tell the Client that the connection should be kept alive.
+
+We create a new Handler `listenHandler` and set the **HTTP Header "Connection" to "keep-alive"** to tell the Client not to terminate the Connection. Also, we set **HTTP Header "Content-Type" to "text/event-stream"**.
+
+To make sure that we are not Terminating the Connection from our side early, we wait for the Close event of the Client.
+
+```go
+//......
+func listenHandler(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Connection", "keep-alive")
+    w.Header().Set("Content-Type", "text/event-stream")
+    
+    select {
+        case <-r.Context().Done():
+            return;
+    }
+}
+//......
+func main() {
+    http.HandleFunc("/listen", listenHandler)
+    //......
+}
+```
+
+The Arrow Syntax "<-" belongs to one of the core concepts of concurrency in golang: `channel`s, it blocks the routine until it receives data from a `channel`.
+
+> A `channel` in go is a typed conduit that can receive data `channel <- data` and data can be read from `data <- channel` Writing to or Reading from a Channel BLOCKS the subroutine. [Example](https://gobyexample.com/channels)
+
+## Step 4 - Connecting the Handlers
+
+We have a `/say` Endpoint, receiving Data from the Client. And a `/listen` Endpoint supposed to send the data we receive on `/say` to connected clients.
+
+Now let us combine those. To do that, we need a new `channel` for every listener connected to send the data; we list them in a global map of channels like so:
+
+`var messageChannels = make(map[chan []byte]bool)`
+
+> (FAQ) I use a Map because in the later use of the Series we will have multiple Event Types.
+
+**listenerHandler**
+
+Now every new Listener should create his messageChannel:
+
+`_messageChannel := make(chan []byte)`
+
+And then, list it to the messageChannels Map:
+
+`messageChannels[_messageChannel] = true`
+
+In the `select` statement of the `listenHandler`, we are **already waiting for Data coming from the Requests Close `channel`** before we return the function and end the Connection.
+
+Now, we create another `case` in the select, which will be **waiting for Data from the `messageChannel`** and write the data into the ResponseWriter Stream.
+
+```go
+func listenHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Connection", "keep-alive")
+
+	_messageChannel := make(chan []byte)
+	messageChannels[_messageChannel] =  true
+
+	for {
+		select {
+			case _msg := <- _messageChannel:
+				w.Write(append(_msg,[]byte("\r\n")...))
+				w.(http.Flusher).Flush()
+			case <-r.Context().Done():
+				delete(messageChannels, _messageChannel)
+				return;
+		}
+	}
+}
+```
+
+> `w.(http.Flusher).Flush()` flushs buffered data to the client explicitly. (be aware of proxy handling here if in a real world app)
+
+**sayHandler**
+
+In the sayHandler we write to the `messageChannels` the listeners added. We do this in a dedicated thread, so we don't let the client wait till we channelled and processed all the data.
+
+Since *concurrency is the core concept of golang*, the keyword for creating a new thread is **`go`**.
+
+```go
+// sayHandler Function
+    // ...
+    //old: w.Write([]byte(name + " " + message))
+    go func() {
+        for messageChannel := range messageChannels {
+            messageChannel <- []byte(name + " " + message)
+        }
+    }()
+    w.Write([]byte("ok"))
+```
+
+> pay attention to the `}()`: We are creating an instantly invoking function. 
+
+## Conclusion
+
+We just built a real-time Chat app in 45 Lines of Go.
+
+The `/say` endpoint processes `name` and `message`.
+The `/listen` endpoint *keep-alive*s Connections and forwards input from `/say`
+
+Test it with `curl` or visit localhost:4000/listen at your favourite web browser and send events with curl /say in Terminal!
+
+#### Disclaimer: This is not production Ready Code, for simplicity reason we omitted all the Error Checking and Input Sanitization
+
+```go
+package main
+
+import (
+	"log"
+	"net/http"
+)
+
+var messageChannels = make(map[chan []byte]bool)
+
+func sayHandler(w http.ResponseWriter, r *http.Request) {
+	name := r.FormValue("name")
+	message := r.FormValue("message")
+
+	go func() {
+		for messageChannel := range messageChannels {
+			messageChannel <- []byte(name + " " + message + "\r\n")
+		}
+	}()
+
+	w.Write([]byte("ok."))
+}
+
+func listenHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Connection", "keep-alive")
+	w.Header().Set("Content-Type", "text/event-stream")
+
+	_messageChannel := make(chan []byte)
+	messageChannels[_messageChannel] = true
+
+	for {
+		select {
+		case _msg := <-_messageChannel:
+			w.Write(_msg)
+			w.(http.Flusher).Flush()
+		case <-r.Context().Done():
+			delete(messageChannels, _messageChannel)
+			return
+		}
+	}
+}
+
+func main() {
+	http.HandleFunc("/say", sayHandler)
+	http.HandleFunc("/listen", listenHandler)
+
+	log.Println("Running at :4000")
+	log.Fatal(http.ListenAndServe(":4000", nil))
+}
+```
+
+In the next Part, we will build the Server-Sent-Event Protocol ourself and connect it to a JavaScript Client for Real-time Browser Action. 
+
+#### Thanks for Reading.

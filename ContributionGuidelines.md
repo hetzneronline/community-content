@@ -54,8 +54,8 @@ print s
 
 ## Terminology
 Many tutorials will need to include example usernames, hostnames, domains, and IPs. To simplify this all tutorials should use the same default examples, as outlined below.
-Username: holu (short for Hetzner OnLine User)
 
+* Username: `holu` (short for Hetzner OnLine User)
 * Hostname: `<your_host>`
 * Domain: `<example.com>`
 * IP: `<10.0.0.1>`
@@ -66,7 +66,7 @@ You are also welcome to send us a graphic for the Introduction area. Graphics sh
 ## Template
 To help you get started, we've prepared a template that you can build on. It includes a basic layout for your tutorial, some examples of formatting, and a number of tips and tricks for setting everything up. Please find that here:
 
-[link]
+[Tutorial Template](https://github.com/hetzneronline/community-content/blob/master/TutorialTemplate.md)
 
 ## Submissions
 If you think you have a tutorial that meets the criteria above, and would be useful to share, please reach out to us via our github account.
