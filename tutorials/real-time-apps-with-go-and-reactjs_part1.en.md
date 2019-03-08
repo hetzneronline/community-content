@@ -1,18 +1,14 @@
 ---
-path: "/community/tutorials/real-time-apps-with-go-and-reactjs_part1"
+path: "/community/tutorials/real-time-apps-with-go-and-reactjs_part1.en"
 date: "2019-03-07"
 title: "Real-time Applications with Go and ReactJS: Building a real-time HTTP Server"
 short_description: "We build a Live Dashboard that Monitors Servers and receives Webhooks by GitlabCI (or any CI really), rendering this Data live to every Client that is connected without any delay."
-tags: ["Hetzner Official", "Go", "ReactJS"]
-views: "100"
+tags: ["Go", "ReactJS"]
 author: "Florian Drechsler"
 author_img: "https://avatars3.githubusercontent.com/u/6449399?s=400&v=4"
 author_description: ""
 header_img: ""     
 ---
-
-
-# Real-time Applications with Go and ReactJS: Building a real-time HTTP Server
 
 ## About the Series
 
