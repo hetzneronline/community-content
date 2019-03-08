@@ -66,7 +66,7 @@ You are also welcome to send us a graphic for the Introduction area. Graphics sh
 ## Template
 To help you get started, we've prepared a template that you can build on. It includes a basic layout for your tutorial, some examples of formatting, and a number of tips and tricks for setting everything up. Please find that here:
 
-[Tutorial Template](https://github.com/hetzneronline/community-content/blob/master/TutorialTemplate.md)
+[Tutorial Template](tutorial-template.md)
 
 ## Submissions
 If you think you have a tutorial that meets the criteria above, and would be useful to share, please reach out to us via our github account.
