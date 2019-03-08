@@ -8,9 +8,11 @@ More Information will be publicly announced on March 13th.
 
 ## Contribution Guide 
 
-Basically, you just make a Pull Request and the Community Managers will take care of it.
-[Here are our Guidelines.](./ContributionGuidelines.md)
+[Please read the Contribution Guidelines](./contribution-guidelines.md)
+
+Basically, you make a Pull Request and the Community Managers will take care of it.
+
 
 ### Sneak Preview
 
-![Preview](assets/Hetzner_Community_Screens.jpg)
+![Preview](preview.jpg)
