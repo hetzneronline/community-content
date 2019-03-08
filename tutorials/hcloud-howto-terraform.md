@@ -73,7 +73,7 @@ resource "hcloud_server" "web" {
   # ...
 }
 ```
-This short snippet does basically nothing. It just defines a resource from type `hcloud_server` called `web`. But it won't work, because we didn't terraform which server should be created. 
+This short snippet does basically nothing. It just defines a resource from type `hcloud_server` called `web`. But it won't work, because we didn't tell terraform which server should be created. 
 
 So now you should create a `terraform.tfvars` -file which will contain the following content:
 
@@ -95,7 +95,7 @@ Congratulations! You have successfully installed the `hcloud` provider plugin!
 
 You have now a basic overview of the `hcloud` terraform provider, but of course, you want a more detailed view. So let's create a server.
 
-Open your `hcloud.tf` file and go to the `resource "hcloud_server" "web"` section. Replace the section with  the following snippet:
+Open your `hcloud.tf` file and go to the `resource "hcloud_server" "web"` section. Replace the section with the following snippet:
 
 ```hcl
 # Create a server
@@ -234,7 +234,7 @@ Terraform will perform the following actions:
 
 Plan: 2 to add, 0 to change, 0 to destroy.
 ```
-When you now `terraform apply` the changes, you can see a volume, with 50 GB storage, which is attached to your server in the [Hetzner Cloud Console](https://console.hetzner.cloud).
+When you now run `terraform apply` to apply the changes, you can see a volume, with 50 GB storage, which is attached to your server in the [Hetzner Cloud Console](https://console.hetzner.cloud).
 
 
 ## Conclusion
