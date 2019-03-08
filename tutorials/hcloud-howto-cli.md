@@ -203,7 +203,7 @@ Server 1234 created
 IPv4: <10.0.0.1>
 Root password: TmRsdC3NCgHAbnf9f3rq
 ```
-You can now connect to your server via SSH with the Root password!
+You can now connect to your server via SSH with the Root password! Please note, for security purposes it's always recommended to [setup key based ssh-access](https://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/).
 
 **Describe a server**
 
@@ -231,11 +231,11 @@ Server Type:    cx11 (ID: 1)
   Storage Type:    local
 Public Net:
   IPv4:
-    IP:        116.203.101.10
+    IP:        <10.0.0.1>
     Blocked:    no
     DNS:    static.10.101.203.116.clients.your-server.de
   IPv6:
-    IP:        2a01:4f8:1c1c:e101::/64
+    IP:        <2001:db8::/64>
     Blocked:    no
   Floating IPs:
     No Floating IPs
