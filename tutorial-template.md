@@ -65,6 +65,7 @@ print s
 More instructions.
 
 ### Terminology
+* Username: `holu` (short for Hetzner OnLine User)
 * Hostname: `<your_host>`
 * Domain: `<example.com>`
 * IPv4: `<10.0.0.1>`
