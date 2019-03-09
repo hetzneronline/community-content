@@ -58,7 +58,8 @@ Many tutorials will need to include example usernames, hostnames, domains, and I
 * Username: `holu` (short for Hetzner OnLine User)
 * Hostname: `<your_host>`
 * Domain: `<example.com>`
-* IP: `<10.0.0.1>`
+* IPv4: `<10.0.0.1>`
+* IPv6: `<2001:db8:1234::1>`
 
 ## Graphic
 You are also welcome to send us a graphic for the Introduction area. Graphics should be created in a ratio of 16:9 and be max. 250kb in size.
