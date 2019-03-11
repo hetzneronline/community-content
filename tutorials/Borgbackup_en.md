@@ -91,7 +91,7 @@ Create a directory for the log file.
 
 `$ mkdir -p /var/log/borg`
 
-First, create a script which will execute the backups. This could look like the following script and be under '/usr/local/bin/backup.sh'.
+First, create a script which will execute the backups. This could look like the following script and be under `/usr/local/bin/backup.sh`.
 
 ```
 #!/usr/bin/env bash
@@ -185,9 +185,9 @@ And add the following line to run a daily backup at 00:00.
 
 If you want to backup the entire system on your Linux server, you should remember that not all files and folders belong in a backup. Some should be excluded by default.
 
-For this, the create command has an '--exclude' option or you can specify an exclude file. The usage is described in detail in the [Borg create documentation](https://borgbackup.readthedocs.io/en/stable/usage/create.html).
+For this, the create command has an `--exclude` option or you can specify an exclude file. The usage is described in detail in the [Borg create documentation](https://borgbackup.readthedocs.io/en/stable/usage/create.html).
 
-Here is an example call to 'borg create' for a backup of the complete system:
+Here is an example call to `borg create` for a backup of the complete system:
 
 ```
 borg create -v --stats                   \
