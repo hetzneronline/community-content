@@ -8,7 +8,7 @@ More Information will be publicly announced on March 13th.
 
 ## Contribution Guide 
 
-[Please read the Contribution Guidelines](./contribution-guidelines.en.md)
+[Please read the Contribution Guidelines](./contributing.md)
 
 Basically, you make a Pull Request and the Community Managers will take care of it.
 
