@@ -42,7 +42,7 @@ The solution is to delete the `REG_BINARY` value within the registry at the belo
 
 `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\RCM\GracePeriod`
 
-((you must take ownership and give admin users full control to be able to delete this key) )
+(you must take ownership and give admin users full control to be able to delete this key)
 
 [Source](http://www.360ict.nl/blog/no-remote-desktop-licence-server-availible-on-rd-session-host-server-2012/)
 
