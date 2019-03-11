@@ -108,6 +108,8 @@ sftp <Benutzername>@<Benutzername>.your-storagebox.de
 Connected to <Benutzername>.your-storagebox.de.
 sftp> quit
 ```
-Hinweis: Der Befehl `ssh-copy-id` kann nicht zum Hochladen des Public-SSH-Keys verwendet werden. 
+Warning: The `ssh-copy-id` command cannot be used to upload the public SSH key. 
 
 ## Conclusion
+
+By now you should have configured ssh-key authentificaton for logging in without the password.

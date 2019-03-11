@@ -111,3 +111,5 @@ sftp> quit
 Hinweis: Der Befehl `ssh-copy-id` kann nicht zum Hochladen des Public-SSH-Keys verwendet werden. 
 
 ## Fazit
+
+Hiermit sollten sie SSH-Key Authentifizierung zum passwortfreien Einloggen konfiguriert haben. 
