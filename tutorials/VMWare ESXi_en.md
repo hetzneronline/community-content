@@ -120,6 +120,7 @@ If you ordered your server before February 2013 this subnet can be ordered (free
 The IPv6 subnet is routed to the default link-local address (which is derived from the MAC address) of the main IP. Via Robot the routing of the IPv6 subnet can be switched to the link-local address of the virtual MAC (in other words, the additional single IP). This can be done in Robot, using the same symbol which is found next to additional single IPs to request virtual MAC addresses. The host system, so the ESXi itself, receives no IPv6 address. This is neither necessary nor possible because ESXi can not work with a fe80::1 gateway.
 
 In order to use these IP addresses in virtual machines, a "router VM" supplemented by an additional virtual NIC from the new subnet is necessary. The subnet itself requires a new vSwitch in ESXi to which all VMs in the subnet will be connected.
+
 #### Notes
 
 The network card type for the router VM should not be VMXNET2 or VMXNET3, as otherwise the TCP performance can be very bad. As a workaround LRO in the VM can be disabled via `disable_lro=1`. More information on this bug can be found [here](http://www.vmware.com/support/vsphere4/doc/vsp_esxi41_vc41_rel_notes.html).
@@ -236,7 +237,7 @@ net.ipv6.conf.all.forwarding=1
 The virtual machines should now be accessible (via SSH for example) via their assigned IPs.
 
 
-##Installation Guide
+## Installation Guide
 
 Choose the [Rescue System](https://wiki.hetzner.de/index.php/Hetzner_Rescue-System) as the OS for the server you order. 
 
@@ -316,7 +317,7 @@ Monitoring can be achieved through the installation of remote ARCCONF via a Wind
 
 `$ arcconf GETCONFIG 1 AD`
 
-#### LSI Controller
+### LSI Controller
 
 LSI provides a so-called CIM/SMIS provider. After the installation the hardware monitoring page in the vSphere client displays the status of the RAID. An active alarm is however, only possible in the paid version and when running vCenter.
 

@@ -29,7 +29,7 @@ Die Dell PowerEdge Modelle sind zertifiziert und vollständig kompatibel mit all
 
 Alle anderen Modelle sind nicht von VMware zertifiziert, können jedoch in den meisten Fällen mit VMware vSphere/ESXi betrieben werden.
 
-####Kompatibilität
+#### Kompatibilität
 (Angaben ohne Gewähr)
 
 ```
@@ -113,7 +113,7 @@ Um nun zu erreichen, dass man diese IPs auch direkt VMs zuweisen kann, bedarf es
 #### Hinweise
 Hinweis betreffend VMware ESXi 4.1:
 
-Als Netzwerkkartentyp für die Router-VMs sollte weder VMXNET2 noch VMXNET3 verwendet werden, da sonst die TCP Performance sehr schlecht sein kann. Als Workaround kann auch in der VM das LRO mittels `disable_lro=1` deaktiviert werden. Weitere Informationen zu diesem Bug [hier](http://www.vmware.com/support/vsphere4/doc/vsp_esxi41_vc41_rel_notes.html).
+Als Netzwerkkartentyp für die Router-VMs sollte weder VMXNET2 noch VMXNET3 verwendet werden, da sonst die TCP Performance sehr schlecht sein kann. Als Workaround kann auch in der VM das LRO mittels `disable_lro=1` deaktiviert werden. Weitere Informationen zu diesem Bug gibt es [hier](http://www.vmware.com/support/vsphere4/doc/vsp_esxi41_vc41_rel_notes.html).
 
 Nach einem Upgrade auf VMware ESXi 5 kann dieses Problem wieder auftreten. Um LRO unter ESXi 5 zu deaktivieren, sind folgende Schritte notwendig:
 
@@ -248,7 +248,8 @@ Die MAC-Adressen den virtuellen Servern mit den entsprechenden IP-Adressen mitte
 
 Weitere Informationen zum ESXi und dessen Handhabung können der [offiziellen Webseite](http://www.vmware.com/products/esxi/) entnommen werden:
 
-###Manuelle Installation von Updates
+### Manuelle Installation von Updates
+
 Für die Installation von Updates kann in der kostenfreien Version nur noch über die Konsole oder über VMware Go erfolgen. Da ein Update von mehreren hundert Megabyte mit einem DSL Anschluß sehr lange dauert, kann dies auch mit Hilfe der folgende Anleitung realisiert werden. Dies geschieht auf eigenes Risiko. Es wird keine Gewährleistung und Garantie für Korrektheit übernommen!
 
 Vorrausetzung ist ein SSH aktivierter Zugang und das sich das System im Wartungsmodus befindet. Dieser kann mittels:
@@ -258,6 +259,7 @@ Vorrausetzung ist ein SSH aktivierter Zugang und das sich das System im Wartungs
 aktiviert werden.
 
 #### Update von vSphere 5.1 auf 5.5 mit Realtek-Treiber
+
 Die Servermodelle mit Realtek-Netwerkkarten (z.B. EQ, EX4, EX40) können nicht direkt mit VMware vSphere ab Version 5.5 installiert werden, da hier der entsprechende Netzwerktreiber nicht mehr enthalten ist.
 
 Alternativ kann der Server aber mit VMware 5.1 installiert und anschließend auf 5.5 aktualisiert werden.
@@ -285,6 +287,7 @@ ESXi-5.5.0-20140902001-standard
 
 
 #### Update von VSphere 5.0 auf 5.1
+
 Als erstes muss der Patch VMware-ESXi-5.1.0-799733-depot.zip von der [Self-Support Seite](http://www.vmware.com/patchmgr/download.portal) oder, auf eigenes Risiko, ohne Garantie oder Haftung von [hetzner.de](download.hetzner.de) auf den ESXi Host heruntergeladen werden.
 
 Nachdem alle VMs heruntergefahren sind und das System mittels `vim-cmd hostsvc/maintenance_mode_enter` in den Wartungsmodus versetzt wurde, kann das Bundle auf zwei Arten installiert werden. Mit dem folgenden Befehl wird das System aktualisiert und alle nicht im Update-Bundle enthaltenen Pakete werden entfernt. Dies entspricht etwa einer Neuinstallation.
@@ -294,6 +297,7 @@ esxcli software profile install -d
 /vmfs/volumes/datastore1/VMware-ESXi-5.1.0-799733-depot.zip -p 
 ESXi-5.1.0-799733-standard
 ```
+
 Alternativ können auch nur die Pakete aus dem Update-Bundle mit ihren neueren Versionen ersetzt werden, wobei die nicht enthaltenen Pakete erhalten bleiben:
 
 ```
@@ -302,12 +306,13 @@ esxcli software profile update -d
 ESXi-5.1.0-799733-standard
 ```
 
-Abschließend muss das System neugestartet werden. Wenn die VMs nach dem Reboot das erste Mal angeschaltet werden, kann es passieren, dass eine Meldung erscheint, dass die VM kopiert oder verschoben wurde. Dies liegt daran, dass die UUIDs sich durch das Upgrade geändert haben. Hier kann man ohne Bedenken `VM wurde verschoben auswählen (siehe [KB1010675](https://kb.vmware.com/s/article/1010675)).
+Abschließend muss das System neugestartet werden. Wenn die VMs nach dem Reboot das erste Mal angeschaltet werden, kann es passieren, dass eine Meldung erscheint, dass die VM kopiert oder verschoben wurde. Dies liegt daran, dass die UUIDs sich durch das Upgrade geändert haben. Hier kann man ohne Bedenken `VM wurde verschoben` auswählen (siehe [KB1010675](https://kb.vmware.com/s/article/1010675)).
 
-####Installation von Patches
+#### Installation von Patches
+
 Nachdem die Patches auf das System transferiert sind, können diese installiert werden. Wichtig ist hierbei den vollständigen absoluten Pfad anzugegeben, z.B:
 
-``
+```
 esxcli software vib install --depot="/vmfs/volumes/datastore1/patches/ESXi510-201210001.zip"
 Installation Result
 Message: The update completed successfully, but the system needs to be rebooted for the changes to be effective.
@@ -320,12 +325,15 @@ Nach dem Reboot muss der Wartungsmodus wieder verlassen werden.
 `vim-cmd hostsvc/maintenance_mode_exit`
 
 ## Überwachung RAID-Controller
+
 #### 3ware Controller
+
 Es existiert sowohl ein CIM Provider als auch eine CLI. Die 64bit CLI für Linux kann ab der Version 9.5.2 verwendet werden.
 
 Hinweis: 3ware Controller werden ab ESXi 5.0 nur über einen externen Treiber unterstützt.
 
 #### Adaptec Controller
+
 Hier muss der CIM Provider und die CLI (arcconf) händisch installiert werden. Voraussetzung ist auch eine aktuelle Version des Treibers. Eine englische Installationsanleitung findet sich auf der [Adaptec-Seite](http://download.adaptec.com/pdfs/installation_guides/vmware_esxi_41_cim_remotearcconf_installation_guide_3_2011.pdf)
 
 * RAID-Treiber in der Version 5.2.1.29800
@@ -336,6 +344,7 @@ Die Überwachung kann nach der Installation von remoteARCCONF über ein Windows/
 `$ arcconf GETCONFIG 1 AD`
 
 #### LSI Controller
+
 LSI stellt einen sogenannten CIM/SMIS-Provider bereit. Nach dessen Installation wird auf der Hardware-Monitoring-Seite im vSphere-Client der Status des RAIDs angezeigt. Eine aktive Alarmierung ist aber nur in den kostenpflichtigen Versionen und bei Betrieb eines vCenter möglich.
 
 Alternativ kann das Kommandozeilentool `megacli` installiert werden, welches auch zum Management des RAID-Controllers verwendet wird. Über ein Skript lassen sich so automatisiert Status-Informationen auslesen. Die Auswertung und etwaige Benachrichtung muss auf einem anderen Server erfolgen.
@@ -348,7 +357,9 @@ Bei der Installation "sieht" ESXi nur ein Typ Speichermedium. Also entweder den 
 Damit dieses Modul automatisch beim Start geladen wird, muss die Zeile in `/etc/rc.local` und `/sbin/auto-backup.sh` eingetragen werden.
 
 ## Hardwaretausch
+
 ### MAC Adresse ändern
+
 Im Falle eines Hardware Tausches, im speziellen dem Motherboard, ist zu beachten das der ESXi Host seine ursprüngliche MAC Adresse beibehält. Dies hat zur Folge das der davor hängende Switch die Haupt IP nicht zum Server weiterleitet, da die MAC Adresse die der ESXi Host aussendet ihm unbekannt ist. Man muss die MAC Adresse über die ESXi shell neu setzen. Dazu hat der [Knowledge Base Artikel](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1031111) bei VMWare mehrere Ansätze. Der wohl eleganteste ist das der ESXi Host automatisch die neue MAC Adresse bei Plattformwechsel erkennt und verwendet. Dazu dient folgendes Kommando:
 
 `esxcfg-advcfg -s 1 /Net/FollowHardwareMac`
