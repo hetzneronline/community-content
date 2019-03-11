@@ -78,5 +78,5 @@ Sie müssen nun das Netzwerk neustarten. Achtung: Dies wird Ihre Netzwerkverbind
 
 `systemctl restart network`
 
-##Fazit 
+## Fazit 
 ???
