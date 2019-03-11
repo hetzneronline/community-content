@@ -1,3 +1,5 @@
+# How To Hetzner Cloud Terraform Provider
+
 ## Introduction
 
  **Prerequisites**
@@ -36,7 +38,7 @@ We will first copy the `Example Usage` from the documentation.
 
 ```hcl
 # Set the variable value in *.tfvars file
-# or using -var="hcloud_token=..." CLI option
+# or using the -var="hcloud_token=..." CLI option
 variable "hcloud_token" {}
 
 # Configure the Hetzner Cloud Provider
@@ -50,14 +52,14 @@ resource "hcloud_server" "web" {
 }
 ```
 
-I will show you, what the specific parts mean:
+We will see, what the specific parts mean:
 
 ```hcl
 # Set the variable value in *.tfvars file
-# or using -var="hcloud_token=..." CLI option
+# or using the -var="hcloud_token=..." CLI option
 variable "hcloud_token" {}
 ```
-We simply tell Terraform, that we will give it a variable called `hcloud_token`. You can specify the value of this variable by using a CLI option or by using a `terraform.tfvars` file. In this tutorial, we will use a `config.tfvars`-file which contains the token.
+We simply tell Terraform, that we will give it a variable called `hcloud_token`. You can specify the value of this variable by using a CLI option or by using a `terraform.tfvars` file. In this tutorial, we will use the `config.tfvars`-file. This file will contain our token.
 
 ```hcl
 # Configure the Hetzner Cloud Provider
@@ -81,7 +83,7 @@ So now you should create a `terraform.tfvars` -file which will contain the follo
 hcloud_token = "YOUR_API_TOKEN"
 ```
 
-After this you should run `terraform init` and get a similar response like below:
+After this we will run `terraform init`. You should get a similar response to that below:
 
 ```
 * provider.hcloud: version = "~> 1.8"
@@ -95,7 +97,7 @@ Congratulations! You have successfully installed the `hcloud` provider plugin!
 
 You have now a basic overview of the `hcloud` Terraform provider, but of course, you want a more detailed view. So let's create a server.
 
-Open your `hcloud.tf` file and go to the `resource "hcloud_server" "web"` section. Replace the section with the following snippet:
+We open our `hcloud.tf` file and go to the `resource "hcloud_server" "web"` section. We will replace it with the following snippet:
 
 ```hcl
 # Create a server
@@ -131,7 +133,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 ```
 
 Cool! You created your first Hetzner Cloud server with Terraform! You can now run `terraform destroy` and confirm this too, to remove the server.
-You should get a similar response like:
+You should get a response similar to this:
 
 ```
 hcloud_server.web: Refreshing state... (ID: 2035350)
@@ -160,7 +162,7 @@ Destroy complete! Resources: 1 destroyed.
 
 **Create a volume and attach it to a server** 
 
-You have learned how to create a resource. Now I want to show you how easily you can create a bunch of resources and combine them. We will use a basic CX11 server and a volume in this step.
+You now have learned how to create a resource. Now I want to show you how easily you can create a bunch of resources and combine them. We will use a basic CX11 server and a volume in this step.
 
 First of all, you should open your `hcloud.tf` file in an editor of your choice. 
 
@@ -168,7 +170,7 @@ You should see something like this:
 
 ```hcl
 # Set the variable value in *.tfvars file
-# or using -var="hcloud_token=..." CLI option
+# or using the -var="hcloud_token=..." CLI option
 variable "hcloud_token" {}
 
 # Configure the Hetzner Cloud Provider
@@ -196,7 +198,7 @@ resource "hcloud_volume" "storage" {
   format     = "ext4"
 }
 ```
-This short snipped will create a new `volume` called `my-volume` with a size of `50 GB` and automatically mount the volume on the server and format it as `ext4`. We specified too, that it should be attached to the server `"${hcloud_server.web.id}"`, which will result in the ID of our server `my-server`.
+This short snipped will create a new `volume` called `my-volume` with a size of `50 GB`. It will automatically mount the volume on the server and format it as `ext4`. We specified too, that it should be attached to the server `"${hcloud_server.web.id}"`, which will result in the ID of our server `my-server`.
 
 When you now run `terraform plan`, you should see a similar response like below:
 
@@ -234,7 +236,7 @@ Terraform will perform the following actions:
 
 Plan: 2 to add, 0 to change, 0 to destroy.
 ```
-When you now run `terraform apply` to apply the changes, you can see a volume, with 50 GB storage, which is attached to your server in the [Hetzner Cloud Console](https://console.hetzner.cloud).
+When you now run `terraform apply` to apply those changes, you can see a volume with 50 GB storage. This is attached to your server in the [Hetzner Cloud Console](https://console.hetzner.cloud).
 
 
 ## Conclusion
