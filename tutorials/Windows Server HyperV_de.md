@@ -46,4 +46,4 @@ Bei korrekter Konfiguration erscheint das Hetzner PXE Bootmenü (blaues Logo):
 
 ![alt text](https://wiki.hetzner.de/images/thumb/8/8b/Pxe_boot.jpg/789px-Pxe_boot.jpg "Logo Title Text 1")
 
-##Fazit
+## Fazit
