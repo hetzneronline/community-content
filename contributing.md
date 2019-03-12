@@ -19,7 +19,7 @@
 2. Add your Tutorial Folder
    `mkdir -p tutorials/my-tutorial-name`
 3. Add the templates 
-   `cat tutorial-template,md tutorials/my-tutorial-name/01.en.md`
+   `cat tutorial-template.md > tutorials/my-tutorial-name/01.en.md`
 4. Create the Content
 5. Create a Pull Request and include following to your Pull Request:
 
