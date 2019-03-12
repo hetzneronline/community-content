@@ -12,7 +12,27 @@
    * If you use acronyms, make sure to write them out the first time you use them.
    * Don't use excessive jargon or techspeak. Again, if you do use a word that not everybody might understand, either explain it, or use an easier to understand word or phrase.
    * Jokes are allowed, but don't overdo it.
- 
+
+## How to 
+
+1. Fork the Project
+2. Add your Tutorial Folder
+   `mkdir -p tutorials/my-tutorial-name`
+3. Add the templates 
+   `cat tutorial-template,md tutorials/my-tutorial-name/01.en.md`
+4. Create the Content
+5. Create a Pull Request and include following to your Pull Request:
+
+```
+I have read and understood the Contributor's Certificate of Origin
+available at the end of https://raw.githubusercontent.com/hetzneronline/community-content/master/tutorial-template.md and I hereby certify that I meet the contribution criteria described in it.
+Signed-off-by: YOUR NAME <YOUR@EMAILPROVIDER.TLD>
+```
+
+6. To collect your Rewards, the community manager will contact you by that e-mail address you stated in your first pull request
+7. Thanks!
+
+
 ## Layout
 Tutorials should all have the same basic layout:
 
