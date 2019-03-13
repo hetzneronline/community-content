@@ -106,6 +106,7 @@ Beispiel für die Abfrage mit dem Tool `dig`:
 `dig @213.133.100.100 33.106.133.213.in-addr.arpa ptr`
 
 #### Nameserver --> Rootserver
+
  Jetzt funktioniert die Abfrage wie in [DNS_Nameserverabfrage](https://wiki.hetzner.de/index.php/DNS_Nameserverabfrage) beschrieben, nur mit dem Typ PTR:
 
 `dig @198.32.64.12 33.106.133.213.in-addr.arpa ptr`
@@ -137,7 +138,7 @@ AUTH00.NS.UU.NET.       172800  IN      A       198.6.1.65
 Interessant: 
 Es wurden gleich vom Root-Server die zuständigen Nameserver für die Domain `213.in-addr.arpa` statt der erwarteten Infos für die TLD `arpa` genannt, eine Abfrage nach `in-addr.arpa` und `213.in-addr.arpa` kann man sich also in diesem Fall sparen.
 
-####Nameserver --> Nameserver für Domain "213.in-addr.arpa"
+#### Nameserver --> Nameserver für Domain "213.in-addr.arpa"
 
 Wir wählen den `NS3.NIC.FR` für weitere Anfragen:
 
@@ -242,10 +243,10 @@ In der Antwort-Sektion der Rückantwort steht nun endlich der gesuchte Name: `de
 
 Der Nameserver teilt dem Client die Antwort `dedi33.your-server.de` mit.
 
-###Ergebnis
+### Ergebnis
 
 Der Name zur IP-Adresse `213.133.106.33` lautet also `dedi33.your-server.de`.
 
 Damit die Nameserver nicht bei jeder Zeile eines Traceroutes diese aufwendigen Abfragen erledigen müssen, werden die Antworten im Nameserver grundsätzlich zwischengespeichert (der A-Record zu `ns2.your-server.de` beispielsweise 24 Stunden = 86400 Sekunden). Dadurch können viele Abfragen bereits aus dem Cache der eigenen Nameserver beantwortet werden.
 
-##Fazit
+## Fazit

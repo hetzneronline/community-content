@@ -1,4 +1,4 @@
-#DNS Reverse DNS
+# DNS Reverse DNS
 
 ## Introduction
 
@@ -70,3 +70,4 @@ Detailed tests of DNS Entries can be performed using [DNSReport](http://www.dnss
 The [Robot-Webservice](https://robot.your-server.de/doc/webservice/en.html#reverse-dns) can be used for this.
 
 ## Conclusion
+By now you should have understood the concept of reverse DNS.
