@@ -13,7 +13,7 @@ The mail server sends a request to its name server for the MX record for the dom
 ### Name server --> Dedicated server
 The name server must first determine who is responsible for the top level domain (TLD) .de.
 
-Each name server contains a list of the appropriate [name servers](http://www.root-servers.org/ root servers):
+Each name server contains a list of the appropriate [name servers](http://www.root-servers.org/):
 
 ```
 .                         518400     IN  NS    l.root-servers.net.
@@ -75,7 +75,7 @@ l.de.net.      172800   IN   AAAA   2001:668:1f:11::105
 n.de.net.      172800   IN   AAAA   2001:67c:1011:1::53
 ```
 
-The servers don't know who is resposible for the hetzner.de, but they do know that name servers of DeNIC are responsible for .de domains. Therefore, they respond with at least the name server addresses for the TLD .de.
+The servers don't know who is resposible for the `hetzner.de`, but they do know that name servers of DeNIC are responsible for .de domains. Therefore, they respond with at least the name server addresses for the TLD .de.
 
 ### Name server --> Name server of the TLD .de
 

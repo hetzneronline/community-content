@@ -42,7 +42,7 @@ j.root-servers.net.       3600000    IN  A     192.58.128.30
 k.root-servers.net.       3600000    IN  A     193.0.14.129
 ```
 
-Der eigene Nameserver kontaktiert nun einen dieser Root-Server und bittet um die MX-Einträge für `hetzner.de (in Erwartung der zuständigen Nameserver für die TLD .de)
+Der eigene Nameserver kontaktiert nun einen dieser Root-Server und bittet um die MX-Einträge für `hetzner.de` (in Erwartung der zuständigen Nameserver für die TLD .de)
 
 `dig @199.7.83.42 hetzner.de mx`
 
