@@ -1,0 +1,61 @@
+# SFTPClone backup
+## Introduction
+[sftpclone](https://github.com/unbit/sftpclone) is an SFTP based backup software that works similarly to rsync. In fact, it copies and keeps updated the whole tree underneath a specific directory, managing at the same time to update symbolic links, access times, and so on.
+
+## Installation
+It's written in Python (supports both version 2 and 3) and you can install it by using PIP:
+
+```
+# you can choose to install it in either user or root space
+$ pip install sftpclone --user
+$ sudo pip install sftpclone
+```
+
+If PIP is not installed, then you'll need to install that first. You can check [this guide](https://pip.readthedocs.io/en/stable/installing/) for instructions.
+
+Once installed you'll get an sftpclone executable.
+
+You can use the `-h` flag to inspect all the possible configuration parameters, and you can check the [project page](https://github.com/unbit/sftpclone) for more detailed documentation.
+
+```
+$ sftpclone -h
+
+usage: sftpclone [-h] [-k private-key-path]
+                    [-l {CRITICAL,ERROR,WARNING,INFO,DEBUG,NOTSET}] [-p PORT]
+                    [-f] [-a] [-c ssh config path] [-n known_hosts path] [-d]
+                    [-e exclude-from-file-path]
+                    local-path user[:password]@hostname:remote-path
+```
+
+The simplest possible configuration only specifies the local folder to backup and the remote endpoint:
+
+`$ sftpclone local-path user[:password]@hostname:remote-path`
+
+As usual, clear text passwords are bad. As such, you should specify your private key and use it to avoid password login, as explained [here](https://wiki.hetzner.de/index.php/Backup_Space_SSH_Keys/en).
+
+__Please note:__ if you don't specify a password, sftpclone will automatically fallback to public key authentication.
+
+You can also specify a list of files to be ignored, see here.
+
+__Warning:__ be sure to select a proper remote folder. The synchronization process will delete any file that doesn't exist in the local folder.
+
+Once you have chosen the sftpclone command/configuration that best suits your needs, you can set a cronjob to let the backup process happen on a regular basis:
+You can thus store a script either under `/etc/cron.daily` (daily), `/etc/cron.weekly` (weekly) or `/etc/cron.monthly` (monthly).
+
+A crontab can also be used to schedule an exact time by setting up a file under `/etc/cron.d/`:
+
+```
+# /etc/cron.d/sftpclone
+0 0 * * * root sftpclone local-path user[:password]@hostname:remote-path 
+[-k private-key-path] > /dev/null 2>&1
+```
+
+Here we provide a full working example:
+
+```
+# /etc/cron.d/sftpclone
+0 0 * * * root sftpclone / aldur@aldur-host:root_backup > /dev/null 2>&1
+```
+
+## Conclusion
+By now you should have installed and configured SFTPclone.

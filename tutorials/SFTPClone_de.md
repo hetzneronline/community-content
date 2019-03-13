@@ -1,0 +1,59 @@
+# SFTPClone backup
+## Einführung
+Die Software [sftpclone](https://github.com/unbit/sftpclone) basiert auf SFTP und arbeitet ähnlich wie rsync. Das Programm kopiert und hält uptodate den gesamten Inhalt eines bestimmten Ordners. Es verwaltet gleichzeitig die symbolischen Links, Zugangszeiten und so weiter.
+
+
+## Installation
+Es ist in Python (unterstützt sowohl Version 2 als auch 3) geschrieben und Sie können es mithilfe von PIP installieren.
+
+```
+# you can choose to install it in either user or root space
+$ pip install sftpclone --user
+$ sudo pip install sftpclone
+```
+Falls PIP nicht installiert ist, dann müssten Sie es zuerst [installieren](https://pip.readthedocs.io/en/stable/installing/).
+
+Nach der Installation können Sie stfpclone ausführen.
+
+Bitte benutzen Sie die Option `-h`, um alle möglichen Konfigurationsparameter anzeigen zu lassen. Auf der [Projetseite](https://github.com/unbit/sftpclone) finden Sie mehr ausführliche Informationen.
+
+```
+$ sftpclone -h
+
+usage: sftpclone [-h] [-k private-key-path]
+                    [-l {CRITICAL,ERROR,WARNING,INFO,DEBUG,NOTSET}] [-p PORT]
+                    [-f] [-a] [-c ssh config path] [-n known_hosts path] [-d]
+                    [-e exclude-from-file-path]
+                    local-path user[:password]@hostname:remote-path
+```
+
+Die einfachste Konfiguration definiert den lokalen Ordner für den Backup und den Freigabeordner.
+
+`$ sftpclone local-path user[:password]@hostname:remote-path`
+
+Wie immer sollten Sie keine Passwörter im Klartext benutzen. Stattdessen sollten Sie einen private key benutzen, um die Passworteingabe zu umgehen. Eine Anleitung dazu finden sie [hier](https://wiki.hetzner.de/index.php/Backup_Space_SSH_Keys/).
+
+__Bitte beachten Sie:__ wenn Sie kein Passwort angeben, dann wird sftpclone immer die Anmeldung über einen public key benutzen.
+
+Sie können eine Liste mit Dateien definieren, die nicht mit kopiert werden sollen.
+
+__Warnung:__ bitte geben Sie den Freigabeordner richtig an. Bei der Synchronisation werden alle Daten gelöscht, die nicht im lokalen Ordner vorhanden sind.
+
+Sobald Sie die optimalen Parameter für sftpclone gewählt haben, können Sie einen cronjob erstellen, damit die Daten automatisch aktualisiert werden. Sie können das Skript in `/etc/cron.daily` (täglich), `/etc/cron.weekly` (wöchentlich) oder `/etc/cron.monthly` (monatlich) speichern.
+
+Sie können beim cronjob auch die gewünschte Zeit angeben in der Datei `/etc/cron.d/`:
+
+```
+# /etc/cron.d/sftpclone
+0 0 * * * root sftpclone local-path user[:password]@hostname:remote-path 
+[-k private-key-path] > /dev/null 2>&1
+```
+Hier ist ein Beispiel:
+
+```
+# /etc/cron.d/sftpclone
+0 0 * * * root sftpclone / aldur@aldur-host:root_backup > /dev/null 2>&1
+```
+
+## Fazit
+Hiermit sollte sie SFTPClone installiert und konfiguriert haben.
