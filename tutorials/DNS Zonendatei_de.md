@@ -175,9 +175,9 @@ mail        IN A     2.3.4.5
 www         IN A     2.3.4.5
 ```
 
-Der Administrator hat die Mailadresse "admin@technik.example.com".
+Der Administrator hat die Mailadresse `admin@technik.example.com.
 
-* Der primäre Nameserver hat den Hostnamen "ns.technik.example.com".
+* Der primäre Nameserver hat den Hostnamen `ns.technik.example.com`.
 * Es ist der einzige Nameserver (kein sekundärer Nameserver vorhanden).
 * Er hat die IP-Adresse `5.6.7.8`
 Ein Host namens `mail.technik.example.com` mit der IP-Adresse `2.3.4.5` existiert und ist gleichzeitig zuständig für den Mailempfang der Subdomain.

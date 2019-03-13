@@ -75,7 +75,7 @@ The dns zone has a TTL (Time To Live) of 86400 seconds ($TTL 86400)
 
 * The `ns1.first-ns.de`, `robotns2.second-ns.de` and `robotns3.second-ns.com` are responsible for the nameservers
 * The period at the end of the lines here also prevents the search for `ns1.first-ns.de.example.com`, which in this case would be nonsense
-* IP addresses are not permitted in NS records (if an own nameserver is used, whose hostname should be `ns1.example.com: define the appropriate A record and specify Glue when registering the domain and register the nameserver) in advance with the Registrars.
+* IP addresses are not permitted in NS records (if an own nameserver is used, whose hostname should be `ns1.example.com`: define the appropriate A record and specify Glue when registering the domain and register the nameserver) in advance with the Registrars.
 
 
 ### Hosts
@@ -144,7 +144,7 @@ As an alternative to the procedure described under "Sub domain", a delegation of
 
 Note: In Robot, it is not possible to create DNS zones for subdomains! Here subdomains can only be defined as described in the section "Sub domain".
 
-For example, a subdomain for the "technology" department of a large company needs to be setup for short-term internal tests. The DNS records of the subdomain need to be independent of the entries for the domain `example.com` (hosted at a large and possibly inflexible provider).
+For example, a subdomain for the "technology" department of an example company needs to be setup for short-term internal tests. The DNS records of the subdomain need to be independent of the entries for the domain `example.com` (hosted at a large and possibly inflexible provider).
 
 ### Preparing the main domain
 
