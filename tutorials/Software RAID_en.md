@@ -61,7 +61,7 @@ mdadm --stop /dev/md2
 
 After that, the drive can be formatted normally again (e.g. with ext3):
 
-``
+```
 mkfs.ext3 /dev/sda
 mkfs.ext3 /dev/sdb
 ```
