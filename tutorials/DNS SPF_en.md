@@ -13,6 +13,7 @@ SPF does not prevent spam which originates from a domain that has been properly 
 With SPF a specific TXT record is added zone file of the domain. This entry specifies the SMTP servers authorised for a domain. For incoming emails, mail servers can determine whether the sending SMTP server was allowed to send these emails by means of the sender domain and information from the SPF entry.
 
 An SPF record looks, for example, like this:
+
 ```
   @		IN	TXT	"v=spf1 mx ip4:10.0.0.1 
   a:test.example.com -all"
@@ -84,6 +85,7 @@ Receiving server: mail.aol.com               ---> SPF check "cool-address.com": 
 In practise, the domain alone is not simply replaced by the new domain as this could be exploited by spammers for bounce attacks. An exact description of SRS procedure can be found [here](http://www.libsrs2.org/) under `I want to find out about SRS` (PDF document).
 
 ## Disadvantages of SPF
+
 * unfortunately, SPF entries are not very widespread, therefore SPF filters show relatively few "matches"
 * the SRS procedure important for email forwarding is similarly not very penetrant in practice
 * a change of provider necessitates exact planning and adjustment of SPF entries during the relocation phase

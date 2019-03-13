@@ -12,12 +12,12 @@ Bei SPF wird ein Record vom Typ TXT in die Zonendatei der Domain eingetragen. In
 Ein SPF-Record sieht beispielsweise so aus:
 
 ```
-  @		IN	TXT	"v=spf1 mx ip4:10.0.0.1.98 
+  @		IN	TXT	"v=spf1 mx ip4:10.0.0.1 
   a:test.example.com -all"
 ```
 
 * es sind alle Rechner, für die MX-Records in dieser Domäne existieren, gültig
-* zusätzlich sind Mails vom Rechner mit der IP `10.0.0.1` erlaubt
+* zusätzlich sind Mails vom Rechner mit der IP `<10.0.0.1>` erlaubt
 * Mails vom Rechner `test.example.com` werden ebenfalls akzeptiert
 * alle anderen Mailserver sind Spam-/Virenschleudern und nicht autorisiert
 
