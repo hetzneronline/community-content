@@ -5,7 +5,7 @@
    * If you're not fluent in English, but you have a great tutorial to share in a different language, please reach out to us. We are open to the possibility of making exceptions for specific tutorials.
 * Only original work will be accepted.
  * This means that any tutorials found elsewhere on the web cannot be submitted (again).
-* If your Tutorial requires a server it should work on a new server.
+* If your tutorial requires a server it should work on a new server.
    * If a user has just ordered a server, they should be able to follow the tutorial step by step, without first having to install or configure anything. If that is a prerequisite for your tutorial though, please make sure there is already a tutorial explaining that, and then make sure to link to that other tutorial at the beginning of yours.
 * Write in a clear, easy to understand way.
    * These tutorials will be read by users with a wide range of experience. Make sure beginners can still follow what is being done. This means it is important not to skip any steps, no matter how obvious or self-explanatory they may seem. Feel free to include screenshots, to show exactly what the user should be seeing.
@@ -15,13 +15,13 @@
 
 ## How to 
 
-1. Fork the Project
-2. Add your Tutorial Folder
+1. Fork the project
+2. Add your tutorial folder
    `mkdir -p tutorials/my-tutorial-name`
 3. Add the templates 
    `cat tutorial-template.md > tutorials/my-tutorial-name/01.en.md`
-4. Create the Content
-5. Create a Pull Request and include following to your Pull Request:
+4. Create the content
+5. Create a pull request and include following to your pull request:
 
 ```
 I have read and understood the Contributor's Certificate of Origin
@@ -29,7 +29,7 @@ available at the end of https://raw.githubusercontent.com/hetzneronline/communit
 Signed-off-by: YOUR NAME <YOUR@EMAILPROVIDER.TLD>
 ```
 
-6. To collect your Rewards, the community manager will contact you by that e-mail address you stated in your first pull request
+6. To collect your rewards, the Hetzner Online Community Manager will contact you by writing to the email address you used in your first pull request
 7. Thanks!
 
 
