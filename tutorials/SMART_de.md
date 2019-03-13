@@ -7,8 +7,6 @@ Unter Linux können diese Funktionen mit Hilfe der Software [smartctl](https://s
 
 ## S.M.A.R.T konfigurieren und nutzen
 
-Befehle mit Dank an "menschenskinder" aus dem Forum übernommen.
-
 Aktivieren:
 
 `smartctl -s on -d ata /dev/sda`
@@ -44,7 +42,7 @@ Fehler anzeigen (wenn vorhanden):
 
 `smartctl -l error -d ata /dev/sda`
 
-NVMe:
+### NVMe
 
 siehe [Smart-Log abfragen](https://wiki.hetzner.de/index.php/NVMe#Smart-Log_abfragen)
 
