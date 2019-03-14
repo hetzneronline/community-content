@@ -14,7 +14,7 @@ apt update ; apt upgrade
 
 ## Step 1 - Install Apache web server and OpenSSL
 
-The first step you need to do is to install the Apache web server and openssl (e. g. using "apt"):
+The first step you need to do is to install the Apache web server and openssl (e. g. using "apt"). You only need to do this if you haven't installed the Apache web server and openssl before.
 ```bash
 apt install apache2 openssl ssl-cert
 ```
@@ -45,7 +45,21 @@ ssl_module (shared)
 [...]
 ```
 
-## Step 3 - Generate your own CA
+## Step 3 - Get Let'sEncrypt certificate for basic SSL connections
+
+We now need to install the Let'sEncrypt certbot:
+```bash
+apt-get install certbot python-certbot-apache
+```
+
+We'll now get the certificate:
+```bash
+certbot --apache
+```
+You need to provide your mail address to get a certificate and you are asked to agree Let'sEncrypts Terms of Service. The Certbot tool also asks, if you would like to share your mail address with the developers of Certbot. It's up to you if you want to do that.
+If you haven't set up any vHost yet, you will be asked to provide the domain name that you want to secure, since Certbot can't detect it. Please provide a domain name that you want to secure. You have to keep in mind that this domain name needs to point to the server already, otherwise you won't get a certificate.
+
+## Step 4 - Generate your own CA
 
 You can either run the following commands on your local machine (in this case openssl is needed on your machine) or directly on your server. Please make sure that only you have access to this directory, since it will contain all the private keys and certificates later!
 
@@ -77,7 +91,7 @@ openssl req -x509 -new -nodes -key MyOwnCA.key -sha256 -days 1024 -out MyOwnCA.p
 
 When you run the above command, you will be asked for some data, such as your name and your location. It is recommended to fill this out correctly (but it is not necessary). Most important for SSL certificates is the common name, we recommend setting this to the domain name that you want to secure with this certificate.
 
-## Step 4 - Generate client certificates
+## Step 5 - Generate client certificates
 
 With the CA created above, you will now be able to generate client certificates. At first we need a key (such as in step 3 for the CA generation).
 ```bash
@@ -125,9 +139,9 @@ Download the .pfx-file (e. g. via SCP) and provide it to the user, which has to 
 
 Please repeat the procedure of Step 4 for every client certificate that you want to create.
 
-## Step 5 - Add rules for SSL authentictaion in your .htaccess
+## Step 6 - Add rules for SSL authentictaion in your .htaccess
 
-Please add the following rules to your .htaccess files to activate the SSL client authentication for several directories or complete websites. .htaccess files should always be located in the directory with the files the .htaccess rules should be applied to.
+Please add the following rules to your .htaccess file or your virtual host file to activate the SSL client authentication for several directories or complete websites. .htaccess files should always be located in the directory with the files the .htaccess rules should be applied to.
 
 ```
 SSLVerifyClient require
@@ -144,30 +158,30 @@ SSLRequire %{SSL_CLIENT_S_DN_CN} eq "holu@example.com"
 ```
 Here you can set a common name of the client certificates that should get access. If you don't set this option, all certificates that were signed by your CA will be accepted.
 
-## Step 6 - Prepare directory for CA files
+## Step 7 - Prepare directory for CA files
 
 Now, we need to create a new directory for the SSL-CAs and make it accessible for Apache to read from that directory.
 ```bash
-mkdir /etc/ssl_ca_certs
-chown root.www-data /etc/ssl_ca_certs/
-chmod 740 /etc/ssl_ca_certs/
+mkdir /etc/ssl_clientauth_cas
+chown root.www-data /etc/ssl_clientauth_cas/
+chmod 750 /etc/ssl_clientauth_cas/
 ```
 
 Into this new directory, we can now copy the CAs .pem-file.
 ```bash
-cp /root/openssl_files/MyOwnCA.pem /etc/ssl_ca_certs/
+cp /root/openssl_files/MyOwnCA.pem /etc/ssl_clientauth_cas/
 ```
 
 Now we need to create symlinks with the hashes of the certificates as name. Apache works with the hashes of the certificates in the background.
 ```bash
-c_rehash /etc/ssl_ca_certs/
+c_rehash /etc/ssl_clientauth_cas/
 ```
 
-## Step 6 - Update Apache 2 config
+## Step 8 - Update Apache 2 config
 
 In the last step, we need to update the configuration of Apache 2 to use the CA certificates inside the folder that we have just created. Please add the following line to **/etc/apache2/apache2.conf** (for use with all incoming HTTPs connections) or inside a specific virtual host:
 ```
-SSLCACertificatePath /etc/ssl_ca_certs
+SSLCACertificatePath /etc/ssl_clientauth_cas
 ```
 
 After that, please restart Apache 2
@@ -183,7 +197,7 @@ After that you may get more detailed information in your error log.
 
 To check if the verification of a certificate works, you can run this command:
 ```bash
-openssl verify -CApath /etc/ssl_ca_certs/ YourCertificateToCheck.pem
+openssl verify -CApath /etc/ssl_clientauth_cas/ YourCertificateToCheck.pem
 ```
 * "YourCertificateToCheck.pem" has to be changed to the location that your .pem-file can be found on.
 
