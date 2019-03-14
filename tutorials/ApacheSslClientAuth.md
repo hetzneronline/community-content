@@ -153,7 +153,7 @@ SSLVerifyDepth 10
 ```
 This sets the depth of the verification. It needs to be set if the server needs to check more certificates. (This is the case if chained certificates are used.)
 
-You may also limit the access to specific certificates using "SSLRequire".
+You may also limit the access to specific certificates using "SSLRequire". You can find more detailed information in the offical Apache 2 documentation (see: https://httpd.apache.org/docs/2.4/mod/mod_ssl.html#sslrequire).
 
 ## Step 7 - Prepare directory for CA files
 
