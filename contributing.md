@@ -1,18 +1,38 @@
 # Hetzner Tutorial Guidelines
 ## General Criteria
 * All tutorials should be written in English.
- * If you're fluent in another language, and are able to make a translation, you can submit your tutorial in multiple languages, as long as at least one is English.
- * If you're not fluent in English, but you have a great tutorial to share in a different language, please reach out to us. We are open to the possibility of making exceptions for specific tutorials.
+  * If you're fluent in another language, and are able to make a translation, you can submit your tutorial in multiple languages, as long as at least one is English.
+   * If you're not fluent in English, but you have a great tutorial to share in a different language, please reach out to us. We are open to the possibility of making exceptions for specific tutorials.
 * Only original work will be accepted.
  * This means that any tutorials found elsewhere on the web cannot be submitted (again).
-* If your Tutorial requires a server it should work on a new server.
- * If a user has just ordered a server, they should be able to follow the tutorial step by step, without first having to install or configure anything. If that is a prerequisite for your tutorial though, please make sure there is already a tutorial explaining that, and then make sure to link to that other tutorial at the beginning of yours.
+* If your tutorial requires a server it should work on a new server.
+   * If a user has just ordered a server, they should be able to follow the tutorial step by step, without first having to install or configure anything. If that is a prerequisite for your tutorial though, please make sure there is already a tutorial explaining that, and then make sure to link to that other tutorial at the beginning of yours.
 * Write in a clear, easy to understand way.
- * These tutorials will be read by users with a wide range of experience. Make sure beginners can still follow what is being done. This means it is important not to skip any steps, no matter how obvious or self-explanatory they may seem. Feel free to include screenshots, to show exactly what the user should be seeing.
- * If you use acronyms, make sure to write them out the first time you use them.
- * Don't use excessive jargon or techspeak. Again, if you do use a word that not everybody might understand, either explain it, or use an easier to understand word or phrase.
- * Jokes are allowed, but don't overdo it.
- 
+   * These tutorials will be read by users with a wide range of experience. Make sure beginners can still follow what is being done. This means it is important not to skip any steps, no matter how obvious or self-explanatory they may seem. Feel free to include screenshots, to show exactly what the user should be seeing.
+   * If you use acronyms, make sure to write them out the first time you use them.
+   * Don't use excessive jargon or techspeak. Again, if you do use a word that not everybody might understand, either explain it, or use an easier to understand word or phrase.
+   * Jokes are allowed, but don't overdo it.
+
+## How to 
+
+1. Fork the project
+2. Add your tutorial folder
+   `mkdir -p tutorials/my-tutorial-name`
+3. Add the templates 
+   `cat tutorial-template.md > tutorials/my-tutorial-name/01.en.md`
+4. Create the content
+5. Create a pull request and include following to your pull request:
+
+```
+I have read and understood the Contributor's Certificate of Origin
+available at the end of https://raw.githubusercontent.com/hetzneronline/community-content/master/tutorial-template.md and I hereby certify that I meet the contribution criteria described in it.
+Signed-off-by: YOUR NAME <YOUR@EMAILPROVIDER.TLD>
+```
+
+6. To collect your rewards, the Hetzner Online Community Manager will contact you by writing to the email address you used in your first pull request
+7. Thanks!
+
+
 ## Layout
 Tutorials should all have the same basic layout:
 
@@ -54,11 +74,12 @@ print s
 
 ## Terminology
 Many tutorials will need to include example usernames, hostnames, domains, and IPs. To simplify this all tutorials should use the same default examples, as outlined below.
-Username: holu (short for Hetzner OnLine User)
 
+* Username: `holu` (short for Hetzner OnLine User)
 * Hostname: `<your_host>`
 * Domain: `<example.com>`
-* IP: `<10.0.0.1>`
+* IPv4: `<10.0.0.1>`
+* IPv6: `<2001:db8:1234::1>`
 
 ## Graphic
 You are also welcome to send us a graphic for the Introduction area. Graphics should be created in a ratio of 16:9 and be max. 250kb in size.
@@ -66,6 +87,7 @@ You are also welcome to send us a graphic for the Introduction area. Graphics sh
 ## Template
 To help you get started, we've prepared a template that you can build on. It includes a basic layout for your tutorial, some examples of formatting, and a number of tips and tricks for setting everything up. Please find that here:
 
-[Tutorial Template](https://github.com/hetzneronline/community-content/blob/master/TutorialTemplate.md)
+[Tutorial Template](tutorial-template.md)
+
 ## Submissions
 If you think you have a tutorial that meets the criteria above, and would be useful to share, please reach out to us via our github account.
