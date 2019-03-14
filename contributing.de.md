@@ -14,6 +14,25 @@
   * Verwenden Sie keinen übermäßigen Jargon oder Techspeak. Auch hier gilt: Wenn Sie ein Wort verwenden, das nicht jeder verstehen könnte, erklären Sie es entweder oder verwenden Sie ein leichter verständliches Wort oder einen Satz.
   * Witze sind erlaubt, aber übertreib es nicht.
   
+## Wie man ein Tutorial einreicht
+
+1. Fork des Projekts anlegen
+2. Fügen Sie ihren Tutorial-Ordner hinzu
+   `mkdir -p tutorials/my-tutorial-name`
+3. Fügen Sie die Templates hinzu 
+   `cat tutorial-template.md > tutorials/my-tutorial-name/01.en.md`
+4. Erstellen Sie den Inhalt
+5. Erstellen Sie einen Pull-Request und fügen Sie folgendes in Ihren Pull-Request ein:
+
+```
+I have read and understood the Contributor's Certificate of Origin
+available at the end of https://raw.githubusercontent.com/hetzneronline/community-content/master/tutorial-template.md and I hereby certify that I meet the contribution criteria described in it.
+Signed-off-by: YOUR NAME <YOUR@EMAILPROVIDER.TLD>
+```
+
+6. Um Ihre Prämie zu erhalten, wird sich der Hetzner Online Community Manager mit Ihnen in Verbindung setzen, indem er an die E-Mail-Adresse schreibt, die Sie bei Ihrer ersten Pull-Request angegeben haben.
+7. Vielen Dank!
+
 ## Layout
 Tutorials sollten alle das gleiche grundlegende Layout haben:
 
