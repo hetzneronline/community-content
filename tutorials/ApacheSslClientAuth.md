@@ -139,7 +139,7 @@ Download the .pfx-file (e. g. via SCP) and provide it to the user, which has to 
 
 Please repeat the procedure of Step 4 for every client certificate that you want to create.
 
-## Step 6 - Add rules for SSL authentictaion in your .htaccess
+## Step 6 - Add rules for SSL authentictaion in your virtual host (or .htaccess)
 
 Please add the following rules to your .htaccess file or your virtual host file to activate the SSL client authentication for several directories or complete websites. .htaccess files should always be located in the directory with the files the .htaccess rules should be applied to.
 
@@ -153,10 +153,7 @@ SSLVerifyDepth 10
 ```
 This sets the depth of the verification. It needs to be set if the server needs to check more certificates. (This is the case if chained certificates are used.)
 
-```
-SSLRequire %{SSL_CLIENT_S_DN_CN} eq "holu@example.com"
-```
-Here you can set a common name of the client certificates that should get access. If you don't set this option, all certificates that were signed by your CA will be accepted.
+You may also limit the access to specific certificates using "SSLRequire".
 
 ## Step 7 - Prepare directory for CA files
 
