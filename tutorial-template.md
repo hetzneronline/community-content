@@ -7,6 +7,7 @@ title: "A great Tutorial Template! :+1:"
 short_description: "We build a Tutorial Template, for the Frontmatter (first few lines before the actual content) please fill as much as possible. If you dont know what to put somewhere, just leave it empty, the Community manager will fill it for you"
 tags: ["Development", "Lang:Go", "Lang:JS"]
 author: "Your Name"
+author_link: "https://github.com/....."
 author_img: "https://avatars3.githubusercontent.com/u/....."
 author_description: "Manipulating arrays of characters in modern text editors that need more RAM than we used to do a flight to the moon. But it's super awesome... "
 header_img: "Url to a header image, optional"
@@ -18,17 +19,15 @@ header_img: "Url to a header image, optional"
 
 ## Introduction
 
-The first paragraph or paragraphs are there for you to explain what your tutorial will be doing.
+The first paragraph or paragraphs are there for you to explain what your tutorial will do. Please don't simply list the steps you will be following, a table of contents (TOC) with the steps will be automatically added.
 Make sure users know exactly what they will end up with if they follow your tutorial, and let them know if they need any specific prerequisites.
 You can link to other tutorials that your tutorial builds on, and add recommendations for what users should know.
 
 **Prerequisites**
 
-If that is a prerequisite for your tutorial though, please make sure there is already a tutorial explaining that, and then make sure to link to that other tutorial at the beginning of yours.
-
+If there are any prerequisites for your tutorial, please make sure there is already a tutorial explaining that, and then make sure to link to that other tutorial at the beginning of yours.
 
 ## Step 1 - &lt;summary of step>
-
 
 Steps are the actual steps users will be taking to complete your tutorial.
 Each step should build on the previous one, until the final step that finishes the tutorial.
@@ -44,25 +43,31 @@ Then...
 
 Finally...
 
-
 ## Step 2 - &lt;summary of step>
 
 More instructions.
-### Code Example
+
+### Step 2.1 - &lt;summary of step>
+
+Here is a code example
 
 ```javascript
 var s = "JavaScript syntax highlighting";
 alert(s);
 ```
- 
+
+### Step 2.2 - &lt;summary of step>
+
+Another code example
+
 ```python
 s = "Python syntax highlighting"
 print s
 ```
 
-## Step 3 - &lt;summary of step>
+## (Optional) Step 3 - &lt;summary of step>
 
-More instructions.
+Yet more instructions.
 
 ### Terminology
 * Username: `holu` (short for Hetzner OnLine User)
