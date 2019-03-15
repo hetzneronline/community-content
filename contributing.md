@@ -17,22 +17,21 @@
 ## How to 
 
 1. Fork the project
-2. Add your tutorial folder
+2. Add your tutorial folder:
    `mkdir -p tutorials/my-tutorial-name`
-3. Add the templates 
+3. Add the templates:
    `cat tutorial-template.md > tutorials/my-tutorial-name/01.en.md`
-4. Create the content
-5. Create a pull request and include following to your pull request:
+4. Write the content
+5. Create a pull request and include the following in your request:
 
 ```
-I have read and understood the Contributor's Certificate of Origin
-available at the end of https://raw.githubusercontent.com/hetzneronline/community-content/master/tutorial-template.md and I hereby certify that I meet the contribution criteria described in it.
+I have read and understood the Contributor's Certificate of Origin available at the end of 
+https://raw.githubusercontent.com/hetzneronline/community-content/master/tutorial-template.md
+and I hereby certify that I meet the contribution criteria described in it.
 Signed-off-by: YOUR NAME <YOUR@EMAILPROVIDER.TLD>
 ```
 
-6. To collect your rewards, the Hetzner Online Community Manager will contact you by writing to the email address you used in your first pull request
-7. Thanks!
-
+6. Provide your Hetzner Account information so you can receive the reward (you will receive an email from a Hetzner Online Community Manager if your tutorial is accepted)
 
 ## Layout
 Tutorials should all have the same basic layout:
