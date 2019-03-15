@@ -35,13 +35,13 @@ In this tutorial I'll show you how to deploy laravel application on Hetzner clou
 
 ## Step 3 - Installing Apache
  type these commands: 
-* `sudo apt-get update` to update ubuntu package manager
-* `sudo apt-get install apache2` to install apache 
-* `sudo service apache2 status` to make sure that the apache is working as a service if you see ` active (running)` then everything is ok
+* `apt-get update` to update ubuntu package manager
+* `apt-get install apache2` to install apache 
+* `service apache2 status` to make sure that the apache is working as a service if you see ` active (running)` then everything is ok
 
 ## Step 4 - Install MySQL 
-* `sudo apt-get install mysql-server`  to install mysql 
-* `sudo mysql_secure_installation` to set your mysql password.
+* `apt-get install mysql-server`  to install mysql 
+* `mysql_secure_installation` to set your mysql password.
     * the prompt will ask you few question 
         * Would you like to setup VALIDATE PASSWORD plugin? : Y
         * Enter password validation policy : 0
@@ -55,15 +55,15 @@ In this tutorial I'll show you how to deploy laravel application on Hetzner clou
 * `mysql -u root -p` it will ask you for your password if you see `Welcome to the MySQL monitor` then everything is ok
 
 ## Step 5 - Install PHP 
-* `sudo apt-get install software-properties-common`
-* `sudo add-apt-repository ppa:ondrej/php` to add php7.1 repository 
-* `sudo apt-get update` to update your package manager
+* `apt-get install software-properties-common`
+* `add-apt-repository ppa:ondrej/php` to add php7.1 repository 
+* `apt-get update` to update your package manager
 * install php and required extensions 
 ```
-sudo apt-get install php7.1 php7.1-xml php7.1-mbstring php7.1-mysql php7.1-json php7.1-curl php7.1-cli php7.1-common php7.1-mcrypt php7.1-gd libapache2-mod-php7.1 php7.1-zip php7.1-dom
+apt-get install php7.1 php7.1-xml php7.1-mbstring php7.1-mysql php7.1-json php7.1-curl php7.1-cli php7.1-common php7.1-mcrypt php7.1-gd libapache2-mod-php7.1 php7.1-zip php7.1-dom
 ``` 
 ## Step 6 - Install Composer
-* `sudo apt-get install composer`
+* `apt-get install composer`
 
 ## Step 7 - Install Laravel Project
 * `cd /var/www/html`

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d0c71c4-dd73-4e06-87ce-600697805f42" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/tutorials/deploy-laravel-on-hetzner-cloud/en.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tutorials/deploy-laravel-on-hetzner-cloud/en.md" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/deploy-laravel-on-hetzner-cloud/en.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,20 +17,8 @@
         <entry file="file://$PROJECT_DIR$/tutorials/deploy-laravel-on-hetzner-cloud/en.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="660">
-                <caret line="76" column="32" selection-start-line="76" selection-start-column="32" selection-end-line="76" selection-end-column="32" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="01.en.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tutorials/configuring-windows-remote-desktop-services/01.en.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="-615">
-                <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+              <first_editor relative-caret-position="266">
+                <caret line="44" column="43" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
               </first_editor>
               <second_editor />
             </state>
@@ -121,12 +109,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1552661060529</updated>
-      <workItem from="1552661061789" duration="5037000" />
+      <workItem from="1552661061789" duration="5302000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5037000" />
+    <option name="totallyTimeSpent" value="5302000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -183,8 +171,8 @@
     <entry file="file://$PROJECT_DIR$/tutorials/deploy-laravel-on-hetzner-cloud/en.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="660">
-            <caret line="76" column="32" selection-start-line="76" selection-start-column="32" selection-end-line="76" selection-end-column="32" />
+          <first_editor relative-caret-position="266">
+            <caret line="44" column="43" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
           </first_editor>
           <second_editor />
         </state>
