@@ -74,7 +74,7 @@ In this tutorial I'll show you how to deploy Laravel application on Hetzner clou
 * `# cd /var/www/html`
 * `# composer create-project --prefer-dist laravel/laravel blog "5.6.*"`
 * Now let's move the files from `blog/` directory to Apache's root directory `# cd blog/ && mv * ../ && mv .env ../`
-* Go to `http://<IP Address>/public` and you will see your app Live now 
+* Go to `http://10.0.0.1/public` and you will see your app now
 
 
 ## Conclusion
