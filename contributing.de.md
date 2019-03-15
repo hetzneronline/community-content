@@ -17,9 +17,9 @@
 ## Wie man ein Tutorial einreicht
 
 1. Fork des Projekts anlegen
-2. Fügen Sie ihren Tutorial-Ordner hinzu
+2. Fügen Sie ihren Tutorial-Ordner hinzu:
    `mkdir -p tutorials/my-tutorial-name`
-3. Fügen Sie die Templates hinzu 
+3. Fügen Sie die Templates hinzu: 
    `cat tutorial-template.md > tutorials/my-tutorial-name/01.en.md`
 4. Erstellen Sie den Inhalt
 5. Erstellen Sie einen Pull-Request und fügen Sie folgendes in Ihren Pull-Request ein:
@@ -30,8 +30,7 @@ available at the end of https://raw.githubusercontent.com/hetzneronline/communit
 Signed-off-by: YOUR NAME <YOUR@EMAILPROVIDER.TLD>
 ```
 
-6. Um Ihre Prämie zu erhalten, wird sich der Hetzner Online Community Manager mit Ihnen in Verbindung setzen, indem er an die E-Mail-Adresse schreibt, die Sie bei Ihrer ersten Pull-Request angegeben haben.
-7. Vielen Dank!
+6. Um Ihre Prämie zu erhalten, geben Sie ihre Kundennummer an (Sie erhalten eine E-Mail vom Hetzner Online Community Manager, wenn Ihr Tutorial angenommen wird).
 
 ## Layout
 Tutorials sollten alle das gleiche grundlegende Layout haben:
