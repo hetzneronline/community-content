@@ -31,7 +31,7 @@ and I hereby certify that I meet the contribution criteria described in it.
 Signed-off-by: YOUR NAME <YOUR@EMAILPROVIDER.TLD>
 ```
 
-6. Provide your Hetzner Account information so you can receive the reward (you will receive an email from a Hetzner Online Community Manager if your tutorial is accepted)
+6. If your tutorial is accepted, you will receive an email from a Hetzner Online Community Manager. Please respond to this email, providing your Hetzner Account number, so the reward can be added as a credit to your account.
 
 ## Layout
 Tutorials should all have the same basic layout:
