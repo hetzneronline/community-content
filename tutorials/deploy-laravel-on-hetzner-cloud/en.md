@@ -30,7 +30,7 @@ In this tutorial I'll show you how to deploy Laravel application on Hetzner clou
 
 ## Step 2 - Login into you server
 * Go to servers list in console cloud and copy your servers IP address (e.g. 10.0.0.1)
-* Open your terminal and write `# ssh root@<IP Address>`
+* Open your terminal and write `# ssh root@10.0.0.1`
 * You will see now welcome message from your server
 
 ## Step 3 - Installing Apache
