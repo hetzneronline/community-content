@@ -2,7 +2,7 @@
 path: "tutorials/deploy-laravel-on-hetzner-cloud"
 date: "2019-03-08"
 title: "Deploy Laravel App on Hetzner Cloud"
-short_description: "In this article we well learn how to install LAMP stack on Hetzner cloud server and deploy Laravel app on it"
+short_description: "In this article we will learn how to install a LAMP stack on a Hetzner cloud server and deploy a Laravel app on it"
 tags: ["Hcloud","Cloud","Laravel","Deploy"]
 author: "Ahmed Gad"
 author_link: "https://github.com/engahmedgad"
