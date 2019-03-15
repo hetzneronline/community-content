@@ -30,7 +30,7 @@ available at the end of https://raw.githubusercontent.com/hetzneronline/communit
 Signed-off-by: YOUR NAME <YOUR@EMAILPROVIDER.TLD>
 ```
 
-6. Um ihre Prämie zu erhalten, halten sie bitte Ihre Kundennummer bereit. Sie erhalten eine E-Mail von einem Hetzner Online Community Manager, wenn Ihr Tutorial angenommen wird. Dieser wird alles Weitere mit ihnen klären.
+6. Wenn Ihr Tutorial angenommen wird, erhalten Sie eine E-Mail von einem Hetzner Online Community Manager. Bitte antworten Sie auf diese Mail unter Angabe Ihrer Hetzner Kundenummer, damit die Prämie Ihrem Konto als Guthaben gutgeschrieben werden kann.
 
 ## Layout
 Tutorials sollten alle das gleiche grundlegende Layout haben:
