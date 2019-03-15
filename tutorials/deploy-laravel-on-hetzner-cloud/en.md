@@ -30,18 +30,18 @@ In this tutorial I'll show you how to deploy laravel application on Hetzner clou
 
 ## Step 2 - login into you server
 * Go to servers list in console cloud and copy your server  `IP Address` 
-* Open your  terminal and write ` ssh root@<IP Address>`
+* Open your  terminal and write `$ ssh root@<IP Address>`
 * You will see now welcome message from your server
 
 ## Step 3 - Installing Apache
  type these commands: 
-* `apt-get update` to update ubuntu package manager
-* `apt-get install apache2` to install apache 
-* `service apache2 status` to make sure that the apache is working as a service if you see ` active (running)` then everything is ok
+* `$ apt-get update` to update ubuntu package manager
+* `$ apt-get install apache2` to install apache 
+* `$ service apache2 status` to make sure that the apache is working as a service if you see ` active (running)` then everything is ok
 
 ## Step 4 - Install MySQL 
-* `apt-get install mysql-server`  to install mysql 
-* `mysql_secure_installation` to set your mysql password.
+* `$ apt-get install mysql-server`  to install mysql 
+* `$ mysql_secure_installation` to set your mysql password.
     * the prompt will ask you few question 
         * Would you like to setup VALIDATE PASSWORD plugin? : Y
         * Enter password validation policy : 0
@@ -52,23 +52,28 @@ In this tutorial I'll show you how to deploy laravel application on Hetzner clou
         * Disallow root login remotely? : Y
         * Remove test database and access to it? : Y
         * Reload privilege tables now? : Y     
-* `mysql -u root -p` it will ask you for your password if you see `Welcome to the MySQL monitor` then everything is ok
+* `$ mysql -u root -p` it will ask you for your password if you see `Welcome to the MySQL monitor` then everything is ok
 
 ## Step 5 - Install PHP 
-* `apt-get install software-properties-common`
-* `add-apt-repository ppa:ondrej/php` to add php7.1 repository 
-* `apt-get update` to update your package manager
+* `$ apt-get install software-properties-common`
+* `$ add-apt-repository ppa:ondrej/php` to add php7.1 repository 
+* `$ apt-get update` to update your package manager
 * install php and required extensions 
 ```
-apt-get install php7.1 php7.1-xml php7.1-mbstring php7.1-mysql php7.1-json php7.1-curl php7.1-cli php7.1-common php7.1-mcrypt php7.1-gd libapache2-mod-php7.1 php7.1-zip php7.1-dom
+$ apt-get install php7.1 php7.1-xml php7.1-mbstring php7.1-mysql php7.1-json php7.1-curl php7.1-cli php7.1-common php7.1-mcrypt php7.1-gd libapache2-mod-php7.1 php7.1-zip php7.1-dom
 ``` 
 ## Step 6 - Install Composer
-* `apt-get install composer`
+* first download composer installer 
+    * `$ curl -sS https://getcomposer.org/installer -o composer-setup.php`
+* install composer globally
+    * `$ php composer-setup.php --install-dir=/usr/local/bin --filename=composer`
+* and now let's verify that is composer is installed successfully type in your terminal `$ composer` if you see something like `Composer version 1.8.4 2019-02-11 10:52:10
+` then everything is ok
 
 ## Step 7 - Install Laravel Project
-* `cd /var/www/html`
-* `composer create-project --prefer-dist laravel/laravel blog "5.6.*"`
-* Now let's move the files from `blog/` directory to apache's root directory ` cd blog/ && mv * ../ && mv .env ../`
+* `$ cd /var/www/html`
+* `$ composer create-project --prefer-dist laravel/laravel blog "5.6.*"`
+* Now let's move the files from `blog/` directory to apache's root directory `$ cd blog/ && mv * ../ && mv .env ../`
 * Go to `http://<IP Address>/public` and you will see your app Live now 
 
 
