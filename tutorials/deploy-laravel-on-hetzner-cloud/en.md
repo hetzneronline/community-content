@@ -1,6 +1,8 @@
 ---
+SPDX-License-Identifier: MIT
 path: "tutorials/deploy-laravel-on-hetzner-cloud"
-date: "2019-03-08"
+slug: "deploy-laravel-on-hetzner-cloud"
+date: "2019-03-15"
 title: "Deploy Laravel App on Hetzner Cloud"
 short_description: "In this article we will learn how to install a LAMP stack on a Hetzner cloud server and deploy a Laravel app on it"
 tags: ["Hcloud","Cloud","Laravel","Deploy"]
