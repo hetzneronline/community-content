@@ -1,16 +1,13 @@
 
 # Hetzner Community
 
-Welcome to the Hetzner Community Project. This Repository holds the Community Contributed Content.
+Welcome to the Hetzner Online Community project. This Repository holds the Community contributed content.
 
-More Information will be publicly announced on March 13th.
+The Hetzner Online Community can be found here: https://community.hetzner.com/
 
 
 ## Contribution Guide 
 
-Basically, you just make a Pull Request and the Community Managers will take care of it.
-[Here are our Guidelines.](./ContributionGuidelines.md)
+Please read the [Contribution Guidelines](./contributing.md)
 
-### Sneak Preview
-
-![Preview](assets/Hetzner_Community_Screens.jpg)
+If you would like to make a contribution, please follow the instructions in the Contribution Guidelines and then open a Pull Request. One of the Community Managers will then evaluate your tutorial, and provide you with feedback.
