@@ -27,7 +27,7 @@ All other models are not certified by VMware, yet in most cases VMware vSphere/E
 installed.
 
 The following table lists all currently known working models and versions
-(information is subject to change)
+(information subject to change)
 
 | Model                 | VMware vSphere (ESXi) Version                                 |
 |-----------------------|---------------------------------------------------------------|
@@ -83,9 +83,21 @@ instances can be ordered via Hetzner Robot.  Either in form of a limited number
 of single IP addresses or for larger quantities in form subnets. Please note
 that using subnets will require setting up a virtual machine to act as router.
 
-### Single IP addresses
+For connectivity between multiple ESXi servers within the same
+public Hetzner subnet, host routes via gateway are necessary due to network
+security restrictions.
 
-When using single IP addresses, you must request a dedicated virtual MAC address for each IP.
+```
+# host A
+esxcfg-route -a <IP Host B> 255.255.255.255 <gateway IP>
+
+# host B
+esxcfg-route -a <IP Host A> 255.255.255.255 <gateway IP>
+```
+
+### Using single IP addresses
+
+When using single IP addresses for virtual machines, you must request a dedicated virtual MAC address for each IP.
 via Hetzner Robot. Configure the assigned MAC addresses in the network card settings
 of the virtual machine. Once this is done, the virtual machine can be installed and will receive
 its network settings via DHCP from the Hetzner network.
@@ -93,7 +105,7 @@ its network settings via DHCP from the Hetzner network.
 ![Setting assigned MAC address](../assets/VMwarevSphereInstallationSetup_assign_mac.png)
 
 
-### Subnets
+### Using Subnets
 
 Using a subnet requires at least on additional single IP address which must be
 setup with a virtual machine that will function as a router for the subnet.
@@ -124,19 +136,46 @@ All servers come with a /64 IPv6 subnet. To see which IPv6 subnet your
 server has please check the \"IPs\" tab of the server in
 [Hetzner Robot](https://robot.your-server.de).
 
-The IPv6 subnet is routed to the default link-local address (which is
-derived from the MAC address) of the main IP. Via
-[Hetzner Robot](https://robot.your-server.de) the routing of the IPv6 subnet can be
-switched to the link-local address of the virtual MAC (in other words,
-the additional single IP). This can be done in
-[Hetzner Robot](https://robot.your-server.de), using the same symbol which is found next
-to additional single IPs to request virtual MAC addresses. In this
-case, the host running vSphere receives no IPv6 address. This is neither
-necessary nor possible because ESXi does not work with an `fe80::1` gateway.
+The IPv6 subnet is routed to the default link-local address (which is derived
+from the MAC address) of the main IP. Via [Hetzner
+Robot](https://robot.your-server.de) the routing of the IPv6 subnet can be
+switched to the link-local address of the virtual MAC (in other words, the
+additional single IP). This can be done in [Hetzner
+Robot](https://robot.your-server.de), using the same symbol which is found next
+to additional single IPs to request virtual MAC addresses. In this case, the
+host running vSphere receives no IPv6 address. This is neither necessary nor
+possible because ESXi does not work with an `fe80::1` gateway.
 
-In order to use IP addresses from a subnet in virtual machines, a dedicate
+In order to use IP addresses from a subnet in virtual machines, a dedicated
 *router VM* supplemented by an additional virtual network card from the new
 subnet is necessary. The subnet itself requires a new vSwitch to which all
 virtual machines in the subnet must be connected.
 
+** Notes **
+
+The network card type for the router VM should not be VMXNET2 or VMXNET3, as
+otherwise the TCP performance can be very bad.  You can workaround this issue
+by disabling Large Receive Offload (LRO) on the ESXi host:
+
+-   Log into the ESXi host with the vSphere Client.
+-   Select the host -\> Configuration -\> Software:Advanced Settings.
+-   Select Net and scroll down slightly more than half way.
+-   Set the following parameters from 1 to 0:
+
+`Net.VmxnetSwLROSL`\
+`Net.Vmxnet3SwLRO`\
+`Net.Vmxnet3HwLRO`\
+`Net.Vmxnet2SwLRO`\
+`Net.Vmxnet2HwLRO`
+
+Reboot the vSphere host to activate these changes.
+
+If you experience connection problems in systems with Realtek network cards
+then under certain circumstances deactivating offloading and activating polling
+can solve this. However, this also reduces the performance.
+
+- checksum offload: deactivated
+- segmentation offload: deactivated
+- large receive offload: deactivated
+- device polling: enabled
 
