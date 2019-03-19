@@ -83,6 +83,7 @@ Reboot the server and log in.
 
 ## Additional Steps
 Installation would be complete now, but if you encounter problems you could follow these steps:
+
 Change HDD size:
 
 `fdisk -u /dev/wd0`
@@ -116,6 +117,7 @@ Reboot one last time and you can start configuring.
 ## Weblinks
 
 http://www.bsdforen.de/showthread.php?t=14574
+
 http://www.daemonology.net/depenguinator/ 
 
 ## Conclusion
