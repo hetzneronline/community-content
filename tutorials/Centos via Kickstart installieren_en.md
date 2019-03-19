@@ -8,7 +8,7 @@ This article explains the automatic installation of CentOS via Kickstart.
 
 ## Preparations
 
-* Create the Kickstart-Configuration-File. __Caution:__There must not be a single error in this file! 
+* Create the Kickstart-Configuration-File. __Caution:__ There must not be a single error in this file! 
 *  deposit the Kickstart-Configuration-File on your server
 * Alternatively pick one of the [Hetzner Kickstart Examples](https://wiki.hetzner.de/index.php/Hetzner_Kickstart_Examples)
 * Edit the Reverse-DNS-Entry for your server in Robot
