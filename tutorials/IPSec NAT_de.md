@@ -3,7 +3,7 @@
 
 Zur sicheren Anbindung von Hosts kommt oft IPSec zum Einsatz. Bei der Einrichtung muß beachtet werden, daß bei CX-vServern die öffentliche IP per 1:1 NAT auf eine interne IP umgesetzt wird
 
-In dieser Anleitung wird mit StrongSWAN und Pre-Shared-Keys eine transparente IPSec Verbindung zwischen einem externe Host und eine CX vServer aufgebaut. Es können dann auf beiden Seiten die öffentlichen IPs verwendet werden.
+In dieser Anleitung wird mit StrongSWAN und Pre-Shared-Keys eine transparente IPSec Verbindung zwischen einem externen Host und einem CX vServer aufgebaut. Es können dann auf beiden Seiten die öffentlichen IPs verwendet werden.
 
 Es sollten grundsätzlich Kennwörter mit einer Länge über 32 Zeichen inklusive Ziffern und Sonderzeichen verwendet werden.
 

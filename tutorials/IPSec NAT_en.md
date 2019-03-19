@@ -1,4 +1,4 @@
-#IPsec NAT
+# IPsec NAT
 ## Introduction
 
 To establish a secure connection between hosts IPSec is often used. During installation one must remember, that CX-vServers translate the public IP via 1:1 NAT to an internal IP.
@@ -61,9 +61,10 @@ Creating/Modifying the  `/etc/ipsec.conf` file with the correct values:
          right=2001:db8:c17::2
 ```
 
-Some StrongSwan Versions use specific insertions. In our case they are exactly 8 Backspaces or one tabulator.
+Some StrongSwan Versions use specific insertions. In our case they are exactly 8 Spaces or one tabulator.
 
 Creating/Modifying the  `/etc/ipsec.secrets` file with the correct values:
+
 ```
  203.0.113.40 192.0.2.10 : PSK "SuperGeheimesPasswortFuerIp4Tunnel"
  2001:db8:c17::2 2001:db8:61:20e1::2 : PSK "SuperGeheimesPasswortFuerIp6Tunnel"
