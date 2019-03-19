@@ -10,6 +10,8 @@ author: "Your Name"
 author_link: "https://github.com/....."
 author_img: "https://avatars3.githubusercontent.com/u/....."
 author_description: "Manipulating arrays of characters in modern text editors that need more RAM than we used to do a flight to the moon. But it's super awesome... "
+language: "en"
+available_languages: ["If you have translated the tutorial into other languages, please enter the languages according to ISO 639-1 here."]
 header_img: "Url to a header image, optional"
 ---
 
