@@ -1,6 +1,6 @@
 # CentOS/Fedora via Kickstart installieren
 ## Introduction
-This article explains the automatic installtion of CentOS via Kickstart.
+This article explains the automatic installation of CentOS via Kickstart.
 
 * The Hetzner.Kickstarter-Script prepares an installation environment on the first hdd
 * The Kickstart-Configuration-file determines the components to install and automatically carrys out the installation
