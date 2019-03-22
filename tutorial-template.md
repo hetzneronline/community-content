@@ -17,7 +17,7 @@ header_img: "Url to a header image, optional"
 
 <!-- This where the actual tutorial begins, with the title: -->
 
-# Installing &lt;software> on &lt;Operating System>
+# Installing <software> on <Operating System>
 
 ## Introduction
 
@@ -29,7 +29,7 @@ You can link to other tutorials that your tutorial builds on, and add recommenda
 
 If there are any prerequisites for your tutorial, please make sure there is already a tutorial explaining that, and then make sure to link to that other tutorial at the beginning of yours.
 
-## Step 1 - &lt;summary of step>
+## Step 1 - <summary of step>
 
 Steps are the actual steps users will be taking to complete your tutorial.
 Each step should build on the previous one, until the final step that finishes the tutorial.
@@ -45,11 +45,11 @@ Then...
 
 Finally...
 
-## Step 2 - &lt;summary of step>
+## Step 2 - <summary of step>
 
 More instructions.
 
-### Step 2.1 - &lt;summary of step>
+### Step 2.1 - <summary of step>
 
 Here is a code example
 
@@ -58,7 +58,7 @@ var s = "JavaScript syntax highlighting";
 alert(s);
 ```
 
-### Step 2.2 - &lt;summary of step>
+### Step 2.2 - <summary of step>
 
 Another code example
 
@@ -67,7 +67,7 @@ s = "Python syntax highlighting"
 print s
 ```
 
-## (Optional) Step 3 - &lt;summary of step>
+## (Optional) Step 3 - <summary of step>
 
 Yet more instructions.
 
@@ -78,7 +78,7 @@ Yet more instructions.
 * IPv4: `<10.0.0.1>`
 * IPv6: `<2001:db8:1234::1>`
 
-## Step N - &lt;summary of step>
+## Step N - <summary of step>
 
 More instructions.
 
