@@ -1,0 +1,54 @@
+# How to install IonCube Loader in CentOS 6
+## Introduction
+In this tutorial, I will explain how to install IonCube Loader in CentOS6.
+ionCube was founded in 2002, and introduced tools to protect software written using the PHP programming language from being viewed, changed, and run on unlicensed computers. The encoding technology grew out of earlier work on the PHP Accelerator project, and at first launch included an online encoding service where PHP scripts can be uploaded and an encoded version downloaded in return, and a command line tool for Linux soon after.
+**Prerequisites**
+VPS running CentOS
+
+## Step 1 - Download IonCube
+Download the required files into /tmp directory in your system and extract them.
+
+For CentOS 32bit system:
+```cd /tmp
+wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86.tar.gz
+tar xfz ioncube_loaders_lin_x86.tar.gz```
+For CentOS 64bit system:
+```cd /tmp
+wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
+tar xfz ioncube_loaders_lin_x86-64.tar.gz```
+## Step 2 - Select the right ioncube loader to install
+To select the right IonCube loader to install, first check your php version. Check PHP version by running this php -v command. Output:
+
+```PHP 5.6.4 (cli) (built: Jun 26 2012  21:17:27)
+Copyright (c) 1997-2013 The PHP Group
+Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies with the ionCube PHP Loader (enabled) + Intrusion Protection from ioncube24.com (unconfigured) v5.0.18, Copyright (c) 2002-2015, by ionCube Ltd.```
+
+After, locate the extension directory of the installed PHP version using the command below:
+
+```php -i | grep extension_dir```
+Output:
+```extension_dir => /usr/lib/php5/20131226 => /usr/lib/php5/20131226
+sqlite3.extension_dir => no value => no valut```
+And copy IonCube loader to the extension directory.
+
+```cp /tmp/ioncube/ioncube_loader_lin_5.6.so  /usr/lib/php5/20131226/```
+## Step 3 - Configure IonCube Loader
+Open configuration file and add IonCube Loader
+
+```vi /etc/php.ini```
+```zend_extension = /usr/lib/php5/20131226/ioncube_loader_lin_5.6.so```
+Restart apache web server to take affects:
+
+```systemctl restart httpd```
+## Step 4 - Test Ioncube Loader
+
+Check IonCube Loader by following this command:
+
+php -m
+
+
+
+## Conclusion
+You should have Ioncube Loader installed on your server.
+Enjoy!
+
