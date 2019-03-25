@@ -45,7 +45,7 @@ ssl_module (shared)
 [...]
 ```
 
-## Step 3 - Get Let'sEncrypt certificate for basic SSL connections
+## Step 3 - Get Let's Encrypt certificate for basic SSL connections
 
 We now need to install the Let'sEncrypt certbot:
 ```bash
