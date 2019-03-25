@@ -56,7 +56,7 @@ We'll now get the certificate:
 ```bash
 certbot --apache
 ```
-You need to provide your mail address to get a certificate and you are asked to agree Let'sEncrypts Terms of Service. The Certbot tool also asks, if you would like to share your mail address with the developers of Certbot. It's up to you if you want to do that.
+You need to provide your mail address to get a certificate and you are asked to agree Let's Encrypts Terms of Service. The Certbot tool also asks, if you would like to share your mail address with the developers of Certbot. It's up to you if you want to do that.
 If you haven't set up any vHost yet, you will be asked to provide the domain name that you want to secure, since Certbot can't detect it. Please provide a domain name that you want to secure. You have to keep in mind that this domain name needs to point to the server already, otherwise you won't get a certificate.
 
 ## Step 4 - Generate your own CA
