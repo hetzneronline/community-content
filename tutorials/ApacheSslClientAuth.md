@@ -47,7 +47,7 @@ ssl_module (shared)
 
 ## Step 3 - Get Let's Encrypt certificate for basic SSL connections
 
-We now need to install the Let'sEncrypt certbot:
+We now need to install the Let's Encrypt Certbot:
 ```bash
 apt-get install certbot python-certbot-apache
 ```
