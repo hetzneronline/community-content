@@ -107,7 +107,7 @@ openssl req -new -key MyClientCert1.key -out MyClientCert1.csr
 * "-key MyClientCert1.key" stands for the key file that should be used - make sure to use the key that you have created for the client certificate and not the key for the CA certificate!
 * "-out MyClientCert1.csr" specifies the location where the CSR should be saved
 
-When you run the above command, you will be asked for some data - such as before when creating the CA. The data that you provide here is more important here, especially the common name, since this can be used for authentication purposes later (so that not every certificate signed with your CA can access every web application that is secured with this CA). - We recommend using a username and your domain name as common name (e. g. holu@example.com). Additional attributes, such as "challenge password" and "optional company name" can be left empty.
+When you run the above command, you will be asked for some data - such as before when creating the CA. The data that you provide is more important here, especially the common name, since this can be used for authentication purposes later (so that not every certificate signed with your CA can access every web application which is secured with this CA). - We recommend using a username and your domain name as common name (e. g. holu@example.com). Additional attributes, such as "challenge password" and "optional company name" can be left empty.
 
 Now we need to create the client certificate itself:
 ```bash
