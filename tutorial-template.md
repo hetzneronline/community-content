@@ -4,7 +4,7 @@ path: "/tutorials/tutorial-template"
 slug: "tutorial-template"
 date: "2030-01-01"
 title: "A great Tutorial Template! :+1:"
-short_description: "We build a Tutorial Template, for the Frontmatter (first few lines before the actual content) please fill as much as possible. If you dont know what to put somewhere, just leave it empty, the Community manager will fill it for you"
+short_description: "This is a tutorial template, including frontmatter (the first few lines before the actual content). Please fill in as much as possible. If you dont know what to put somewhere, just leave it empty, the Community manager will fill it for you."
 tags: ["Development", "Lang:Go", "Lang:JS"]
 author: "Your Name"
 author_link: "https://github.com/....."
@@ -12,12 +12,10 @@ author_img: "https://avatars3.githubusercontent.com/u/....."
 author_description: "Manipulating arrays of characters in modern text editors that need more RAM than we used to do a flight to the moon. But it's super awesome... "
 language: "en"
 available_languages: ["Please enter all available languages of the tutorial according to ISO 639-1 here."]
-header_img: "Url to a header image, optional"
+header_img: "URL to a header image (optional)"
 ---
 
-<!-- This where the actual tutorial begins, with the title: -->
-
-# Installing <software> on <Operating System>
+<!-- This where the actual tutorial begins. You don't need to write out the title again, having it in the frontmatter above is enough. -->
 
 ## Introduction
 
@@ -67,7 +65,7 @@ s = "Python syntax highlighting"
 print s
 ```
 
-## (Optional) Step 3 - <summary of step>
+## Step 3 - <summary of step> (Optional)
 
 Yet more instructions.
 
@@ -83,6 +81,8 @@ Yet more instructions.
 More instructions.
 
 ## Conclusion
+
+A short conclusion summarizing what the user has done, and maybe suggesting different courses of action they can now take.
 
 ##### License: MIT
 
