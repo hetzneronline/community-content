@@ -18,10 +18,7 @@ header_img: "URL to a header image (optional)"
 <!-- This where the actual tutorial begins. You don't need to write out the title again, having it in the frontmatter above is enough. -->
 ## Introduction
 In this tutorial, I will explain how to install the IonCube Loader on CentOS6.
-IonCube was founded in 2002, and introduced tools to protect software written in PHP from being
-viewed, changed, and ran on unlicensed computers. The encoding technology was developed from earlier work on the PHP Accelerator project,
-and included an online encoding service at the first start, where PHP scripts can be uploaded and an encoded version can be downloaded.
-return and a command line program for Linux.
+ionCube was founded in 2002, and introduced tools to protect software written using the PHP programming language from being viewed, changed, and run on unlicensed computers. The encoding technology grew out of earlier work on the PHP Accelerator project, and at first launch included an online encoding service where PHP scripts can be uploaded and an encoded version downloaded in return, and a command line tool for Linux soon after. The tools use the technique of compiling to bytecode prior to encoding so that source code is eliminated, and runtime overheads are reduced. A PHP extension called the ionCube Loader handles the reading and execution of encoded files at run time.
 
 **Prerequisites**
 - (virtual) server
