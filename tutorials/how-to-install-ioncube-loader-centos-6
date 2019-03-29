@@ -4,7 +4,7 @@ path: "/tutorials/how-to-install-ioncube-loader-centos-6"
 slug: "how-to-install-ioncube-loader-centos-6"
 date: "2019-03-24"
 title: "How to install IonCube Loader on CentOS 6"
-short_description: "This is a tutorial will explain How to install IonCube Loader on CentOS 6"
+short_description: "This tutorial will explain how to install the IonCube Loader on CentOS 6"
 tags: ["CentOS", "Linux", "IonCube Loader","PHP Encoder"]
 author: "Albin Pllana"
 author_link: "https://github.com/ALBDX"
