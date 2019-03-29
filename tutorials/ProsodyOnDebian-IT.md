@@ -1,8 +1,28 @@
+---
+SPDX-License-Identifier: MIT
+path: "/tutorials/tutorial-template"
+slug: "tutorial-template"
+date: "2019-03-29"
+title: "Installazione di Prosody XMPP Server su Debian 9:"
+short_description: "Questo tutorial vi aiuterà a mettere in funzione un server xmpp allo stato
+dell'arte che supera tutti i test nel tester di [conformità](https://compliance.conversations.im/), ma ha
+anche alcune ulteriori modifiche."
+tags: ["Development", "Lang:Go", "Lang:JS"]
+author: "Massimiliano"
+author_link: "https://github.com/massimilianoLe"
+author_img: "https://avatars3.githubusercontent.com/u/44651815?s=460&v=4"
+author_description: "Manipulating arrays of characters in modern text editors that need more RAM than we used to do a flight to the moon. But it's super awesome... "
+language: "it"
+available_languages: ["Please enter all available languages of the tutorial according to ISO 639-1 here."]
+header_img: "URL to a header image (optional)"
+---
+
+<!-- This where the actual tutorial begins. You don't need to write out the title again, having it in the frontmatter above is enough. -->
+
 # Installazione di Prosody XMPP Server su Debian 9
 ## Introduzione
 Prosody è un moderno e noto server xmpp scritto in Lua.
-Questo
-tutorial vi aiuterà a mettere in funzione un server xmpp allo stato
+Questo tutorial vi aiuterà a mettere in funzione un server xmpp allo stato
 dell'arte che supera tutti i test nel tester di [conformità](https://compliance.conversations.im/), ma ha
 anche alcune ulteriori modifiche.
 
@@ -479,3 +499,34 @@ Funzioni aggiuntive per l'amministratore:
 - Annunci a livello di server per tutti gli utenti
 - Messaggio informativo quando i certificati rischiano di scadere
 - Messaggio informativo in caso di guasto della connessione non criptata da un altro server XMPP
+
+##### License: MIT
+
+<!---
+
+Contributors's Certificate of Origin
+
+By making a contribution to this project, I certify that:
+
+(a) The contribution was created in whole or in part by me and I have
+    the right to submit it under the license indicated in the file; or
+
+(b) The contribution is based upon previous work that, to the best of my
+    knowledge, is covered under an appropriate license and I have the
+    right under that license to submit that work with modifications,
+    whether created in whole or in part by me, under the same license
+    (unless I am permitted to submit under a different license), as
+    indicated in the file; or
+
+(c) The contribution was provided directly to me by some other person
+    who certified (a), (b) or (c) and I have not modified it.
+
+(d) I understand and agree that this project and the contribution are
+    public and that a record of the contribution (including all personal
+    information I submit with it, including my sign-off) is maintained
+    indefinitely and may be redistributed consistent with this project
+    or the license(s) involved.
+
+Signed-off-by: [Massimiliano massimiliano@disroot.org]
+
+-->
