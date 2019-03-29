@@ -1,3 +1,21 @@
+---
+SPDX-License-Identifier: MIT
+path: "/tutorials/how-to-install-ioncube-loader-centos-6"
+slug: "how-to-install-ioncube-loader-centos-6"
+date: "2019-03-24"
+title: "How to install IonCube Loader on CentOS 6"
+short_description: "This is a tutorial will explain How to install IonCube Loader on CentOS 6"
+tags: ["CentOS", "Linux", "IonCube Loader","PHP Encoder"]
+author: "Albin Pllana"
+author_link: "https://github.com/ALBDX"
+author_img: "https://avatars3.githubusercontent.com/u/31274970?s=460&v=4"
+author_description: ""
+language: "en"
+available_languages: ["en"]
+header_img: "URL to a header image (optional)"
+---
+
+<!-- This where the actual tutorial begins. You don't need to write out the title again, having it in the frontmatter above is enough. -->
 ## Introduction
 In this tutorial, I will explain how to install the IonCube Loader on CentOS6.
 IonCube was founded in 2002, and introduced tools to protect software written in PHP from being
