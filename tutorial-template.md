@@ -4,20 +4,18 @@ path: "/tutorials/tutorial-template"
 slug: "tutorial-template"
 date: "2030-01-01"
 title: "A great Tutorial Template! :+1:"
-short_description: "We build a Tutorial Template, for the Frontmatter (first few lines before the actual content) please fill as much as possible. If you dont know what to put somewhere, just leave it empty, the Community manager will fill it for you"
+short_description: "This is a tutorial template, including frontmatter (the first few lines before the actual content). Please fill in as much as possible. If you dont know what to put somewhere, just leave it empty, the Community manager will fill it for you."
 tags: ["Development", "Lang:Go", "Lang:JS"]
 author: "Your Name"
 author_link: "https://github.com/....."
 author_img: "https://avatars3.githubusercontent.com/u/....."
 author_description: "Manipulating arrays of characters in modern text editors that need more RAM than we used to do a flight to the moon. But it's super awesome... "
 language: "en"
-available_languages: ["If you have translated the tutorial into other languages, please enter the languages according to ISO 639-1 here."]
-header_img: "Url to a header image, optional"
+available_languages: ["Please enter all available languages of the tutorial according to ISO 639-1 here."]
+header_img: "URL to a header image (optional)"
 ---
 
-<!-- This where the actual tutorial begins, with the title: -->
-
-# Installing &lt;software> on &lt;Operating System>
+<!-- This where the actual tutorial begins. You don't need to write out the title again, having it in the frontmatter above is enough. -->
 
 ## Introduction
 
@@ -29,7 +27,7 @@ You can link to other tutorials that your tutorial builds on, and add recommenda
 
 If there are any prerequisites for your tutorial, please make sure there is already a tutorial explaining that, and then make sure to link to that other tutorial at the beginning of yours.
 
-## Step 1 - &lt;summary of step>
+## Step 1 - <summary of step>
 
 Steps are the actual steps users will be taking to complete your tutorial.
 Each step should build on the previous one, until the final step that finishes the tutorial.
@@ -45,11 +43,11 @@ Then...
 
 Finally...
 
-## Step 2 - &lt;summary of step>
+## Step 2 - <summary of step>
 
 More instructions.
 
-### Step 2.1 - &lt;summary of step>
+### Step 2.1 - <summary of step>
 
 Here is a code example
 
@@ -58,7 +56,7 @@ var s = "JavaScript syntax highlighting";
 alert(s);
 ```
 
-### Step 2.2 - &lt;summary of step>
+### Step 2.2 - <summary of step>
 
 Another code example
 
@@ -67,7 +65,7 @@ s = "Python syntax highlighting"
 print s
 ```
 
-## (Optional) Step 3 - &lt;summary of step>
+## Step 3 - <summary of step> (Optional)
 
 Yet more instructions.
 
@@ -78,11 +76,13 @@ Yet more instructions.
 * IPv4: `<10.0.0.1>`
 * IPv6: `<2001:db8:1234::1>`
 
-## Step N - &lt;summary of step>
+## Step N - <summary of step>
 
 More instructions.
 
 ## Conclusion
+
+A short conclusion summarizing what the user has done, and maybe suggesting different courses of action they can now take.
 
 ##### License: MIT
 
