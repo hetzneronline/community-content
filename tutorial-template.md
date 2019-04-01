@@ -73,8 +73,22 @@ Yet more instructions.
 * Username: `holu` (short for Hetzner OnLine User)
 * Hostname: `<your_host>`
 * Domain: `<example.com>`
+
+Server:
 * IPv4: `<10.0.0.1>`
 * IPv6: `<2001:db8:1234::1>`
+
+Gateway:
+* IPv4: `<192.0.2.254>`
+* IPv6: `<2001:db8:1234::ffff>`
+
+Client private:
+* IPv4: `<198.51.100.1>`
+* IPv6 `<2001:db8:9abc::1>`
+
+Client public:
+* IPv4: `<203.0.113.1>`
+* IPv6: `<2001:db8:5678::1>`
 
 ## Step N - <summary of step>
 
