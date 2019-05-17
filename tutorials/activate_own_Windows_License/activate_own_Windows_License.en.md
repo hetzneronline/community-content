@@ -20,8 +20,7 @@ header_img: "URL to a header image (optional)"
 
 ## Introduction
 
-Hello, welcome to my tutorial.
-There is not much you can do wrong so go ahead an have fun with your server.
+Hello, welcome to my tutorial. There is not much you can do wrong so go ahead an have fun with your server. 
 This Tutorial is written for the Hetzner Online Community Project.
 
 **Prerequisites**
@@ -30,22 +29,21 @@ You need an Hetzner Server the best way would be to order him after you read ste
 
 ## Step 1 - <Server Configuration>
 
-If you did not already bought an Server choose on the Confiugration page "Rescue-System" as OS, we will later install Windows.
-If you already bought one then head to step 2 BUT Save your Data from the server, !ALL FILES GONNA BE DELETED!
+If you did not already buy a Server choose on the Configuration page "Rescue-System" as OS, we will later install Windows.
+If you already bought one then head to step 2 BUT Save your Data from the server,!ALL FILES GONNA BE DELETED!
 
 ## Step 2 - <KVM>
 
-When your Server is online you can login to your Robot, head to "Servers" and expand the server where you want to add your own License.
-Klick on the "Support" tab and chose as request type Remote Console (KVM), i would prefer to Request atleast 2 Hours, also you can chose an time when you want it.
-Important is that you wirte in the text field that you would like to have an USB-Stick with an Windows Server (2008,20012,2016) (Datacenter, Standart) ISO loaded to your Server.
+When your Server is online you can log in to your Robot, head to "Servers" and expand the server where you want to add your own License. Click on the "Support" tab and chose as request type Remote Console (KVM), I would prefer to Request at least 2 Hours, also you can choose a time when you want it. 
+Important is that you write in the text field that you would like to have an USB-Stick with a Windows Server (2008,20012,2016) (Datacenter, Standart) ISO loaded to your Server.
 
 ## Step 3 <Installing Windows>
 
 After the Support setup the KVM you can now login by simply following the link, login in, downloading the file and execute it with an up to date version of Java.
 
-Now you should see the normal Windows installing procceder wich you gonna follow, in the Setup or later in the OS you can add your own Windows Server Key.
+Now you should see the normal Windows installing wich you gonna follow, in the Setup or later in the OS you can add your own Windows Server Key.
 
-I think the install of windows is not that hard so not gonna theme it here further, if you wish to pleas let it me know i gonna expand the tutorial.
+I think the install of windows is not that hard so not gonna theme it here further if you wish to please let it I know I gonna expand the tutorial.
 
 ##### License: MIT
 
