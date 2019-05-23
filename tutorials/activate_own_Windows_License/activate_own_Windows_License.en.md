@@ -8,12 +8,12 @@ short_description: "You got your own Windows License? Dont want to pay for an Li
 tags: ["OS", "Windows", "License"]
 author: "TaktischerSpeck - Vincent"
 author_link: "https://github.com/TaktischerSpeck"
-author_img: "https://avatars2.githubusercontent.com/u/29396439?s=400&u=adbac0dd90544e4f3458f8ebae90dca70a0d5506&v=4"
+author_img: "https://avatars2.githubusercontent.com/u/29396439"
 author_description: "Passionate illiterate with a slight urge to drool.
 Leidenschaftlicher Analphabet mit leichtem Drang zum Sabbern."
 language: "en"
-available_languages: ["Please enter all available languages of the tutorial according to ISO 639-1 here."]
-header_img: "URL to a header image (optional)"
+available_languages: ["en"]
+header_img: ""
 ---
 
 <!-- This where the actual tutorial begins. You don't need to write out the title again, having it in the frontmatter above is enough. -->
@@ -27,17 +27,17 @@ This Tutorial is written for the Hetzner Online Community Project.
 
 You need an Hetzner Server the best way would be to order him after you read step 1 of the tutorial.
 
-## Step 1 - <Server Configuration>
+## Step 1 - Server Configuration
 
 If you did not already buy a Server choose on the Configuration page "Rescue-System" as OS, we will later install Windows.
 If you already bought one then head to step 2 BUT Save your Data from the server,!ALL FILES GONNA BE DELETED!
 
-## Step 2 - <KVM>
+## Step 2 - KVM
 
 When your Server is online you can log in to your Robot, head to "Servers" and expand the server where you want to add your own License. Click on the "Support" tab and chose as request type Remote Console (KVM), I would prefer to Request at least 2 Hours, also you can choose a time when you want it. 
-Important is that you write in the text field that you would like to have an USB-Stick with a Windows Server (2008,20012,2016) (Datacenter, Standart) ISO loaded to your Server.
+Important is that you write in the text field that you would like to have an USB-Stick with a Windows Server (2008,2012,2016) (Datacenter, Standart) ISO loaded to your Server.
 
-## Step 3 <Installing Windows>
+## Step 3 Installing Windows
 
 After the Support setup the KVM you can now login by simply following the link, login in, downloading the file and execute it with an up to date version of Java.
 
