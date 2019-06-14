@@ -100,7 +100,7 @@ A short conclusion summarizing what the user has done, and maybe suggesting diff
 
 ##### License: MIT
 
-<!---
+<!--
 
 Contributor's Certificate of Origin
 
