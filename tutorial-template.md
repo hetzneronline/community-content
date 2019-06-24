@@ -100,9 +100,9 @@ A short conclusion summarizing what the user has done, and maybe suggesting diff
 
 ##### License: MIT
 
-<!---
+<!--
 
-Contributors's Certificate of Origin
+Contributor's Certificate of Origin
 
 By making a contribution to this project, I certify that:
 
