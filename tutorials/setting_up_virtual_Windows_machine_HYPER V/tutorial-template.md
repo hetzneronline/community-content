@@ -24,6 +24,10 @@ Hello, i gonna show you how to install your own virtual Windows Server on an exi
 
 **Prerequisites**
 
+Open an Webbrowser and head to "http://mirror.hetzner.de/bootimages/windows/".
+
+Download your wanted Windows Version and download the .iso file.
+
 Additionall IP (The buy process is gonna be included in the Tutorial)
 Windows Server (This Tutorial only shows this on Windows Server 2016 other version could have differneces)
 Remotedesktop Connection to the Windows Server
@@ -58,7 +62,7 @@ Skip every side until you came to Server role, there make an leftklick on the "H
 
 Now Skip until you can press "install" after the install pleas restart your Server once.
 
-## Step 3 Setting up the Virtual Server
+## Step 4 Setting up the Virtual Server
 
 Start Hyper V, if you are not autmaticlly connectet Right click on Hyper V Manager and Connect with your LOKAL Computer.
 
@@ -86,7 +90,6 @@ Klick Next
 
 Klick on "Finish"
 
-
 Right Click on your new Virtual Machine and klick on Settings.
 
 Now you can edit your Hardware of the Server.
@@ -98,6 +101,38 @@ Head to Networkcard and chose your Virtual Switch connection.
 After this expand "networkcard" by klicking und the plus and go to extendet Features.
 
 Klick on Static Mac Address and fill in your previous copied MAC Adrres then Click on "Apply" and "OK"
+
+You can now change how many cores your VM Should have aswell, i would give it the maximum amount of cores (or cores -1 vor the Host system) that the install is short as possible, also you could do this for the RAM (8-12 GB should be more then enough).
+
+Now head to "IDE-Controller 1" and klick on "DVD Drive".
+
+Click on imagefile and now "search" the .iso you donwloaded before.
+
+Click "apply" and "ok"
+
+## Step 5 Setting up Windows
+
+Double tab on the your VM Name and then click on "Start".
+
+Now you should see the Hyper V Logo following of Loading files and a Windows Logo.
+
+When the Windows Setup startet chose your Keyboard and language preferences you want and click on "continue".
+
+Click on "Install now".
+
+Chose the Windows Variant you would like for me its Windows Server 2016 Standart (IMPORTANT you need to install the version with (Desktop view) behind the name, without this you only get an command Shell, click on continue
+
+Accept the License and click on continue
+
+Now take custom and click on the Harddrive you want to install windows to (In my case there is only one), click continue
+
+Now is your Server installing Windows you can now wait until its finished but dont Shutdown or suspend the VM or Host system.
+
+In the next Step your Administrator password.
+
+After this you can use your VM and have fun.
+
+
 
 Yet more instructions.
 
