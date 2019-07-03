@@ -20,35 +20,37 @@ header_img: ""
 
 ## Introduction
 
-Hello, i gonna show you how to install your own virtual Windows Server on an existing Windows Server.
+Hello, I gonna show you how to install your own virtual Windows Server on an existing Windows Server.
 
 **Prerequisites**
 
-Open an Webbrowser and head to "http://mirror.hetzner.de/bootimages/windows/".
+Open a Webbrowser and head to "http://mirror.hetzner.de/bootimages/windows/".
 
 Download your wanted Windows Version and download the .iso file.
 
-Additionall IP (The buy process is gonna be included in the Tutorial)
-Windows Server (This Tutorial only shows this on Windows Server 2016 other version could have differneces)
-Remotedesktop Connection to the Windows Server
+Additional IP (The buying process is gonna be included in the Tutorial)
+Windows Server (This Tutorial only shows this on Windows Server 2016 other version could have differences)
+Remote desktop Connection to the Windows Server
 
 ## Step 1 - Additionall IP
 
-This step is only needed if you did not already bought an Additionall IP, if you did proccede with Step 2.
+This step is only needed if you did not already bought an Additional IP, if you did proceed with Step 2.
 
 Login into you robot account (https://robot.your-server.de ), now Klick on Server and Klick on the server where you want to add the IP.
 
 When you expanded your Server klick on "IPs" and then on the grey button in the left bottom corner "Order additional IPs / networks".
 
-Now Chose "A paid IP (price (monthly): 1.00 € / Setup (once): 0.00 €)" and write as Reson for the ip "Virtual Server".
+Now Chose "A paid IP (price (monthly): 1.00 € / Setup (once): 0.00 €)" and write as Reson for the IP "Virtual Server".
+
+[![Image](https://thelastgamer.de/P1.PNG)]
 
 When your IP Order arrived proccede with step 2 
 
 ## Step 2 - Mac Address
 
-klick on the Network icon right to the IP "Request separate MAC".
+click on the Network icon right to the IP "Request separate MAC".
 
-Now klick on the red "Request separate MAC" Button, now you should see an Mac Adress wich should look like this: MAC: 00:50:56:00:E5:7B
+Now click on the red "Request separate MAC" Button, now you should see an Mac Adress which should look like this: MAC: 00:50:56:00:E5:7B
 
 Copy and write down the MAC Address for later.
 
@@ -56,77 +58,102 @@ Copy and write down the MAC Address for later.
 
 Login into your Windows Server via Remotedesktop.
 
-Start your Server manager and klick on "Add Role or feature"
+Start your Server manager and click on "Add Role or feature"
 
-Skip every side until you came to Server role, there make an leftklick on the "Hyper V" box and klick Add Features.
+Skip every side until you came to Server role, there make an left click on the "Hyper V" box and click Add Features.
 
-Now Skip until you can press "install" after the install pleas restart your Server once.
+[![Image](https://thelastgamer.de/2.PNG)]
+
+Now Skip until you can press "install" after the install please restart your Server once.
 
 ## Step 4 Setting up the Virtual Server
 
-Start Hyper V, if you are not autmaticlly connectet Right click on Hyper V Manager and Connect with your LOKAL Computer.
+Start Hyper V, if you are not automatically connected Right click on Hyper V Manager and Connect with your LOKAL Computer.
 
 Klick at the right side on "New -> Virtual Computer".
 
-Now Chose an Name, it can be any name, also you can assaing an path where the VM should be installed to.
-Klick Next
+Now Chose a Name, it can be any name, also you can assign a path where the VM should be installed to.
+Click Next
+
+[![Image](https://thelastgamer.de/3.PNG)]
 
 Chose Generation 1.
-Klick Next
+Click Next
 
-Now you can Setup the RAM of the Server, also you can activate Dinamic RAM wich means that the Server does not use as example 16GB Ram everytime, the Server uses the RAM he needs + 20% Puffer if the server needs less RAM your main Server does need less RAM to.
+Now you can Setup the RAM of the Server, also you can activate Dynamic RAM which means that the Server does not use as example 16GB Ram every time, the Server uses the RAM he needs + 20% Puffer if the server needs less RAM your main Server does need less RAM to.
 I Chose for 16000GB ram with Dynamic RAM.
+Click Next
+
+[![Image](https://thelastgamer.de/4.PNG)]
+
+Leave the Network config on "Not Connected"
+Click Next
+
+Now you can Choose which size your hard drive gonna have, windows needs about 25GB.
+Also, you can edit the Path.
 Klick Next
 
-Leav the Network config on "Not Connected"
-Klick Next
+[![Image](https://thelastgamer.de/6.PNG)]
 
-Now you can Chose wich size your harddive gonna have, windows needs about 25GB.
-Also you can edith the Path.
-Klick Next
+Now click on "Install OS Later"
+Click Next
 
-Now klick on "Install OS Later"
-Klick Next
+[![Image](https://thelastgamer.de/7.PNG)]
 
-Klick on "Finish"
+Click on "Finish"
 
-Right Click on your new Virtual Machine and klick on Settings.
+
+Right Click on your new Virtual Machine and click on Settings.
 
 Now you can edit your Hardware of the Server.
 
 I would recommend to higher the core count for the install at least.
 
-Head to Networkcard and chose your Virtual Switch connection.
+Head to Network card and chose your Virtual Switch connection.
 
-After this expand "networkcard" by klicking und the plus and go to extendet Features.
+After this expand "network card" by clicking und the plus and go to extended Features.
 
-Klick on Static Mac Address and fill in your previous copied MAC Adrres then Click on "Apply" and "OK"
+Click on Static Mac Address and fill in your previous copied MAC Address then Click on "Apply" and "OK"
 
-You can now change how many cores your VM Should have aswell, i would give it the maximum amount of cores (or cores -1 vor the Host system) that the install is short as possible, also you could do this for the RAM (8-12 GB should be more then enough).
+You can now change how many cores your VM Should have aswell, i would give it the maximum amount of cores (or cores -1 for the Host system) that the install is short as possible, also you could do this for the RAM (8-12 GB should be more than enough).
 
-Now head to "IDE-Controller 1" and klick on "DVD Drive".
+[![Image](https://thelastgamer.de/8.PNG)]
 
-Click on imagefile and now "search" the .iso you donwloaded before.
+Now head to "IDE-Controller 1" and click on "DVD Drive".
+
+Click on image file and now "search" the .iso you downloaded before.
 
 Click "apply" and "ok"
 
+[![Image](https://thelastgamer.de/9.PNG)]
+
 ## Step 5 Setting up Windows
 
-[![Image of 2](https://imgur.com/a/OalNmdH)]
 
-Double tab on the your VM Name and then click on "Start".
+Double tab on your VM Name and then click on "Start".
 
 Now you should see the Hyper V Logo following of Loading files and a Windows Logo.
 
-When the Windows Setup startet chose your Keyboard and language preferences you want and click on "continue".
+When the Windows Setup started chose your Keyboard and language preferences you want and click on "continue".
+
+[![Image](https://thelastgamer.de/10.PNG)]
 
 Click on "Install now".
 
-Chose the Windows Variant you would like for me its Windows Server 2016 Standart (IMPORTANT you need to install the version with (Desktop view) behind the name, without this you only get an command Shell, click on continue
+Chose the Windows Variant you would like for me its Windows Server 2016 Standart (IMPORTANT you need to install the version with (Desktop view) behind the name, without this you only get a command Shell, click on continue
+
+[![Image](https://thelastgamer.de/11.PNG)]
 
 Accept the License and click on continue
 
-Now take custom and click on the Harddrive you want to install windows to (In my case there is only one), click continue
+
+Now take custom 
+
+[![Image](https://thelastgamer.de/12.PNG)]
+
+click on the Harddrive you want to install windows to (In my case there is only one), click continue
+
+[![Image](https://thelastgamer.de/13.PNG)]
 
 Now is your Server installing Windows you can now wait until its finished but dont Shutdown or suspend the VM or Host system.
 
@@ -134,38 +161,11 @@ In the next Step your Administrator password.
 
 After this you can use your VM and have fun.
 
-
-
-Yet more instructions.
-
 ### Terminology
-* Username: `holu` (short for Hetzner OnLine User)
-* Hostname: `<your_host>`
-* Domain: `<example.com>`
-
-Server:
-* IPv4: `<10.0.0.1>`
-* IPv6: `<2001:db8:1234::1>`
-
-Gateway:
-* IPv4: `<192.0.2.254>`
-* IPv6: `<2001:db8:1234::ffff>`
-
-Client private:
-* IPv4: `<198.51.100.1>`
-* IPv6 `<2001:db8:9abc::1>`
-
-Client public:
-* IPv4: `<203.0.113.1>`
-* IPv6: `<2001:db8:5678::1>`
-
-## Step N - <summary of step>
-
-More instructions.
-
-## Conclusion
-
-A short conclusion summarizing what the user has done, and maybe suggesting different courses of action they can now take.
+VM = Virtual Machine
+Host System = Your Dedicated Server where the Virtual Machine is running on.
+OS = Operating System
+IP = Ip-Address
 
 ##### License: MIT
 

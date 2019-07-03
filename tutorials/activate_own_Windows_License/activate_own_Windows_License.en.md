@@ -41,9 +41,34 @@ Important is that you write in the text field that you would like to have an USB
 
 After the Support setup the KVM you can now login by simply following the link, login in, downloading the file and execute it with an up to date version of Java.
 
-Now you should see the normal Windows installing wich you gonna follow, in the Setup or later in the OS you can add your own Windows Server Key.
+Now you should see the normal Windows installing.
 
-I think the install of windows is not that hard so not gonna theme it here further if you wish to please let it I know I gonna expand the tutorial.
+When the Windows Setup startet chose your Keyboard and language preferences you want and click on "continue".
+
+[![Image](https://thelastgamer.de/10.PNG)]
+
+Click on "Install now".
+
+Chose the Windows Variant you would like for me its Windows Server 2016 Standart (IMPORTANT you need to install the version with (Desktop view) behind the name, without this you only get an command Shell, click on continue
+
+[![Image](https://thelastgamer.de/11.PNG)]
+
+Accept the License and click on continue
+
+
+Now take custom 
+
+[![Image](https://thelastgamer.de/12.PNG)]
+
+click on the Harddrive you want to install windows to (In my case there is only one), click continue
+
+[![Image](https://thelastgamer.de/13.PNG)]
+
+Now is your Server installing Windows you can now wait until its finished.
+
+In the next Step your Administrator password.
+
+After this you can use your Server and have fun.
 
 ##### License: MIT
 
