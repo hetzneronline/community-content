@@ -112,6 +112,8 @@ Click "apply" and "ok"
 
 ## Step 5 Setting up Windows
 
+[![|Solid](/img/2.png)]
+
 Double tab on the your VM Name and then click on "Start".
 
 Now you should see the Hyper V Logo following of Loading files and a Windows Logo.
