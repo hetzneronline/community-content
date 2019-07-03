@@ -112,7 +112,7 @@ Click "apply" and "ok"
 
 ## Step 5 Setting up Windows
 
-[![|Solid](https://imgur.com/a/0gxgAbg)]
+![img2] (/img/2.png)
 
 Double tab on the your VM Name and then click on "Start".
 
