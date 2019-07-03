@@ -112,7 +112,7 @@ Click "apply" and "ok"
 
 ## Step 5 Setting up Windows
 
-[![Image of 2](https://imgur.com/a/0gxgAbg)]
+[![Image of 2](https://thelastgamer.de/2.PNG)]
 
 Double tab on the your VM Name and then click on "Start".
 
