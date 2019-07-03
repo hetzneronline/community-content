@@ -42,7 +42,7 @@ When you expanded your Server klick on "IPs" and then on the grey button in the 
 
 Now Chose "A paid IP (price (monthly): 1.00 € / Setup (once): 0.00 €)" and write as Reson for the IP "Virtual Server".
 
-[![Image](https://thelastgamer.de/P1.PNG)]
+![Image](https://thelastgamer.de/P1.PNG)
 
 When your IP Order arrived proccede with step 2 
 
@@ -62,7 +62,7 @@ Start your Server manager and click on "Add Role or feature"
 
 Skip every side until you came to Server role, there make an left click on the "Hyper V" box and click Add Features.
 
-[![Image](https://thelastgamer.de/2.PNG)]
+![Image](https://thelastgamer.de/2.PNG)
 
 Now Skip until you can press "install" after the install please restart your Server once.
 
@@ -75,7 +75,7 @@ Klick at the right side on "New -> Virtual Computer".
 Now Chose a Name, it can be any name, also you can assign a path where the VM should be installed to.
 Click Next
 
-[![Image](https://thelastgamer.de/3.PNG)]
+![Image](https://thelastgamer.de/3.PNG)
 
 Chose Generation 1.
 Click Next
@@ -84,7 +84,7 @@ Now you can Setup the RAM of the Server, also you can activate Dynamic RAM which
 I Chose for 16000GB ram with Dynamic RAM.
 Click Next
 
-[![Image](https://thelastgamer.de/4.PNG)]
+![Image](https://thelastgamer.de/4.PNG)
 
 Leave the Network config on "Not Connected"
 Click Next
@@ -93,12 +93,12 @@ Now you can Choose which size your hard drive gonna have, windows needs about 25
 Also, you can edit the Path.
 Klick Next
 
-[![Image](https://thelastgamer.de/6.PNG)]
+![Image](https://thelastgamer.de/6.PNG)
 
 Now click on "Install OS Later"
 Click Next
 
-[![Image](https://thelastgamer.de/7.PNG)]
+![Image](https://thelastgamer.de/7.PNG)
 
 Click on "Finish"
 
@@ -117,7 +117,7 @@ Click on Static Mac Address and fill in your previous copied MAC Address then Cl
 
 You can now change how many cores your VM Should have aswell, i would give it the maximum amount of cores (or cores -1 for the Host system) that the install is short as possible, also you could do this for the RAM (8-12 GB should be more than enough).
 
-[![Image](https://thelastgamer.de/8.PNG)]
+![Image](https://thelastgamer.de/8.PNG)
 
 Now head to "IDE-Controller 1" and click on "DVD Drive".
 
@@ -125,7 +125,7 @@ Click on image file and now "search" the .iso you downloaded before.
 
 Click "apply" and "ok"
 
-[![Image](https://thelastgamer.de/9.PNG)]
+![Image](https://thelastgamer.de/9.PNG)
 
 ## Step 5 Setting up Windows
 
@@ -136,24 +136,24 @@ Now you should see the Hyper V Logo following of Loading files and a Windows Log
 
 When the Windows Setup started chose your Keyboard and language preferences you want and click on "continue".
 
-[![Image](https://thelastgamer.de/10.PNG)]
+![Image](https://thelastgamer.de/10.PNG)
 
 Click on "Install now".
 
 Chose the Windows Variant you would like for me its Windows Server 2016 Standart (IMPORTANT you need to install the version with (Desktop view) behind the name, without this you only get a command Shell, click on continue
 
-[![Image](https://thelastgamer.de/11.PNG)]
+![Image](https://thelastgamer.de/11.PNG)
 
 Accept the License and click on continue
 
 
 Now take custom 
 
-[![Image](https://thelastgamer.de/12.PNG)]
+![Image](https://thelastgamer.de/12.PNG)
 
 click on the Harddrive you want to install windows to (In my case there is only one), click continue
 
-[![Image](https://thelastgamer.de/13.PNG)]
+![Image](https://thelastgamer.de/13.PNG)
 
 Now is your Server installing Windows you can now wait until its finished but dont Shutdown or suspend the VM or Host system.
 

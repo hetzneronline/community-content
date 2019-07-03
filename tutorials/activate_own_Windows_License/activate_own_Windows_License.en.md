@@ -45,24 +45,24 @@ Now you should see the normal Windows installing.
 
 When the Windows Setup startet chose your Keyboard and language preferences you want and click on "continue".
 
-[![Image](https://thelastgamer.de/10.PNG)]
+![Image](https://thelastgamer.de/10.PNG)
 
 Click on "Install now".
 
 Chose the Windows Variant you would like for me its Windows Server 2016 Standart (IMPORTANT you need to install the version with (Desktop view) behind the name, without this you only get an command Shell, click on continue
 
-[![Image](https://thelastgamer.de/11.PNG)]
+![Image](https://thelastgamer.de/11.PNG)
 
 Accept the License and click on continue
 
 
 Now take custom 
 
-[![Image](https://thelastgamer.de/12.PNG)]
+![Image](https://thelastgamer.de/12.PNG)
 
 click on the Harddrive you want to install windows to (In my case there is only one), click continue
 
-[![Image](https://thelastgamer.de/13.PNG)]
+![Image](https://thelastgamer.de/13.PNG)
 
 Now is your Server installing Windows you can now wait until its finished.
 
