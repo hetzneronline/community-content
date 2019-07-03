@@ -112,7 +112,7 @@ Click "apply" and "ok"
 
 ## Step 5 Setting up Windows
 
-[![|Solid](/img/2.png)]
+[![|Solid](img/2.png)]
 
 Double tab on the your VM Name and then click on "Start".
 
