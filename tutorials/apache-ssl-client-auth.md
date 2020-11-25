@@ -1,3 +1,20 @@
+---
+SPDX-License-Identifier: MIT
+path: "/tutorials/apache-ssl-client-auth"
+slug: "apache-ssl-client-auth"
+date: "2020-11-25"
+title: "SSL-Client-Authentication with self-signed CA and Apache 2"
+short_description: "This is a tutorial describes how to set up SSL client authentication with Apache2"
+tags: ["Apache2", "SSL"]
+author: "Patrick Kratzer"
+author_link: ""
+author_img: ""
+author_description: ""
+language: "en"
+available_languages: ["en"]
+header_img: ""
+---
+
 # SSL-Client-Authentication with self-signed CA and Apache 2
 
 ## Introduction
