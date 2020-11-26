@@ -1,8 +1,8 @@
 ---
 SPDX-License-Identifier: MIT
 path: "/tutorials/apache-ssl-client-auth"
-slug: "/apache-ssl-client-auth"
-date: "2020-11-25"
+slug: "apache-ssl-client-auth"
+date: "2020-11-26"
 title: "SSL Client Authentication with self-signed CA and Apache 2"
 short_description: "This tutorial describes how to set up SSL client authentication with Apache2"
 tags: ["Apache2", "SSL"]
