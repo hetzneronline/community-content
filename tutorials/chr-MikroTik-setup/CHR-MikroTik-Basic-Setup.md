@@ -1,9 +1,9 @@
 ---
 SPDX-License-Identifier: MIT
-path: "/tutorials/chr-MikroTik-setup"
-slug: "chr-MikroTik-setup"
+path: "/tutorials/Mikrotik-CHR-setup"
+slug: "Mikrotik-CHR-setup"
 date: "2021-02-19"
-title: "How to install CHR Mikrotik on Hetzner Cloud"
+title: "How to install Mikrotik CHR on Hetzner Cloud"
 short_description: "This tutorial is about a short guide on how to install CHR Mikrotik on Hetzner Cloud. This can be done in just a few steps."
 tags: ["CHR", "Hetzner-Cloud", "Router", "Firewall"]
 author: "Robert Bär"
@@ -30,11 +30,12 @@ Make sure the cloud server meets the requirements for your desires. This setup c
 3. Basic Firewall setup
 
 ## Step 1 - Installation
-First, if not already done, create a server of your choice. Then boot it into the `rescue` system. The login credentials are shown while requesting it. Afterwards we need the `Raw disk image` from the website. Choose the desired version here: [Download](https://mikrotik.com/download#chr).
-When this is done, simply curl the image and write it on the drive via dd. 
+First, if not already done, create a server of your choice. Then boot it into the `rescue` system. The login credentials are shown while requesting it. To install CHR we download the `Raw disk image` from the [website](https://mikrotik.com/download#chr) and extract it directly onto the virtual disk via DD.
 This command does all the necessary steps:
 ```
-# curl -L <Link_of_image> | funzip | dd of=/dev/sda bs=1M
+# curl -L https://download.mikrotik.com/routeros/6.47.9/chr-6.47.9.img.zip > mikrotik-chr.zip
+# funzip mikrotik-chr.zip > mikrotik-chr.img
+# dd if=/path/to/mikrotik-chr.img of=/dev/sda bs=1M
 ```
 
 ## Step 2 -  Secure your installation
