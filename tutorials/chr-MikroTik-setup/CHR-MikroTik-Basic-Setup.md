@@ -1,4 +1,3 @@
-
 ---
 SPDX-License-Identifier: MIT
 path: "/tutorials/chr-MikroTik-setup"
@@ -15,6 +14,7 @@ language: "en"
 available_languages: ["en"]
 header_img: "header-3"
 ---
+
 ### Introduction
 
 We are focusing on installing the OS and doing a basic setup in this documentation. For any further details for configuration, look up in the official wiki from [MikroTik](https://wiki.mikrotik.com/wiki/Main_Page).
