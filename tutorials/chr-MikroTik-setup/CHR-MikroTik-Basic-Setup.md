@@ -1,19 +1,35 @@
 
-## Cloud Hosted Router - MikroTik
-This tutorial is about a workaround on how to install the RouterOS on any Hetzner Cloud server. This can be done in just a few steps.
-
+---
+SPDX-License-Identifier: MIT
+path: "/tutorials/chr-MikroTik-setup"
+slug: "chr-MikroTik-setup"
+date: "2021-02-19"
+title: "How to install CHR Mikrotik on Hetzner Cloud"
+short_description: "This tutorial is about a short guide on how to install CHR Mikrotik on Hetzner Cloud. This can be done in just a few steps."
+tags: ["CHR", "Hetzner-Cloud", "Router", "Firewall"]
+author: "Robert Bär"
+author_link: "https://github.com/robert-hetzner"
+author_img: "https://avatars.githubusercontent.com/u/42843370?s=460&v=4"
+author_description: "Developer"
+language: "en"
+available_languages: ["en"]
+header_img: "header-3"
+---
 ### Introduction
 
 We are focusing on installing the OS and doing a basic setup in this documentation. For any further details for configuration, look up in the official wiki from [MikroTik](https://wiki.mikrotik.com/wiki/Main_Page).
 
+**Prerequisites**
+
+Make sure the cloud server meets the requirements for your desires. This setup can be performed on any available cloud server.
 
 
 ### Overview
 1. Installation
-2. Make it secure
+2. Secure your installation
 3. Basic Firewall setup
 
-### 1. Installation
+## Step 1 - Installation
 First, if not already done, create a server of your choice. Then boot it into the `rescue` system. The login credentials are shown while requesting it. Afterwards we need the `Raw disk image` from the website. Choose the desired version here: [Download](https://mikrotik.com/download#chr).
 When this is done, simply curl the image and write it on the drive via dd. 
 This command does all the necessary steps:
@@ -21,7 +37,7 @@ This command does all the necessary steps:
 # curl -L <Link_of_image> | funzip | dd of=/dev/sda bs=1M
 ```
 
-### 2. Make it secure
+## Step 2 -  Secure your installation
 
 Afterwards you can reboot the server into the new installed OS. 
 Keep in mind, that the default login credentials are `user : admin` and `password : none`. Therefore we recommend on immediately disable the admin user and add a new one.
@@ -59,7 +75,7 @@ The following commands disable unwanted management access to network devices. We
 # /ip ssh set strong-crypto=yes
 ```
 
-### 3. Basic Firewall setup
+## Step 3 - Basic Firewall setup
 Right from the start the CHR has a basic firewall setup and we do strongly recommend to not turn it off, if you are not 100% sure what to do. The following rules are adjusting it to make it more secure:
 ```
 # /ip firewall filter
@@ -94,9 +110,38 @@ The same is done for private IP's, which try to reach a public IP. To secure tha
 # add action=drop chain=forward in-interface=bridge1 log=yes log-prefix=LAN_!LAN src-address=!<privateIP-network>
 ```
 
-### Conclusion
+## Conclusion
 
 After you have followed all steps correctly, you should have a stable basic setup of the Cloud Hosted Router OS.
 Any further instructions can be found [here](https://wiki.mikrotik.com/wiki/Manual:CHR).
 
+##### License: MIT
 
+<!--
+
+Contributor's Certificate of Origin
+
+By making a contribution to this project, I certify that:
+
+(a) The contribution was created in whole or in part by me and I have
+    the right to submit it under the license indicated in the file; or
+
+(b) The contribution is based upon previous work that, to the best of my
+    knowledge, is covered under an appropriate license and I have the
+    right under that license to submit that work with modifications,
+    whether created in whole or in part by me, under the same license
+    (unless I am permitted to submit under a different license), as
+    indicated in the file; or
+
+(c) The contribution was provided directly to me by some other person
+    who certified (a), (b) or (c) and I have not modified it.
+
+(d) I understand and agree that this project and the contribution are
+    public and that a record of the contribution (including all personal
+    information I submit with it, including my sign-off) is maintained
+    indefinitely and may be redistributed consistent with this project
+    or the license(s) involved.
+
+Signed-off-by: [submitter's name and email address here]
+
+-->
