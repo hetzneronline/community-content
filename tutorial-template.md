@@ -4,18 +4,16 @@ path: "/tutorials/tutorial-template"
 slug: "tutorial-template"
 date: "2019-01-01"
 title: "A great Tutorial Template! :+1:"
-short_description: "This is a tutorial template, including metadata (the first few lines before the actual content). Please fill in as much as possible. If you dont know what to put somewhere, just leave it empty, the Community manager will fill it for you."
+short_description: "This is a tutorial template, including metadata (the first few lines before the actual tutorial). Please fill in as much as possible. If you don't know what to put somewhere, just leave it empty, the Community manager will fill it for you."
 tags: ["Development", "Lang:Go", "Lang:JS"]
 author: "Your Name"
 author_link: "https://github.com/....."
 author_img: "https://avatars3.githubusercontent.com/u/....."
-author_description: "Manipulating arrays of characters in modern text editors that need more RAM than we used to do a flight to the moon. But it's super awesome..."
+author_description: "Manipulating arrays of characters in modern text editors that need more RAM than we used to fly to the moon. But it's super awesome..."
 language: "en"
-available_languages: ["Enter all available languages of the tutorial using ISO 639-1 codes"]
-header_img: ""
+available_languages: ["en", "Enter all other available languages of the tutorial using ISO 639-1 codes"]
+header_img: "header-x"
 ---
-
-<!-- This where the actual tutorial begins. You don't need to write out the title again, having it in the metadata above is enough. -->
 
 ## Introduction
 
@@ -25,29 +23,42 @@ You can link to other tutorials that your tutorial builds on, and add recommenda
 
 **Prerequisites**
 
-If there are any prerequisites for your tutorial, please make sure there is already a tutorial explaining that, and then make sure to link to that other tutorial at the beginning of yours.
+If there are any prerequisites for your tutorial, please write them out here.
+If there is already a tutorial explaining one of the prerequisites, make sure to link to that other tutorial.
 
-## Step 1 - <summary of step>
+Example terminology that you can use in the tutorial:
+
+* Username: `holu` (short for Hetzner OnLine User)
+* Hostname: `<your_host>`
+* Domain: `<example.com>`
+* Subdomain: `<sub.example.com>`
+* IP addresses (IPv4 and IPv6):
+   * Server: `<10.0.0.1>` and `<2001:db8:1234::1>`
+   * Gateway `<192.0.2.254>` and `<2001:db8:1234::ffff>`
+   * Client private: `<198.51.100.1>` and `<2001:db8:9abc::1>`
+   * Client public: `<203.0.113.1>` and `<2001:db8:5678::1>`
+
+## Step 1 - <Summary of Step>
 
 Steps are the actual steps users will be taking to complete your tutorial.
 Each step should build on the previous one, until the final step that finishes the tutorial.
 It is important not to skip any steps, no matter how obvious or self-explanatory they may seem.
-Feel free to include screenshots, to show exactly what the user should be seeing.
+Feel free to include screenshots, to show exactly what the user should be seeing. Please put screenshots in a separate "images" folder.
 The amount of steps will depend entirely on how long/complicated the tutorial is.
+
+## Step 2 - <Summary of Step>
 
 Quick introduction.
 
 Start by...
 
+![Screenshot Description](images/screenshot_description.png)
+
 Then...
 
 Finally...
 
-## Step 2 - <summary of step>
-
-More instructions.
-
-### Step 2.1 - <summary of step>
+### Step 2.1 - <Summary of Step>
 
 Here is a code example
 
@@ -56,7 +67,7 @@ var s = "JavaScript syntax highlighting";
 alert(s);
 ```
 
-### Step 2.2 - <summary of step>
+### Step 2.2 - <Summary of Step>
 
 Another code example
 
@@ -65,34 +76,13 @@ s = "Python syntax highlighting"
 print s
 ```
 
-## Step 3 - <summary of step> (Optional)
-
-Yet more instructions.
-
-### Terminology
-* Username: `holu` (short for Hetzner OnLine User)
-* Hostname: `<your_host>`
-* Domain: `<example.com>`
-
-Server:
-* IPv4: `<10.0.0.1>`
-* IPv6: `<2001:db8:1234::1>`
-
-Gateway:
-* IPv4: `<192.0.2.254>`
-* IPv6: `<2001:db8:1234::ffff>`
-
-Client private:
-* IPv4: `<198.51.100.1>`
-* IPv6 `<2001:db8:9abc::1>`
-
-Client public:
-* IPv4: `<203.0.113.1>`
-* IPv6: `<2001:db8:5678::1>`
-
-## Step N - <summary of step>
+## Step 3 - <Summary of Step> (Optional)
 
 More instructions.
+
+## Step N - <Summary of Step>
+
+Yet more instructions.
 
 ## Conclusion
 
