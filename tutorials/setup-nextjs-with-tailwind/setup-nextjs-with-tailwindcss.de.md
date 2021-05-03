@@ -73,12 +73,13 @@ Dies erzeugt eine `tailwind.config.js` und eine `postcss.config.js` Datei in uns
 Um Routen für unsere Anwendung zu definieren, können wir einfach zusätzliche JavaScript-Dateien in das
 Verzeichnis `pages` einfügen, welches Next.js standardmäßig generiert. In diesem Tutorial werden wir uns auf Seiten
 konzentrieren, die nicht dynamisch generiert werden. In vielen Fällen ist es nämlich auch notwendig, Routen anhand von
-dynamischen Daten zu generieren, z.B. das Erstellen von Routen in Abhängigkeit von einer `id`. Eine ausgezeichnete
-Anleitung, wie man dies möglich ist, ist in der [Next.js-Dokumentation](https://nextjs.org/docs/basic-features/pages) zu finden.
+dynamischen Daten zu generieren, z. B. das Erstellen von Routen in Abhängigkeit von einer `id`. Eine ausgezeichnete
+Anleitung, wie dies möglich ist, ist in der [Next.js-Dokumentation](https://nextjs.org/docs/basic-features/pages) zu
+finden.
 
-Next.js erzeugt standardmäßig eine Datei `index.js` im Verzeichnis `pages`. Wir werden diese Datei später
-wiederverwenden und ihren Inhalt ändern, da Next.js standardmäßig einige Styles zu dieser Komponente hinzufügt, die wir
-nicht verwenden möchten:
+Next.js erzeugt standardmäßig eine Datei `index.js` im Verzeichnis `pages`. Wir werden diese Datei wiederverwenden und
+ihren Inhalt ändern, da Next.js standardmäßig einige Styles zu dieser Komponente hinzufügt, die wir nicht verwenden
+möchten:
 
 ```javascript
 // ./pages/index.js
@@ -143,13 +144,14 @@ generierte Klassen (basierend auf der Konfiguration von Tailwind) zur Build-Zeit
 
 ## Konfiguration von TailwindCSS
 
-Durch das Ausführen von `npx tailwindcss init -p` haben wir bereits zwei Konfigurationsdateien, `tailwind.config.js` und `postcss.config.js`, erstellt. Wenn wir PostCSS als
-Präprozessor verwenden wollen, können wir die Datei `postcss.config.js` für zusätzliche Funktionen verwenden. Wie etwa
-das Hinzufügen von Vendor-Präfixen, das Hinzufügen von globalen CSS Resets oder das Generieren von`@font-face`-Regeln.
-Die Art und Weise, wie Tailwind die Utility-Klasse Tailwind erzeugt, würde dazu führen, dass wir eine sehr große
-CSS-Datei erstellen, wenn wir die Anwendung ohne weiteres Zutun erstellen. Um dies zu verhindern, werden wir das
-Tree-Shaking-Verfahren anwenden. Das bedeutet, dass wir Klassen, die wir nicht in unseren React-Komponenten verwenden,
-aus unserer finalen CSS-Datei entfernen. Deshalb ändern wir die Datei `tailwind.config.js` wie folgt:
+Durch das Ausführen von `npx tailwindcss init -p` haben wir bereits zwei Konfigurationsdateien, `tailwind.config.js`
+und `postcss.config.js`, erstellt. Wenn wir PostCSS als Präprozessor verwenden wollen, können wir die
+Datei `postcss.config.js` für zusätzliche Funktionen verwenden. Wie etwa das Hinzufügen von Vendor-Präfixen, das
+Hinzufügen von globalen CSS Resets oder das Generieren von`@font-face`-Regeln. Die Art und Weise, wie Tailwind die
+Utility-Klasse Tailwind erzeugt, würde dazu führen, dass wir eine sehr große CSS-Datei erstellen, wenn wir die Anwendung
+ohne weiteres Zutun erstellen. Um dies zu verhindern, werden wir das Tree-Shaking-Verfahren anwenden. Das bedeutet, dass
+wir Klassen, die wir nicht in unseren React-Komponenten verwenden, aus unserer finalen CSS-Datei entfernen. Deshalb
+ändern wir die Datei `tailwind.config.js` wie folgt:
 
 ```javascript
 // ./tailwind.config.js
@@ -194,17 +196,16 @@ module.exports = {
 }
 ```
 
-Nun können wir unsere Farben auf mehrere Utility-Klassen anwenden, indem wir unsere eben definierte Farbe und die
-entsprechende Variante kombinieren, `bg-{color}-{variant}`. Beispiel:
+Zusätzlich verwenden wir eine Spread-Operation auf das Standard-Farbschema von Tailwind, so dass wir immer noch in der
+Lage sind Tailwinds Standard-Farbpalette zu verwenden. Nun können wir unsere Farben auf mehrere Utility-Klassen
+anwenden, indem wir unsere eben definierte Farbe und die entsprechende Variante kombinieren, `bg-{color}-{variant}`.
+Beispiel:
 
 ```javascript
 <div className="bg-midnight-300">
   ...
 </div>
 ```
-
-Zusätzlich destrukturieren wir das Standard-Farbschema von
-Tailwind, so dass wir immer noch in der Lage sind Tailwinds Standard-Farbpalette zu verwenden.
 
 ## Komponenten erstellen und Styling anwenden
 
@@ -319,11 +320,11 @@ Jetzt führen wir den Befehl `npm run dev` aus, um unser Ergebnis zu betrachten.
 Wir haben erfolgreich eine Next.js-Anwendung aufgesetzt, die Tailwind als CSS-Framework nutzt.
 
 Die Verwendung von Utility-First-CSS-Frameworks erzeugt eine große Bandbreite an Meinungen und wie üblich gibt es kein
-universelles Urteil ob dies nun gut oder schlecht ist. Manche sagen, dass es unübersichtlich und schwer zu lesen ist,
+universelles Urteil, ob dies nun gut oder schlecht ist. Manche sagen, dass es unübersichtlich und schwer zu lesen ist,
 dass es keinen Unterschied zu Inline-Styles gibt oder dass es gegen "Separation of concerns" verstößt. Ich persönlich
 denke, dass alle diese Punkte widerlegt werden können und empfehle die folgenden beiden Artikel, um einen Eindruck von
-beiden Seiten zu bekommen. Auf fällt die Entscheidung vielleicht etwas leichter, ob TailwindCSS das richtige Framework
-für das nächstes Projekt sein kann.
+beiden Seiten zu bekommen. Auch fällt die Entscheidung vielleicht etwas leichter, ob TailwindCSS das richtige Framework
+für das nächste Projekt sein kann.
 
 - [TailwindCSS: Adds complexity, does nothing. by Brian Boyoko (Englisch)](https://dev.to/brianboyko/tailwindcss-adds-complexity-does-nothing-3hpn)
 - [In Defense of Utility-First CSS by Sarah Dayan (Englisch)](https://frontstuff.io/in-defense-of-utility-first-css)

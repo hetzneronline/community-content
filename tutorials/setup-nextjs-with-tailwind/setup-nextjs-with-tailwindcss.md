@@ -63,8 +63,7 @@ After that we can create a config file for TailwindCSS:
 
 `npx tailwindcss init -p`
 
-This will create a `tailwind.config.js` and a `postcss.config.js` file in our project root directory. 
-
+This will create a `tailwind.config.js` and a `postcss.config.js` file in our project root directory.
 
 ## Configure Next.js
 
@@ -75,7 +74,6 @@ excellent guide on how to achieve this in the [Next.js documentation](https://ne
 
 Next.js creates an `index.js` file per default in the the `pages` directory. We will re-use this file later and alter
 it's content, as Next.js adds some styles per default to this component we don't want to use:
-
 
 ```javascript
 // ./pages/index.js
@@ -92,22 +90,22 @@ export default Home
 
 ### Variant 1: Adding TailwindCSS via Javascript
 
-To include Tailwind CSS in our project, we're adding the following import statement at the start of the `pages/_app.js` file and
-will remove all references to Next's default styles:
+To include Tailwind CSS in our project, we're adding the following import statement at the start of the `pages/_app.js`
+file and will remove all references to Next's default styles:
 
 ```javascript
 // ./pages/_app.js
 
 import 'tailwindcss/tailwind.css'
 
-function MyApp({ Component, pageProps }) {
+function MyApp ({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
 
 export default MyApp
 ```
 
-This is a convenient way of adding TailwindCSS without having to write any other stylesheet.  
+This is a convenient way of adding TailwindCSS without having to write any other stylesheet.
 
 ### Variant 2: Adding TailwindCSS via CSS
 
@@ -118,8 +116,8 @@ the `_app.js` file
  // ./pages/_app.js
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
-   return <Component {...pageProps} />
+function MyApp ({ Component, pageProps }) {
+  return <Component {...pageProps} />
 }
 
 export default MyApp
@@ -154,22 +152,22 @@ components from our CSS file. To achieve this change your `tailwind.config.js` t
 
 ```javascript
 // ./tailwind.config.js
-  module.exports = {
-   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-    darkMode: false, // or 'media' or 'class'
-    theme: {
-      extend: {},
-    },
-    variants: {
-      extend: {},
-    },
-    plugins: [],
-  }
+module.exports = {
+  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
 ``` 
 
 Another great feature in TailwindCSS is that the default theme that is provided can be easily customized to our needs.
-By changing the `theme` property in the `tailwind.config.js` we can customize, e.g. custom breakpoints, colors, fonts
-or more detailed characteristics, like spacings, border radiuses or box shadows. By changing the `colors` key it is
+By changing the `theme` property in the `tailwind.config.js` we can customize, e.g. custom breakpoints, colors, fonts or
+more detailed characteristics, like spacings, border radiuses or box shadows. By changing the `colors` key it is
 possible to add our own custom color palette to the existing theme:
 
 ```javascript
@@ -185,7 +183,7 @@ module.exports = {
         100: '#03060a',
         200: '#001a40',
         300: '#060b17',
-      	// add more color variants if you want to
+        // add more color variants if you want to
       }
       // ...
     }
@@ -193,6 +191,7 @@ module.exports = {
 }
 ```
 
+Additionally, we're spreading the default color schema, so we're still able to use Tailwind's default color palette.
 Note that we can now apply our colors on multiple utility classes by using the defined color and the corresponding
 variant, `bg-{color}-{variant}`. E.g.:
 
@@ -202,14 +201,10 @@ variant, `bg-{color}-{variant}`. E.g.:
 </div>
 ```
 
-Additionally, we're destructuring the default color schema, so we're still able to
-use Tailwind's default color palette.
-
 ## Create components and apply styling
 
-Often we want to create a basic layout that we can reuse throughout your entire application. Therefore, we're
-creating a layout component that functions as a wrapper for other components. We're creating a `layout.js` file
-in `/components`:
+Often we want to create a basic layout that we can reuse throughout your entire application. Therefore, we're creating a
+layout component that functions as a wrapper for other components. We're creating a `layout.js` file in `/components`:
 
 ```javascript
 // ./components/layout.js
@@ -242,7 +237,7 @@ And wrap the application with the component:
 // ...
 import Layout from './components/layout'
 
-function MyApp({ Component, pageProps }) {
+function MyApp ({ Component, pageProps }) {
   return (
     <Layout>
       <Component {...pageProps} />
@@ -315,7 +310,7 @@ Now we can run `npm run dev`  to view our result. This should look like the foll
 
 ## Conclusion
 
-We successfully set up a Next.js application that uses Tailwind as a CSS framework. 
+We successfully set up a Next.js application that uses Tailwind as a CSS framework.
 
 The usage of utility-first CSS frameworks creates a lot of variance in opinion and as usual there is no universal
 verdict. Some say that it's messy and hard to read, that there's no difference to inline-styles or that it violates
