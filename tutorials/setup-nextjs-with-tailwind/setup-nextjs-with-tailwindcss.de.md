@@ -25,7 +25,7 @@ CSS-Framework, welches einen Utility-First-Ansatz zur Anwendung von CSS-Klassenn
 effiziente Möglichkeit, moderne Layouts und Designs zu erstellen, ohne sich zu sehr mit der Namensvergabe der
 CSS-Klassen zu beschäftigen.
 
-**Vorraussetzungen**
+**Voraussetzungen**
 
 - Node.js 12.13.0 oder höher
 - npm 6.12 oder höher
@@ -140,7 +140,7 @@ und verwenden Tailwind, indem wir die Direktiven in der Datei `global.css` hinzu
 ```
 
 Leider bietet Tailwind keine ausführliche Erklärung, was die Direktive `@tailwind` im Detail bewirkt, außer dass
-generierte Klassen (basierend auf der Konfiguration von Tailwind) zur Build-Zeit in das Stylesheet zu inkludiert werden.
+generierte Klassen (basierend auf der Konfiguration von Tailwind) zur Build-Zeit in das Stylesheet inkludiert werden.
 
 ## Konfiguration von TailwindCSS
 
