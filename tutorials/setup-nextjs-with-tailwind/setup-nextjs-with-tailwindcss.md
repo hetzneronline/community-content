@@ -2,7 +2,7 @@
 SPDX-License-Identifier: MIT
 path: "/tutorials/setup-nextjs-with-tailwind"
 slug: "setup-nextjs-with-tailwind"
-date: "2021-04-30"
+date: "2021-05-06"
 title: "Setup Next.js with TailwindCSS"
 short_description: "This tutorial provides a setup guide for a Next.js application with TailwindCSS."
 tags: ["Next.js", "Tailwind", "Next", "Tailwind", "Frontend"]
@@ -12,7 +12,7 @@ author_img: "https://avatars.githubusercontent.com/u/46992669"
 author_description: ""
 language: "en"
 available_languages: ["en", "de"]
-header_img: ""
+header_img: "header-1"
 ---
 
 ## Introduction
