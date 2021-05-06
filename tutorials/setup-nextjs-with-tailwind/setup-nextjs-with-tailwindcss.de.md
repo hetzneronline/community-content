@@ -12,7 +12,7 @@ author_img: "https://avatars.githubusercontent.com/u/46992669"
 author_description: ""
 language: "de"
 available_languages: ["en", "de"]
-header_img: ""
+header_img: "header-1"
 ---
 
 ## Einleitung
