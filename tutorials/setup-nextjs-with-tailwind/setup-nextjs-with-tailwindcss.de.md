@@ -1,6 +1,6 @@
 ---
 SPDX-License-Identifier: MIT
-path: "/tutorials/setup-nextjs-with-tailwind"
+path: "/tutorials/setup-nextjs-with-tailwind/de"
 slug: "setup-nextjs-with-tailwind"
 date: "2021-05-06"
 title: "Einrichten von Next.js und TailwindCSS"
