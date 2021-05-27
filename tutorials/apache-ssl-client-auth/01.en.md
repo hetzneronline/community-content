@@ -1,0 +1,289 @@
+---
+SPDX-License-Identifier: MIT
+path: "/tutorials/apache-ssl-client-auth"
+slug: "apache-ssl-client-auth"
+date: "2020-11-26"
+title: "SSL Client Authentication with self-signed CA and Apache 2"
+short_description: "This tutorial describes how to set up SSL client authentication with Apache2"
+tags: ["Apache2", "SSL"]
+author: "Patrick Kratzer"
+author_link: ""
+author_img: ""
+author_description: ""
+language: "en"
+available_languages: ["en"]
+header_img: "header-1"
+---
+
+## Introduction
+
+With this tutorial, you will get an idea of how to set up SSL Client Authentication with a self-signed CA based on Apache 2.
+
+**Prerequisites**
+
+* Server with Debian or Ubuntu already installed
+* Up-to-date system - the following commands will update your complete system:
+
+  ```bash
+  apt update ; apt upgrade
+  ```
+
+* Running SSH session as root.
+
+## Step 1 - Install Apache web server and OpenSSL
+
+The first step you need to do is to install the Apache web server and OpenSSL (e. g. using "apt"). You only need to do this if you haven't installed the Apache web server and openssl before.
+
+```bash
+apt install apache2 openssl ssl-cert
+```
+
+If you're asked if you want to continue, please select "Y".
+
+When this process is finished, please try to reach your IP address inside your web browser (e. g. http://10.0.0.1). You should now be able to see the default website of the Apache web server.
+
+## Step 2 - Activate SSL module for apache2
+
+The next step would be activating the SSL module for Apache. This module was already installed when running the installation of Apache as described in Step 1.
+
+```bash
+a2enmod ssl
+```
+
+If everything worked fine without any errors, you need to restart the Apache web server to load the modules that you have activated before.
+
+```bash
+systemctl restart apache2
+```
+
+You can check if the modules were loaded properly by running the following command:
+
+```bash
+apache2ctl -M
+```
+
+Please check if you can find the following lines inside the output:
+
+```bash
+[...]
+ssl_module (shared)
+[...]
+```
+
+## Step 3 - Get Let's Encrypt certificate for basic SSL connections
+
+We now need to install the Let's Encrypt Certbot:
+
+```bash
+apt-get install certbot python-certbot-apache
+```
+
+We'll now get the certificate:
+
+```bash
+certbot --apache
+```
+
+You need to provide your email address to get a certificate and you are asked to agree to Let's Encrypts Terms of Service. The Certbot tool also asks, if you would like to share your email address with the developers of Certbot. It's up to you if you want to do that.
+
+If you haven't set up any vHost yet, you will be asked to provide the domain name that you want to secure, since Certbot can't detect it. Please provide a domain name that you want to secure. You have to keep in mind that this domain name needs to point to the server already, otherwise you won't get a certificate.
+
+## Step 4 - Generate your own CA
+
+You can either run the following commands on your local machine (in this case OpenSSL is needed on your machine) or directly on your server. Please make sure that only you have access to this directory, since it will contain all the private keys and certificates later!
+
+It is recommended to setup a separate directory for all the files that we will be creating now.
+
+```bash
+mkdir openssl_files
+cd ./openssl_files
+```
+
+To get your own CA, you need to generate an RSA private key first. This can be done via the OpenSSL command line interface.
+
+```bash
+openssl genrsa -out MyOwnCA.key 4096
+```
+
+* "MyOwnCA.key" is the name of the key file that we are creating. You can use your own name if you wish.
+* "4096" stands for the length of the key in bits. Common values are 1024, 2048 and 4096.
+
+The next step would be generating the CA cert itself from the key we have created with the above command.
+
+```bash
+openssl req -x509 -new -nodes -key MyOwnCA.key -sha256 -days 1024 -out MyOwnCA.pem
+```
+
+* "req" stands for a new request to be made
+* "-x509" stands for the type of certificate - x509 is the type which is used for standard SSL certificates
+* "-new" stands for setting up this certificate as a new certificate
+* "-nodes" is short for "no DES" which means that the private key won't be stored encrypted inside the certificate. If you remove this from the command, Apache 2 will ask you for a passphrase to the private key on every restart.
+* "-key MyOwnCA.key" provides the path to the key file that should be used
+* "-sha256" sets the hashing algorithm to SHA256 - you can also use other hashing algorithms
+* "-days 1024" sets the expiry date of the CA - 1024 stands for 1024 days validity
+* "-out MyOwnCA.pem" stands for the output file the new CA certificate should be stored to - in our case this is "MyOwnCA.pem"
+
+When you run the above command, you will be asked for some data, such as your name and your location. It is recommended to fill this out correctly (but it is not necessary). Most important for SSL certificates is the common name, we recommend setting this to the domain name that you want to secure with this certificate.
+
+## Step 5 - Generate client certificates
+
+With the CA created above, you will now be able to generate client certificates. First we need a key (such as in step 3 for the CA generation).
+
+```bash
+openssl genrsa -out MyClientCert1.key 4096
+```
+
+Now with that new key, we need to create a certificate signing request (CSR) - which is necessary for creating certificates using a CA.
+
+```bash
+openssl req -new -key MyClientCert1.key -out MyClientCert1.csr
+```
+
+* "req" stands for a new request to be made
+* "-new" stands for generating a new CSR
+* "-key MyClientCert1.key" stands for the key file that should be used - make sure to use the key that you have created for the client certificate and not the key for the CA certificate!
+* "-out MyClientCert1.csr" specifies the location where the CSR should be saved
+
+When you run the above command, you will be asked for some data - just like before when creating the CA. The data that you provide is more important here, especially the common name, since this can be used for authentication purposes later (so that not every certificate signed with your CA can access every web application which is secured with this CA). - It is recommended to use a username and your domain name as common name (e.g. holu@example.com). Additional attributes, such as "challenge password" and "optional company name" can be left empty.
+
+Now we need to create the client certificate itself:
+
+```bash
+openssl x509 -req -in MyClientCert1.csr -CA MyOwnCA.pem -CAkey MyOwnCA.key -CAcreateserial -out MyClientCert1.pem -days 1024 -sha256
+```
+
+* "x509" stands for the type of certificate - x509 is the type which is used for standard SSL certificates
+* "-req" stands for a certificate request to used
+* "-in MyClientCert1.csr" loads the CSR we have just created
+* "-CA MyOwnCA.pem" provides the CA certificate to be used
+* "-CAkey MyOwnCA.key" provides the key of the CA
+* "-CAcreateserial" created a serial number file if there is none
+* "-out MyClientCert1.pem" sets the output file which the client certificate is stored to
+* "-days 365" sets the expiry date of the CA - 365 stands for 365 days validity
+* "-sha256" sets the hashing algorithm to SHA256 - you can also use other hashing algorithms
+
+Since most browsers do not support .pem-files to be used as client certificates, we need to convert the certificate to the PFX (pkcs12) format.
+
+```bash
+openssl pkcs12 -export -out MyClientCert1.pfx -inkey MyClientCert1.key -in MyClientCert1.pem
+```
+
+* "pkcs12" stands for PFX format to be used
+* "-export" stands for exporting a certificate
+* "-out MyClientCert1.pfx" sets the name of the output file
+* "-inkey MyClientCert1.key" loads the key file to be used
+* "-in MyClientCert1.pem" loads the certificate to be converted
+
+You will also be asked for an export password. You can leave this field blank, if you don't want any password request in your browser. If you set a password here, you will be asked for it by your browser when you use the client certificate.
+
+Download the .pfx-file (e. g. via SCP) and provide it to the user, which has to use the certificate for login. The user should import this certificate into his web browser.
+
+Please repeat the procedure of Step 4 for every client certificate that you want to create.
+
+## Step 6 - Add rules for SSL authentication in your virtual host (or .htaccess)
+
+Please add the following rules to your .htaccess file or your virtual host file to activate the SSL client authentication for several directories or complete websites. .htaccess files should always be located in the directory with the files the .htaccess rules should be applied to.
+
+```
+SSLVerifyClient require
+```
+
+This enables the SSL client authentication.
+
+```
+SSLVerifyDepth 10
+```
+
+This sets the depth of the verification. It needs to be set if the server needs to check more certificates. (This is the case if chained certificates are used.)
+
+You may also limit the access to specific certificates using "SSLRequire". You can find more detailed information in the official [Apache 2 documentation](https://httpd.apache.org/docs/2.4/mod/mod_ssl.html#sslrequire).
+
+## Step 7 - Prepare directory for CA files
+
+Now, we need to create a new directory for the SSL-CAs and make it accessible for Apache to read from that directory.
+
+```bash
+mkdir /etc/ssl_clientauth_cas
+chown root.www-data /etc/ssl_clientauth_cas/
+chmod 750 /etc/ssl_clientauth_cas/
+```
+
+Into this new directory, we can now copy the CAs .pem-file.
+
+```bash
+cp /root/openssl_files/MyOwnCA.pem /etc/ssl_clientauth_cas/
+```
+
+Now we need to create symlinks with the hashes of the certificates as name. Apache works with the hashes of the certificates in the background.
+
+```bash
+c_rehash /etc/ssl_clientauth_cas/
+```
+
+## Step 8 - Update Apache 2 config
+
+In the last step, we need to update the configuration of Apache 2 to use the CA certificates inside the folder that we have just created. Please add the following line to **/etc/apache2/apache2.conf** (for use with all incoming HTTPs connections) or inside a specific virtual host:
+
+```
+SSLCACertificatePath /etc/ssl_clientauth_cas
+```
+
+After that, please restart Apache 2.
+
+```bash
+systemctl restart apache2
+```
+
+If you have any error, setting the LogLevel of Apache 2 to "debug" may help. This can also be done in **/etc/apache2/apache2.conf**:
+
+```
+LogLevel debug
+```
+
+After that you may get more detailed information in your error log.
+
+To check if the verification of a certificate works, you can run this command:
+
+```bash
+openssl verify -CApath /etc/ssl_clientauth_cas/ YourCertificateToCheck.pem
+```
+
+* "YourCertificateToCheck.pem" has to be changed to the location that your .pem-file can be found on.
+
+## Conclusion
+
+You have now set up SSL Client Authentication. This is a good alternative to password authentication, it may also be easier for some users since they do not need to memorize their password any more.
+
+Please make sure that the users keep their certificates in a safe place, so that no other person can get access to them.
+Please also don't forget to redirect all your HTTP traffic to HTTPs, since client-side authentication will only work with HTTPs.
+
+##### License: MIT
+
+<!--
+
+Contributor's Certificate of Origin
+
+By making a contribution to this project, I certify that:
+
+(a) The contribution was created in whole or in part by me and I have
+    the right to submit it under the license indicated in the file; or
+
+(b) The contribution is based upon previous work that, to the best of my
+    knowledge, is covered under an appropriate license and I have the
+    right under that license to submit that work with modifications,
+    whether created in whole or in part by me, under the same license
+    (unless I am permitted to submit under a different license), as
+    indicated in the file; or
+
+(c) The contribution was provided directly to me by some other person
+    who certified (a), (b) or (c) and I have not modified it.
+
+(d) I understand and agree that this project and the contribution are
+    public and that a record of the contribution (including all personal
+    information I submit with it, including my sign-off) is maintained
+    indefinitely and may be redistributed consistent with this project
+    or the license(s) involved.
+
+Signed-off-by: Patrick Kratzer (patrickk295@gmail.com)
+
+-->
