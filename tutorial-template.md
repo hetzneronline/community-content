@@ -2,7 +2,7 @@
 SPDX-License-Identifier: MIT
 path: "/tutorials/tutorial-template"
 slug: "tutorial-template"
-date: "2019-01-01"
+date: "2021-01-01"
 title: "A great Tutorial Template! :+1:"
 short_description: "This is a tutorial template, including metadata (the first few lines before the actual tutorial). Please fill in as much as possible. If you don't know what to put somewhere, just leave it empty, the Community manager will fill it for you."
 tags: ["Development", "Lang:Go", "Lang:JS"]
@@ -13,6 +13,7 @@ author_description: "Manipulating arrays of characters in modern text editors th
 language: "en"
 available_languages: ["en", "Enter all other available languages of the tutorial using ISO 639-1 codes"]
 header_img: "header-x"
+cta: "product"
 ---
 
 ## Introduction
