@@ -2,7 +2,7 @@
 SPDX-License-Identifier: MIT
 path: "/tutorials/tutorial-template"
 slug: "tutorial-template"
-date: "2019-01-01"
+date: "2021-01-01"
 title: "A great Tutorial Template! :+1:"
 short_description: "This is a tutorial template, including metadata (the first few lines before the actual tutorial). Please fill in as much as possible. If you don't know what to put somewhere, just leave it empty, the Community manager will fill it for you."
 tags: ["Development", "Lang:Go", "Lang:JS"]
@@ -13,6 +13,7 @@ author_description: "Manipulating arrays of characters in modern text editors th
 language: "en"
 available_languages: ["en", "Enter all other available languages of the tutorial using ISO 639-1 codes"]
 header_img: "header-x"
+cta: "product"
 ---
 
 ## Introduction
@@ -38,15 +39,19 @@ Example terminology that you can use in the tutorial:
    * Client private: `<198.51.100.1>` and `<2001:db8:9abc::1>`
    * Client public: `<203.0.113.1>` and `<2001:db8:5678::1>`
 
-## Step 1 - <Summary of Step>
+## Step 1 - `<Summary of Step>`
 
 Steps are the actual steps users will be taking to complete your tutorial.
+
 Each step should build on the previous one, until the final step that finishes the tutorial.
+
 It is important not to skip any steps, no matter how obvious or self-explanatory they may seem.
+
 Feel free to include screenshots, to show exactly what the user should be seeing. Please put screenshots in a separate "images" folder.
+
 The amount of steps will depend entirely on how long/complicated the tutorial is.
 
-## Step 2 - <Summary of Step>
+## Step 2 - `<Summary of Step>`
 
 Quick introduction.
 
@@ -58,7 +63,7 @@ Then...
 
 Finally...
 
-### Step 2.1 - <Summary of Step>
+### Step 2.1 - `<Summary of Step>`
 
 Here is a code example
 
@@ -67,7 +72,7 @@ var s = "JavaScript syntax highlighting";
 alert(s);
 ```
 
-### Step 2.2 - <Summary of Step>
+### Step 2.2 - `<Summary of Step>`
 
 Another code example
 
@@ -76,11 +81,11 @@ s = "Python syntax highlighting"
 print s
 ```
 
-## Step 3 - <Summary of Step> (Optional)
+## Step 3 - `<Summary of Step> (Optional)`
 
-More instructions.
+Instructions for a step that is not necessary to complete the tutorial, but can be helpful.
 
-## Step N - <Summary of Step>
+## Step N - `<Summary of Step>`
 
 Yet more instructions.
 
