@@ -1,4 +1,20 @@
-# How to install SmartOS without the need for USB flash drive?
+---
+SPDX-License-Identifier: MIT
+path: "tutorials/how-to-install-SmartOS"
+slug: "how-to-install-SmartOS"
+date: "2021-09-22"
+title: "How to install SmartOS without the need for USB flash drive?"
+short_description: "This tutorial describes how to implement a SmartOS hypervisor without the need to boot from external media, thanks to the temporary installation of Rescue Linux of Hetzner"
+tags: ["SmartOS", "Install"]
+author: "Stefan Eestermans"
+author_link: "https://github.com/optaris"
+author_img: ""
+author_description: "Cyber Security and Systems Engineer"
+language: "en"
+available_languages: ["en", "Enter all other available languages of the tutorial using ISO 639-1 codes"]
+header_img: "header-x"
+cta: "product"
+---
 
 ## Introduction
 
@@ -380,3 +396,34 @@ This procedure explains the steps necessary to install SmartOS on the ZFS zpool 
 If all went well we now have a system that automatically boots **SmartOS** without the need for any external media.
 
 Future upgrades are as simple as installing a new image with the `piadm install` command followed by the `piadm activate` command, the new OS image will become active upon reboot.
+
+##### License: MIT
+
+<!--
+
+Contributor's Certificate of Origin
+
+By making a contribution to this project, I certify that:
+
+(a) The contribution was created in whole or in part by me and I have
+    the right to submit it under the license indicated in the file; or
+
+(b) The contribution is based upon previous work that, to the best of my
+    knowledge, is covered under an appropriate license and I have the
+    right under that license to submit that work with modifications,
+    whether created in whole or in part by me, under the same license
+    (unless I am permitted to submit under a different license), as
+    indicated in the file; or
+
+(c) The contribution was provided directly to me by some other person
+    who certified (a), (b) or (c) and I have not modified it.
+
+(d) I understand and agree that this project and the contribution are
+    public and that a record of the contribution (including all personal
+    information I submit with it, including my sign-off) is maintained
+    indefinitely and may be redistributed consistent with this project
+    or the license(s) involved.
+
+Signed-off-by: [submitter's name and email address here]
+
+-->
