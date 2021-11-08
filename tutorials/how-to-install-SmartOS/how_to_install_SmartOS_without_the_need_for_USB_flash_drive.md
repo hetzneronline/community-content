@@ -114,7 +114,7 @@ Optionally, you could also adapt some default values for grub in the `/etc/defau
 
 In this file I'm setting `GRUB_DEFAULT=2` to select SmartOS as default boot option on 3rd position. (again counting from 0)
 
-I uncomment as well the `GRUB_TIMEOUT_STYLE=hidden` line to avoid hidden messages and I choose to set `GRUB_TIMEOUT=20` to give myself 20 seconds the time to make a selection at the grub menu.
+I comment out the `GRUB_TIMEOUT_STYLE=hidden` line to avoid hidden messages and I choose to set `GRUB_TIMEOUT=20` to give myself 20 seconds the time to make a selection at the grub menu.
 
 So the `/etc/default/grub` looks like this:
 
