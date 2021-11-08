@@ -156,7 +156,7 @@ GRUB_CMDLINE_LINUX=""
 root@Ubuntu-2010-groovy-64-minimal ~ #
 ```
 
-Now we, are ready to update the grub configuration with the `update-gub2` command.
+Now we are ready to update the grub configuration with the `update-grub2` command.
 
 ```
 root@Ubuntu-2010-groovy-64-minimal ~ # update-grub2
@@ -238,7 +238,7 @@ Connection to xeon1.globalz.one closed.
 
 ## Step 4 - Complete the SmartOS configuration
 
-Once booted the server with SmartOS it comes up with an interactive configuration session to provide a minimum of parameters, like:
+Once booted, the server with SmartOS comes up with an interactive configuration session to provide a minimum of parameters, like:
 
 * the network and DNS configuration 
 * the NTP configuration
@@ -269,6 +269,8 @@ Specify DNS servers and your domain name:
 Next, type "manual" in order to initiate the manual creation of the zpool:
 
 ![boot06](./how_to_install_SmartOS_picture_boot06.png)
+
+This will get us in a shell session, first let's list the disks with the `format` command. Exit from the `format` command by typing the `ctrl-d` key combination.
 
 ![boot07](./how_to_install_SmartOS_picture_boot07.png)
 
@@ -306,7 +308,7 @@ So let's install an image, but first we need to check which images are available
 20210812T031946Z
 ```
 
-Installing an image is as simple as the command below:
+Installing an image is as simple as the command below (this will take like 20 or 30 seconds):
 
 ```
 [root@ /]# piadm install 20210701T204427Z
@@ -362,7 +364,7 @@ At the SmartOS boot menu, just wait a few seconds or press `Enter` and watch it 
 
 ## Step 5 - Change root password (optionally)
 
-In case the chosen password was not complex enough, we could set a new password with following command sequence.
+In case the chosen password was not complex enough, we could set a new password with following command sequence. Beware that this can be done through an SSH session, which allows you to copy/paste a long and complex password.
 
 ```
 [root@myhost ~]# umount /etc/shadow; cp /usbkey/shadow /etc/shadow; passwd root; cp /etc/shadow /usbkey/shadow
