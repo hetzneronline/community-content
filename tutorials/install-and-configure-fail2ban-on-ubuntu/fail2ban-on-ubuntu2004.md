@@ -1,11 +1,11 @@
 ---
 SPDX-License-Identifier: MIT
-path: "/tutorials/tutorial-template"
-slug: "tutorial-template"
+path: "/tutorials/install-and-configure-fail2ban-on-ubuntu"
+slug: "install-and-configure-fail2ban-on-ubuntu"
 date: "2021-18-10"
 title: "How to install Fail2ban on Ubuntu 20.04"
 short_description: "This is a tutorial explains how to install and configure Fail2ban on Ubuntu 20.04"
-tags: ["Linux", "Install", "Ubuntu"]
+tags: ["Linux", "Install", "Ubuntu", "Fail2Ban"]
 author: "Beatrice Richter"
 author_link: "https://github.com/RichterBea"
 author_img: "https://avatars3.githubusercontent.com/u/....."
@@ -93,7 +93,7 @@ The files where the actions are defined are within `actions.d/`
 The jail action contains the instructions what to do with IP addresses which are matched by the filters.
 These actions can be used for all jails.
 
-Create a new file named `jail-action.conf` and implement the action as follows:
+Create a new file named `jail-action.conf` in 'actions.d' and implement the action as follows:
 
 ```bash
 [Definition]
