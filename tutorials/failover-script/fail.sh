@@ -46,8 +46,11 @@ else
 
   # where will I find the config files
   resourcedir="/etc/failover/resources"
-  resources=$(cat $resourcedir/* | grep "resource" | awk '{ print $2 }' ||
-    { echo "There are no properly configured resources in $resourcedir"; exit 1; })
+  resources=$(cat $resourcedir/* 2>/dev/null | grep "resource" | awk '{ print $2 }')
+  if [ -z "$resources" ]; then
+    echo "There are no properly configured resources in $resourcedir"
+    exit 1
+  fi
 
   # check if the service is properly configured in $resourcedir
   if [ -z "$para" ]; then
