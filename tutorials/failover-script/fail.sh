@@ -8,10 +8,11 @@ parb=$2
 parc=$3
 
 # is curl installed?
-curl=$(whereis curl | awk '{ print $2 }' || {
+curl="$(command -v curl)"
+if [ -z "$curl" ]; then
   echo "Curl is not properly configured"
   exit 1
-})
+fi
 
 # Where is the robot at?
 uri="https://robot-ws.your-server.de/failover.yaml"
