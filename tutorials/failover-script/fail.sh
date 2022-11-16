@@ -60,8 +60,6 @@ else
     exit 1
   fi
 
-  echo "$resources" | grep -q "$para"
-
   if ! echo "$resources" | grep -q "$para"; then
     echo "$para not available"
     echo "configured services are:"
