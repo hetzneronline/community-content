@@ -145,7 +145,7 @@ set)
 
   elif echo "$set" | grep "^failover" >/dev/null 2>&1; then
     yamlip=$(echo "$set" | grep "^  ip" | awk '{ print $2 }')
-    yamlserverip=$(echo "$set" | grep "^  server_ip" | awk '{ print $2 }')
+    yamlserverip=$(echo "$set" | grep "^  server_ip:" | awk '{ print $2 }')
     yamlactiveip=$(echo "$set" | grep "^  active_server_ip" | awk '{ print $2 }')
 
     echo "This is the changed configuration of the service $para"
