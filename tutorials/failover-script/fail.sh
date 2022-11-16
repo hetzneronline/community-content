@@ -62,7 +62,7 @@ else
 
   echo "$resources" | grep -q "$para"
 
-  if echo "$resources" | grep -q "$para"; then
+  if ! echo "$resources" | grep -q "$para"; then
     echo "$para not available"
     echo "configured services are:"
     echo "$resources"
