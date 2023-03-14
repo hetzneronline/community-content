@@ -12,6 +12,9 @@ Please read the [Contribution Guidelines](./contributing.md)
 
 If you would like to make a contribution, please follow the instructions in the Contribution Guidelines and then open a Pull Request. One of the Community Managers will then evaluate your tutorial, and provide you with feedback.
 
+**Important note:**
+
+Unfortunately, there are currently not enough Community Managers to guarantee a timely review of your tutorials. We are already working on a solution and we apologize for any delays.
 
 ## Writing and Testing your Content 
 
