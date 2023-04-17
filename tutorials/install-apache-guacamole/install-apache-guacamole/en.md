@@ -81,7 +81,7 @@ Cloudron requires a domain. Enter this in the top field (e.g. `example.com`).
 
 Select `Hetzner` as DNS provider. Now you need an API token. You can get this token in the [DNS Console] (https://dns.hetzner.com).
 
-In the DNS Console, click on `Mange API tokens`.
+In the DNS Console, click on `Manage API tokens`.
 ![the Hetzner DNS Console, the corresponding button is marked](images/Screenshot_dns-console.png)
 
 In the submenu enter, a name (e.g. Cloudron) and click on `Create access token`.
@@ -131,7 +131,7 @@ Now select the `Connections` tab, click on `New Connection`.
 
 ![the settings page, the corresponding buttons are highlighted](images/Screenshot_Guacamole-settings-newconnections.png)
 
-In the `New Connection` submenu, first enter a name for the entry (e.g. _Server - Guacamole_). Select _SSH_ for protocol. If you plan to give multiple people access to your instance, you should take a look at the 'Concurrency Limits' menu. If you are the only user, you can ignore the next categories up to `Parameters`.
+In the `New Connection` submenu, first, enter a name for the entry (e.g. _Server - Guacamole_). Select _SSH_ for protocol. If you plan to give multiple people access to your instance, you should take a look at the 'Concurrency Limits' menu. If you are the only user, you can ignore the next categories up to `Parameters`.
 
 The category `Parameters` is very important. <br>
 Under the **Network** heading, enter the IP of your server in the _Hostname_ field. If you use the default port, you can ignore the other parameters.<br>
@@ -142,7 +142,7 @@ Under **Display**, you can change the appearance a bit if you like. I recommend 
 
 In this tutorial, you learned how to easily set up a Guacamole instance using Docker and Cloudron. <br>
 
-Of course, you can not only manage SSH connections, but also e.g. RDP and VNC. This allows you to easily set up a cloud PC. If you want more information about the configuration, I highly recommend the official [documentation](https://guacamole.apache.org/doc/gug/index.html). <br>
+Of course, you can not only manage SSH connections but also e.g. RDP and VNC. This allows you to easily set up a cloud PC. If you want more information about the configuration, I highly recommend the official [documentation](https://guacamole.apache.org/doc/gug/index.html). <br>
 Nevertheless, I hope that I was able to help you a little with my little tutorial.
 
 
