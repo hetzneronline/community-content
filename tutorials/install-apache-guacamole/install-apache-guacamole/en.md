@@ -2,8 +2,8 @@
 SPDX-License-Identifier: MIT
 path: "/tutorials/install-apache-guacamole"
 slug: "install-apache-guacamole"
-date: "2023-07-04"
-title: "Remote Desktop im Browser - Apache Guacamole"
+date: "2023-04-24"
+title: "Remote desktop in the browser - Apache Guacamole"
 short_description: "This tutorial explains how to install Apache Guacamole."
 tags: ["Cloud", "Browser", "Cloudron"]
 author: "Martin"
@@ -13,78 +13,96 @@ author_description: ""
 language: "en"
 available_languages: ["en", "de"]
 header_img: "header-8"
+cta: "cloud"
 ---
-
-# Remote desktop in the browser - Apache Guacamole
 
 ## Introduction
 
-Want to easily access all of your remote desktops from all of your devices? <br>
-It's easy with Apache Guacamole. <br>
-This post explains how to install Apache Guacamole and set up the connections.
+Want to easily access all of your remote desktops from all of your devices?
+It's easy with Apache Guacamole.
+This tutorial explains how to install Apache Guacamole and set up the connections.
 
-<br>
+**Prerequisites**
 
-### Requirements
+* A top-level domain, e.g. `example.com`
+* An email address
+* A server (at least CPX11, better with more resources)
+* A public IP address (IPv4 recommended)
+* Operating system: Ubuntu 22.04 LTS or newer
+* A connection to the server command line
 
-+ a top-level domain, e.g. `example.com`
-+ an email address
-+ a server (at least CPX11, better with more resources)
-+ a public IP address (IPv4 recommended)
-+ Operating system: Ubuntu 22.04 LTS or newer
-+ a connection to the server command line
+**Example terminology**
 
-<br>
+* IPv4: `<203.0.113.1>`
+
+Please replace `<203.0.113.1>` with your own IP address in all example commands.
 
 ## Step 1 - Install Cloudron
 
-[Apache Guacamole](https://guacamole.apache.org/) must first be installed to ensure that you can call up and operate the graphical interface via the browser. However, since the configuration of Guacamole is a bit complicated, I will use a preconfigured version in this tutorial. Such a very well pre-configured variant is available with "Cloudron", a graphical web interface for Docker operated by the company of the same name.
+To ensure that you can call up and operate the graphical interface via the browser, you must first install [Apache Guacamole](https://guacamole.apache.org/). However, since the configuration of Guacamole is a bit complicated, I will use a preconfigured version in this tutorial. Such a very well pre-configured variant is available with "Cloudron", a graphical web interface for Docker operated by the company of the same name.
 
 To start the installation, connect to your server with SSH:
 
-````bash
-ssh root@[your IP address here]
-````
+```bash
+ssh root@<203.0.113.1>
+```
+
+> **Note:** Replace `<203.0.113.1>` with your own IP address.
+
 Accept the new fingerprint by typing `yes`.
 
 You are now connected to your server.
 
 Before you can install Cloudron, you must first update your server. To do this, run the following command:
 
-````bash
-sudo apt-get full-upgrade
-````
+```bash
+sudo apt full-upgrade
+```
 
 To then install Cloudron on your server, run the following commands:
 
-````bash
-# downloads an installation script
-wget https://cloudron.io/cloudron-setup
-# makes the script executable
-chmod +x ./cloudron-setup
-# runs the script
-./cloudron-setup
-````
+- Download an installation script
+  
+  ```bash
+  wget https://cloudron.io/cloudron-setup
+  ```
 
-(Note: Installation may take some time).
+- Make the script executable
+  
+  ```bash
+  chmod +x ./cloudron-setup
+  ```
+
+- Run the script
+  
+  ```bash
+  ./cloudron-setup
+  ```
+
+> **Note:** Installation may take some time.
 
 If the installation was successful, reboot the system.
 
 ## Step 2 - Set up Cloudron
-Now call up the IP address of your server in your browser. You will be taken to a web page where you need to make some settings (if your browser shows a warning that the website is unsafe, you can ignore it. To do this, click on advanced and then on continue to...):
 
-![the warning](images/Screenshot_warning.png)
+Now call up the IP address of your server in your browser. You will be taken to a web page where you need to make some settings.
 
-![Cloudron's initial website](images/Screenshot_inital-site.png)
+> If your browser shows a warning that the website is unsafe, you can ignore it. To do this, click on `Advanced` and then on `Proceed to ... (unsafe)`:
+> 
+> ![the warning](images/Screenshot_warning.png)
 
 Cloudron requires a domain. Enter this in the top field (e.g. `example.com`).
 
-Select `Hetzner` as DNS provider. Now you need an API token. You can get this token in the [DNS Console] (https://dns.hetzner.com).
+![Cloudron's initial website](images/Screenshot_inital-site.png)
+
+Select `Hetzner` as DNS provider. Now you need an API token. You can get this token in the [DNS Console](https://dns.hetzner.com).
 
 In the DNS Console, click on `Manage API tokens`.
+
 ![the Hetzner DNS Console, the corresponding button is marked](images/Screenshot_dns-console.png)
 
 In the submenu enter, a name (e.g. Cloudron) and click on `Create access token`.
+
 ![Access token tagged](images/Screenshot_access-token.png)
 
 Copy the token to the clipboard and paste it into the field at Cloudron. Then continue (this may take a moment).
@@ -105,7 +123,7 @@ When you visit the App Store, you will be prompted to create an account with Clo
 
 ![image of configuration page](images/Screenshot_cloudronio-acount-setup.png)
 
-Once you have done this, you can access the App Store. Search "guacamole" in the search bar at the top. Click on the entry, scroll down and click `Install`.
+Once you did this, you can access the App Store. Search "guacamole" in the search bar at the top. Click on the entry, scroll down and click `Install`.
 
 In the next window, enter the subdomain on which you want to access your Guacamole instance (type `guac` if you want to access the domain `guac.example.com`).
 
@@ -121,31 +139,31 @@ Change the password immediately (!). To do this, click on `guacadmin` in the upp
 
 Congratulations! You have successfully installed Guacamole! I will explain how to store a connection in the next step.
 
-## Step 3 - Set up a new connection
+## Step 4 - Set up a new connection
 
 Using the example of the SSH connection of the server running Cloudron and Guacamole, I would like to demonstrate how to create a new connection.
 
-To create a new connection, open the settings (see step 2).
+To create a new connection, open the settings.
 
 Now select the `Connections` tab, click on `New Connection`.
 
 ![the settings page, the corresponding buttons are highlighted](images/Screenshot_Guacamole-settings-newconnections.png)
 
-In the `New Connection` submenu, first, enter a name for the entry (e.g. _Server - Guacamole_). Select _SSH_ for protocol. If you plan to give multiple people access to your instance, you should take a look at the 'Concurrency Limits' menu. If you are the only user, you can ignore the next categories up to `Parameters`.
+In the `New Connection` submenu, first, enter a name for the entry (e.g. _Server - Guacamole_). Select _SSH_ for protocol. If you plan to give multiple people access to your instance, you should take a look at the `Concurrency Limits` menu. If you are the only user, you can ignore the next categories up to `Parameters`.
 
-The category `Parameters` is very important. <br>
-Under the **Network** heading, enter the IP of your server in the _Hostname_ field. If you use the default port, you can ignore the other parameters.<br>
-**Authentication** is also relevant. You can enter your login data in these fields. You can also leave the fields empty, but then you have to log in manually every time you connect. <br>
+The category `Parameters` is very important.
+Under the **Network** heading, enter the IP of your server in the _Hostname_ field. If you use the default port, you can ignore the other parameters.
+**Authentication** is also relevant. You can enter your login data in these fields. You can also leave the fields empty, but then you have to log in manually every time you connect.
 Under **Display**, you can change the appearance a bit if you like. I recommend just trying something out.
 
-## Ending
+## Conclusion
 
-In this tutorial, you learned how to easily set up a Guacamole instance using Docker and Cloudron. <br>
+In this tutorial, you learned how to easily set up a Guacamole instance using Docker and Cloudron.
 
-Of course, you can not only manage SSH connections but also e.g. RDP and VNC. This allows you to easily set up a cloud PC. If you want more information about the configuration, I highly recommend the official [documentation](https://guacamole.apache.org/doc/gug/index.html). <br>
+Of course, you can not only manage SSH connections but also e.g. RDP and VNC. This allows you to easily set up a cloud PC. If you want more information about the configuration, I highly recommend the official [documentation](https://guacamole.apache.org/doc/gug/index.html).
 Nevertheless, I hope that I was able to help you a little with my little tutorial.
 
-
+##### License: MIT
 
 <!--
 
@@ -175,4 +193,3 @@ By making a contribution to this project, I certify that:
 Signed-off-by: Martin <m6prca02w@mozmail.com>
 
 -->
-
