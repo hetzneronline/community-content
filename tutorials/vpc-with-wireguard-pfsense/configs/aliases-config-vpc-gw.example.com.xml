@@ -1,0 +1,46 @@
+
+<aliases>
+	<alias>
+		<name>full_net</name>
+		<type>network</type>
+		<address>vpc_net on_prem_net</address>
+		<descr><![CDATA[Example Corp Internal segment]]></descr>
+```
+		<detail><![CDATA[VPC segment||Example.com segment]]></detail>
+	</alias>
+	<alias>
+		<name>on_prem_net</name>
+		<type>network</type>
+		<address>10.0.0.0/17</address>
+		<descr><![CDATA[Example Corp On Prem segment]]></descr>
+		<detail><![CDATA[on prem]]></detail>
+	</alias>
+	<alias>
+		<name>on_prem_public</name>
+		<type>network</type>
+		<address>198.51.100.82/32 2001:db8:100::/64</address>
+		<descr><![CDATA[Example Corp public addresses]]></descr>
+		<detail><![CDATA[IPv4 example.com||IPv6 example.com]]></detail>
+	</alias>
+	<alias>
+		<name>vpc_net</name>
+		<type>network</type>
+		<address>10.0.128.0/17</address>
+		<descr><![CDATA[Example Corp VPC segment]]></descr>
+		<detail><![CDATA[hetzner]]></detail>
+	</alias>
+	<alias>
+		<name>wireguard_net</name>
+		<type>network</type>
+		<address>10.6.210.0/31</address>
+		<descr><![CDATA[wireguard site-site-to-site]]></descr>
+		<detail><![CDATA[Wireguard Network]]></detail>
+	</alias>
+    <alias>
+		<name>wireguard_p</name>
+		<type>port</type>
+		<address>51812</address>
+		<descr><![CDATA[WireGuard default listening port (udp)]]></descr>
+		<detail><![CDATA[udp]]></detail>
+	</alias>
+</aliases>
