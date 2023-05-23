@@ -112,7 +112,7 @@ Since you know your tutorial best, it would be great if you could help us keep y
 
    Here is an example of a tutorial that is available in English and German. It also includes some images.
 
-   ![example-tutorial-folder](example-tutorial-folder.png)
+   ![example-tutorial-files](example-tutorial-files.jpg)
 
 3. **Add the template**
    

@@ -1,6 +1,6 @@
 # Hetzner Tutorial Richtlinien
 
-Hier findest du wichtige Informationen bezüglich allgemeiner Voraussetzungen wie [Inhalt](#inhalt), [Sprache](#sprache) und [externe Inhalte](#externe-inhalte), bezüglich dem [Review-Verfahren](#review-verfahren), [Credits](#credits) und eine [kurze Anleitung](#tutorial-beitragen-schritt-für-schritt-anleitung), wie du ein Tutorial einreichen kannst.
+Hier findest du wichtige Informationen bezüglich allgemeiner Voraussetzungen wie [Inhalt](#inhalt), [Sprache](#sprache) und [externe Inhalte](#externe-inhalte), bezüglich dem [Review-Verfahren](#review-verfahren), [Credits](#credits) und eine [kurze Anleitung](#tutorial-beitragen---schritt-für-schritt-anleitung), wie du ein Tutorial einreichen kannst.
 
 > Wenn du ein Tutorial einreichen möchtest, solltest du dir auch das [Beispiel-Tutorial](tutorial-template.de.md) und die [Markdown-Vorschau](https://community.hetzner.com/markdown-test-suite/) ansehen!
 
@@ -112,7 +112,7 @@ Da du dein Tutorial am besten kennst, wäre es gut, wenn du uns dabei unterstüt
    
    Hier ist ein Beispiel von einem Tutorial, das in Englisch und Deutsch geschrieben wurde und Bilder enthält.
    
-   ![example-tutorial-folder](example-tutorial-folder.png)
+   ![example-tutorial-files](example-tutorial-files.jpg)
 
 3. **Beispiel-Tutorial hinzufügen**
    
