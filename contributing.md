@@ -10,13 +10,13 @@ Below, you can find information about [content](#content), [language](#language)
 
 * **Original**
   
-  * You cannot re-submit any work that is published somewhere else on the the web, even if you are the original author.
+  * You cannot re-submit any work that is published somewhere else on the web, even if you are the original author.
   * If you create a pull request for a tutorial that is not original, we will close this pull request and we will not publish the tutorial. In addition, we will not publish any other tutorials submitted by that user. This means that any future pull requests by that user will be closed without review.
 
 * **Topic**
   
   * Before you start writing your tutorial, make sure there isn't already a tutorial at [community.hetzner.com](https://community.hetzner.com/tutorials) about the exact same topic.
-  * You might also want to check existing pull request, just to be safe.
+  * You might also want to check existing pull requests, just to be safe.
 
 * **Provide value**
   
@@ -62,7 +62,7 @@ Below, you can find information about [content](#content), [language](#language)
    > If you don't respond to the feedback provided by the Community Manager and you stop working on the tutorial, the pull request will be marked as `stale`. If you start working on the tutorial again, we will remove that label. If the tutorial remains without activity for a long period of time, we will close the pull request. Should you find time again to continue working on the tutorial, you are welcome to open a new pull request.
 
 3. Once the Community Manager has no more feedback and the tutorial looks good, the Community Manager will add the `ready` label to your pull request.
-4. Someone will then do a final check for final spelling or formatting mistakes and publish the tutorial.
+4. Someone will then do a final check for spelling or formatting mistakes and publish the tutorial.
 
 If your tutorial is accepted, you will receive an email from a Hetzner Online Community Manager. Please respond to this email and provide your Hetzner Account number, so the reward can be added as a credit to your account.
 
@@ -98,12 +98,17 @@ Since you know your tutorial best, it would be great if you could help us keep y
 
 ## How to contribute step by step
 
-1. **Fork the project**
+1. **[Fork](https://github.com/hetzneronline/community-content/fork) and clone the project**
+    
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/community-content.git
+   ``` 
 
 2. **Add a folder for your tutorial**
    
-   ```console
-   mkdir -p tutorials/my-tutorial-name
+   ```bash
+   cd community-content
+   mkdir tutorials/my-tutorial-name
    ```
 
    > Change `my-tutorial-name` to a unique name. You will have to specify this folder name in the metadata of your tutorial.
@@ -114,12 +119,14 @@ Since you know your tutorial best, it would be great if you could help us keep y
 
    ![example-tutorial-files](example-tutorial-files.jpg)
 
-3. **Add the template**
+3. **Use the template**
    
    To help you get started, we've prepared a [tutorial template](tutorial-template.md) that you can build on. It includes a basic layout for your tutorial, some examples of formatting, and a number of tips and tricks for setting everything up. You can copy the content of this file to your own tutorial and edit it where needed.
+
+   > This command will overwrite the content of the file `01.en.md`.
    
-   ```console
-   cat tutorial-template.md > tutorials/my-tutorial-name/01.en.md
+   ```bash
+   cp tutorial-template.md tutorials/my-tutorial-name/01.en.md
    ```
 
    The tutorials at [community.hetzner.com](https://community.hetzner.com/tutorials) are all written using Markdown. This is a markup language used all over the web. You can find a great overview on GitHub:
@@ -197,15 +204,45 @@ Since you know your tutorial best, it would be great if you could help us keep y
    
    When you write your content, make sure it meets the General Criteria presented at the top.
 
-   You can use our [Markdown preview](https://community.hetzner.com/markdown-test-suite/) to see how you tutorial will look after it was published and to check your text for any formatting mistakes.
+   You can use our [Markdown preview](https://community.hetzner.com/markdown-test-suite/) to see how your tutorial will look after it was published and to check your text for any formatting mistakes.
 
    Also make sure that your tutorial includes the [license block](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.md?plain=1#L96-L125) at the bottom of the tutorial file. And remember to replace `[submitter's name and email address here]` with your own name and email address.
 
-5. **Create a pull request**
+5. **Commit and push your tutorial**
+
+   Create a git branch for your tutorial and switch to it:
+
+   ```bash
+   git checkout -b my-tutorial
+   ```
+   
+   > Replace `my-tutorial` with a short name that describes your tutorial
+
+   Commit your changes to the new branch:
+
+   ```bash
+   git add tutorials/my-tutorial-name
+   git commit -m "New tutorial: My title"
+   ```
+   > Replace `my-tutorial-name` with a directory of your tutorial, created in step 2.
+   >
+   > Replace `My title` with a title up to 36 characters.
+   >
+   > You may be asked to configure your name and email in git.
+
+   Push your changes to GitHub, provide your login credentials if required:
+
+   ```bash
+   git push origin HEAD
+   ```
+
+6. **Create a pull request**
+
+   Open https://github.com/hetzneronline/community-content in your browser, you should see a notification with the button to create a pull request.
 
    In your pull request, you should include the following statement:
    
-   ```text
+   ```
    I have read and understood the Contributor's Certificate of Origin available at the end of 
    https://raw.githubusercontent.com/hetzneronline/community-content/master/tutorial-template.md
    and I hereby certify that I meet the contribution criteria described in it.
