@@ -98,11 +98,12 @@ Da du dein Tutorial am besten kennst, wäre es gut, wenn du uns dabei unterstüt
 
 ## Tutorial beitragen - Schritt-für-Schritt-Anleitung
 
-1. **Fork des Projekts anlegen**
+1. **[Fork](https://github.com/hetzneronline/community-content/fork) des Projekts anlegen**
 
 2. **Ordner fürs Tutorial hinzufügen**
    
    ```console
+   cd community-content
    mkdir -p tutorials/my-tutorial-name
    ```
 
@@ -114,7 +115,7 @@ Da du dein Tutorial am besten kennst, wäre es gut, wenn du uns dabei unterstüt
    
    ![example-tutorial-files](example-tutorial-files.jpg)
 
-3. **Beispiel-Tutorial hinzufügen**
+3. **Beispiel-Tutorial verwenden**
    
    Beachte, dass alle Tutorials auf Englisch verfasst sein müssen. Wenn du zusätzlich eine deutsche Übersetzung bereitstellen willst, kannst du dieses [Beispiel-Tutorial](tutorial-template.de.md) als Vorlage verwenden. Es enthält ein grundlegendes Layout für das Tutorial, einige Beispiele für die Formatierung und eine Reihe von Tipps und Tricks für die Einrichtung. Du kannst den Inhalt der Datei zu deinem Tutorial kopieren und bearbeiten.
    
@@ -208,9 +209,21 @@ Da du dein Tutorial am besten kennst, wäre es gut, wenn du uns dabei unterstüt
 
    Beachte außerdem, dass ganz unten vom Tutorial der [License-Block](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.de.md?plain=1#L96-L125) angegeben werden muss. Ersetze an dieser Stelle `[submitter's name and email address here]` mit deinem eigenen Namen und deiner E-Mail-Adresse.
 
-5. **Pull-Request erstellen**
+5. **Commit und push**
+
+   Erstelle einen Branch für dein Tutorial:
    
-   Erstelle einen Pull-Request und füge folgenden Kommentar hinzu:
+   ```bash
+   git checkout -b my-tutorial
+   ```
+   
+   > Ersetze `my-tutorial` mit einem kurzen Namen, der das Tutorial beschreibt.
+
+   Speicher deine Änderungen und pushe das Tutorial auf GitHub.
+
+6. **Pull-Request erstellen**
+   
+   Erstelle [auf GitHub]](https://github.com/hetzneronline/community-content) einen Pull-Request und füge folgenden Kommentar hinzu:
    
    ```text
    I have read and understood the Contributor's Certificate of Origin available at the end of 

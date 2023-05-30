@@ -99,10 +99,6 @@ Since you know your tutorial best, it would be great if you could help us keep y
 ## How to contribute step by step
 
 1. **[Fork](https://github.com/hetzneronline/community-content/fork) and clone the project**
-    
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/community-content.git
-   ``` 
 
 2. **Add a folder for your tutorial**
    
@@ -123,7 +119,7 @@ Since you know your tutorial best, it would be great if you could help us keep y
    
    To help you get started, we've prepared a [tutorial template](tutorial-template.md) that you can build on. It includes a basic layout for your tutorial, some examples of formatting, and a number of tips and tricks for setting everything up. You can copy the content of this file to your own tutorial and edit it where needed.
 
-   > This command will overwrite the content of the file `01.en.md`.
+   > If you already have a file called `01.en.md`, this command will overwrite the content of that file.
    
    ```bash
    cp tutorial-template.md tutorials/my-tutorial-name/01.en.md
@@ -210,37 +206,19 @@ Since you know your tutorial best, it would be great if you could help us keep y
 
 5. **Commit and push your tutorial**
 
-   Create a git branch for your tutorial and switch to it:
-
+   Create a git branch for your tutorial:
+   
    ```bash
    git checkout -b my-tutorial
    ```
    
-   > Replace `my-tutorial` with a short name that describes your tutorial
+   > Replace `my-tutorial` with a short name that describes your tutorial.
 
-   Commit your changes to the new branch:
-
-   ```bash
-   git add tutorials/my-tutorial-name
-   git commit -m "New tutorial: My title"
-   ```
-   > Replace `my-tutorial-name` with a directory of your tutorial, created in step 2.
-   >
-   > Replace `My title` with a title up to 36 characters.
-   >
-   > You may be asked to configure your name and email in git.
-
-   Push your changes to GitHub, provide your login credentials if required:
-
-   ```bash
-   git push origin HEAD
-   ```
+   Commit your changes to the new branch and push your tutorial to GitHub.
 
 6. **Create a pull request**
-
-   Open https://github.com/hetzneronline/community-content in your browser, you should see a notification with the button to create a pull request.
-
-   In your pull request, you should include the following statement:
+   
+   Create a new pull request [on GitHub](https://github.com/hetzneronline/community-content). In your pull request, you should include the following statement:
    
    ```
    I have read and understood the Contributor's Certificate of Origin available at the end of 
