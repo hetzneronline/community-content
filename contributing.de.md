@@ -223,7 +223,7 @@ Da du dein Tutorial am besten kennst, wäre es gut, wenn du uns dabei unterstüt
 
 6. **Pull-Request erstellen**
    
-   Erstelle [auf GitHub]](https://github.com/hetzneronline/community-content) einen Pull-Request und füge folgenden Kommentar hinzu:
+   Erstelle [auf GitHub](https://github.com/hetzneronline/community-content) einen Pull-Request und füge folgenden Kommentar hinzu:
    
    ```text
    I have read and understood the Contributor's Certificate of Origin available at the end of 
