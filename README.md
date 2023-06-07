@@ -18,7 +18,7 @@ Unfortunately, there are currently not enough Community Managers to guarantee a 
 
 ## Writing and Testing your Content 
 
-There is a Editor/Preview Suite you can use to write your Articles (optional)
+There is a Editor/Preview Suite you can use to write your Articles (optional).
 https://community.hetzner.com/markdown-test-suite/
 
 ## Requesting Content
