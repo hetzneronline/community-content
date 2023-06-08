@@ -16,7 +16,7 @@ header_img: "header-x"
 cta: "product"
 ---
 
-## Einführung
+## Einführung 
 
 Beachte, dass alle Tutorials auf Englisch verfasst sein müssen. Wenn du zusätzlich eine deutsche Übersetzung bereitstellen willst, kannst du dieses Beispiel-Tutorial als Vorlage verwenden.
 

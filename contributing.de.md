@@ -232,4 +232,4 @@ Da du dein Tutorial am besten kennst, wäre es gut, wenn du uns dabei unterstüt
    Signed-off-by: YOUR NAME <YOUR@EMAILPROVIDER.TLD>
    ```
 
-Wenn der Community Manager keine weiteren Anmerkungen hat, wird das Tutorial veröffentlicht.
+Wenn der Community Manager keine weiteren Anmerkungen hat, wird das Tutorial veröffentlicht. 
