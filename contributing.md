@@ -2,7 +2,7 @@
 
 Below, you can find information about [content](#content), [language](#language), [external references](#external-references), the [review process](#review-process), [credits](#credits), and a [step by step guide](#how-to-contribute-step-by-step) on how to contribute.
 
-> If you want to contribute a tutorial, you should also check out our [tutorial template](tutorial-template.md) and our [Markdown preview](https://community.hetzner.com/markdown-test-suite/)!
+> If you want to contribute a tutorial, you should also check out our [tutorial template](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.md) and our [Markdown preview](https://community.hetzner.com/markdown-test-suite/)!
 
 ## General Criteria
 
@@ -113,11 +113,11 @@ Since you know your tutorial best, it would be great if you could help us keep y
 
    Here is an example of a tutorial that is available in English and German. It also includes some images.
 
-   ![example-tutorial-files](example-tutorial-files.jpg)
+   ![example-tutorial-files](https://raw.githubusercontent.com/hetzneronline/community-content/master/example-tutorial-files.jpg)
 
 3. **Use the template**
    
-   To help you get started, we've prepared a [tutorial template](tutorial-template.md) that you can build on. It includes a basic layout for your tutorial, some examples of formatting, and a number of tips and tricks for setting everything up. You can copy the content of this file to your own tutorial and edit it where needed.
+   To help you get started, we've prepared a [tutorial template](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.md) that you can build on. It includes a basic layout for your tutorial, some examples of formatting, and a number of tips and tricks for setting everything up. You can copy the content of this file to your own tutorial and edit it where needed.
 
    > If you already have a file called `01.en.md`, this command will overwrite the content of that file.
    
@@ -144,7 +144,7 @@ Since you know your tutorial best, it would be great if you could help us keep y
    ```
    
    Apart from the title, all other headers should be H2. If there are two or more smaller steps within a larger step, you can consider making those smaller steps H3.
-   For specific examples of how to format a tutorial, please take a look at the [tutorial template](tutorial-template.md).
+   For specific examples of how to format a tutorial, please take a look at the [tutorial template](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.md).
    
    When you edit the tutorial template, you should also note the following:
 
@@ -202,7 +202,7 @@ Since you know your tutorial best, it would be great if you could help us keep y
 
    You can use our [Markdown preview](https://community.hetzner.com/markdown-test-suite/) to see how your tutorial will look after it was published and to check your text for any formatting mistakes.
 
-   Also make sure that your tutorial includes the [license block](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.md?plain=1#L96-L125) at the bottom of the tutorial file. And remember to replace `[submitter's name and email address here]` with your own name and email address.
+   Also make sure that your tutorial includes the [license block](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.md?plain=1#L108-L137) at the bottom of the tutorial file. And remember to replace `[submitter's name and email address here]` with your own name and email address.
 
 5. **Commit and push your tutorial**
 
@@ -220,7 +220,7 @@ Since you know your tutorial best, it would be great if you could help us keep y
    
    Create a new pull request [on GitHub](https://github.com/hetzneronline/community-content). In your pull request, you should include the following statement:
    
-   ```
+   ```text
    I have read and understood the Contributor's Certificate of Origin available at the end of 
    https://raw.githubusercontent.com/hetzneronline/community-content/master/tutorial-template.md
    and I hereby certify that I meet the contribution criteria described in it.
