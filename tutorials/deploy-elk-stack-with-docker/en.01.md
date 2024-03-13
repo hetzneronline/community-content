@@ -34,9 +34,9 @@ In this article you will learn how to install an ELK stack using Docker Compose 
 * The ip or hostname of your server: `<your-server>`
 * A password of your choice for the elastic user: `<your-elastic-password>`
 
-## Step 1 - Install Docker Compose
+## Step 1 - Install Docker Compose (Optional)
 
-You may skip this step if you have already installed Docker Compose on your server. First, ssh into your server using
+You may skip this step if you have already installed Docker Compose on your server. First, SSH into your server using
 the following command:
 
 ```shell
@@ -78,7 +78,7 @@ Make sure to log out and log in again to apply changes.
 
 ## Step 2 - Create docker-compose.yaml
 
-The `docker-compose.yaml` file will be used to declare all of the infrastructure for the ELK stack. It is used to create
+The docker-compose.yaml file will be used to declare all the infrastructure for the ELK stack. It is used to create
 many containers using a single command. Create a new folder on your server and create a `docker-compose.yaml` file in
 it:
 
@@ -121,7 +121,7 @@ from `.env`.
 
 ### Step 2.1 - Start elasticsearch (Optional)
 
-The next step is to start the `elasticsearch` container, you can do this using the `docker compose` command:
+The next step is to start the elasticsearch container. You can do this using the `docker compose` command:
 
 ```shell
 docker compose up -d
@@ -134,7 +134,7 @@ We can check that everything is working using the `docker ps` command.
 ## Step 3 - Kibana
 
 Next up on our list is Kibana. Kibana can be used to visualize the data from Elasticsearch with beautiful graphs and
-dashboards, take a look:
+dashboards. Take a look.
 
 ![image5](images/image13.png)
 
@@ -239,7 +239,7 @@ logstash:
     - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
 ```
 
-Setting up logstash is a bit more complicated, you need 1 additional configuration file, logstash.conf. Logstash works
+Setting up Logstash is a bit more complicated; you need one additional configuration file, `logstash.conf`. Logstash works
 on something called a "pipeline". It’s a file explaining what Logstash should do (where do logs come from, how to
 analyse the logs where to send them). The pipeline will be in the file logstash.conf.
 This is one of the most basic pipelines you could have:
@@ -301,8 +301,7 @@ docker compose down
 
 ## Conclusion
 
-That’s it! You should have a working ELK stack running with Docker Compose. Next steps would be to add log exporters
-such as filebeat or check out the [official documentation](https://www.elastic.co/guide/index.html).
+That’s it! You should have a working ELK stack running with Docker Compose. Next steps would be to add log exporters such as Filebeat or check out the [official documentation](https://www.elastic.co/guide/index.html).
 
 ##### License: MIT
 
