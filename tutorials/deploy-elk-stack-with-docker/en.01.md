@@ -2,59 +2,57 @@
 SPDX-License-Identifier: MIT
 path: "/tutorials/deploy-elk-stack-with-docker"
 slug: "deploy-elk-stack-with-docker"
-date: "2024-0-0"
+date: "2024-03-18"
 title: "Deploy your own ELK stack using Docker Compose"
-short_description: ""
-tags: [ "Ubuntu", "Docker", "Docker Compose", "ELK" ]
+short_description: "This tutorial explains how to install Elasticsearch, Kibana, and Logstash with Docker Compose."
+tags: ["Ubuntu", "Docker", "Docker Compose", "ELK"]
 author: "Alexandru Popescu"
 author_link: "https://github.com/Blue25GD"
 author_img: "https://avatars3.githubusercontent.com/u/113828070"
 author_description: "Creating awesome web products"
 language: "en"
-available_languages: [ "en" ]
+available_languages: ["en"]
 header_img: "header-1"
 cta: "cloud"
 ---
 
 ## Introduction
 
-In this article you will learn how to install an ELK stack using Docker Compose on an Ubuntu (version 22.04) server.
+In this tutorial, you will learn how to install an ELK stack using Docker Compose on a server with Ubuntu (version 22.04). The ELK stack is comprised of Elasticsearch, Kibana, and Logstash.
+
+* **Elasticsearch** is a search and analytics engine.
+* **Kibana** is a user interface for data analysis.
+* **Logstash** can analyse logs from applications.
 
 **Prerequisites**
 
-* An Ubuntu server running version 22.04 or later
-* SSH Access to that server
-* Basic knowledge
-  of [Docker](https://docker.com), [Docker Compose](https://docs.docker.com/compose), [ElasticSearch](https://elastic.co)
+* A server running Ubuntu version 22.04 or later
+  * [SSH access](https://community.hetzner.com/tutorials/howto-ssh-key) to that server
+  * Access to the root user or a user with sudo permissions
+* Basic knowledge of [Docker](https://docker.com), [Docker Compose](https://docs.docker.com/compose), [ElasticSearch](https://elastic.co)
   and YAML
 
-**Terminology**
+**Example terminology**
 
-* The username of your server: `<your-username>`
-* The ip or hostname of your server: `<your-server>`
-* A password of your choice for the elastic user: `<your-elastic-password>`
+* Username: `holu`
+* Hostname: `<your_host>`
 
-## Step 1 - Install Docker Compose (Optional)
+## Step 1 - Install Docker Compose
 
 You may skip this step if you have already installed Docker Compose on your server. First, SSH into your server using
 the following command:
 
+> Replace `holu` with your own username and `<your_host>` with the IP of your server.
+
 ```shell
-ssh <your-username>@<your-server>
+ssh holu@<your_host>
 ```
 
-For this tutorial, my server will be named `server` and my username will be `alex`. The output should look something
-like this:
-
-![image1](images/image2.png)
-
-After this, make sure to update apt packages and install cURL:
+Make sure to update apt packages and install cURL:
 
 ```shell
 sudo apt-get update && sudo apt-get install curl -y
 ```
-
-![image2](images/image6.png)
 
 After making sure curl is installed, we can use the quick install script provided by Docker to install Docker as well as
 Docker Compose:
@@ -63,34 +61,57 @@ Docker Compose:
 curl https://get.docker.com | sh
 ```
 
-This command will download the script from get.docker.com and "pipe" it to sh (It will feed the downloaded script to sh
-which will execute that script and install Docker).
-The last thing we can do is add ourselves to the Docker group so that we don’t need to use sudo everytime we use the
-docker command.
+This command will download the script from [get.docker.com](https://get.docker.com/) and "pipe" it to sh (It will feed the downloaded script to sh which will execute that script and install Docker).
+The last thing we can do is add ourselves to the Docker group so that we don’t need to use sudo everytime we use the docker command.
 
-![image3](images/image3.png)
+> Replace `holu` with your own username.
 
 ```shell
-sudo usermod -aG docker <your-username>
+sudo usermod -aG docker holu
 ```
 
 Make sure to log out and log in again to apply changes.
 
 ## Step 2 - Create docker-compose.yaml
 
-The docker-compose.yaml file will be used to declare all the infrastructure for the ELK stack. It is used to create
-many containers using a single command. Create a new folder on your server and create a `docker-compose.yaml` file in
-it:
+The `docker-compose.yaml` file will be used to declare all the infrastructure for the ELK stack. It is used to create
+several containers with a single command. 
+
+Create a new folder on your server and create a `docker-compose.yaml` file in it:
 
 ```shell
 mkdir elk-stack && cd elk-stack && touch docker-compose.yaml
 ```
 
-Add the following content to the docker-compose.yaml file:
+We want to use Docker Compose to create three Docker containers:
+
+| Container name           | Description |
+| ------------------------ | ----------- |
+| <kbd>setup</kbd>         | This container will start before the other containers and configure the passwords. |
+| <kbd>elasticsearch</kbd> | This will be the container for Elasticsearch. |
+| <kbd>kibana</kbd>        | You can use Kibana to visualize the data from Elasticsearch with beautiful graphs and dashboards. Take a look:<br>![image5](images/image13.png) |
+
+To create those three containers, add the following content to the `docker-compose.yaml` file:
 
 ```yaml
 version: "3"
 services:
+  setup:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.1
+    environment:
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - KIBANA_PASSWORD=${KIBANA_PASSWORD}
+    container_name: setup
+    command:
+      - bash
+      - -c
+      - |
+        echo "Waiting for Elasticsearch availability";
+        until curl -s http://elasticsearch:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
+        echo "Setting kibana_system password";
+        until curl -s -X POST -u "elastic:${ELASTIC_PASSWORD}" -H "Content-Type: application/json" http://elasticsearch:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
+        echo "All done!";
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.1
     # give the container a name
@@ -105,89 +126,32 @@ services:
       # The password for the 'elastic' user
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - xpack.security.http.ssl.enabled=false
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.12.1
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      # remember the container_name for elasticsearch?
+      # we use it here to access that container
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
+      # Change this to true if you want to sent
+      # telemetry data to kibana developers
+      - TELEMETRY_ENABLED=false
 ```
 
-This will create a container named elasticsearch when running Docker Compose. We are currently missing an element
-though, the `.env` file. Let’s create it now:
 
+We are currently missing an element though, the `.env` file. The `.env` file is used to store secrets like passwords and API tokens to remove them from your configuration or code.
+Docker Compose automatically recognizes the `.env` file and replaces variables like `${MY_VARIABLE}` with the variable from `.env`.
+
+Create `.env` and add the following lines:
+  
 ```shell
-# .env
 ELASTIC_PASSWORD=<your-elastic-password>
-```
-
-The `.env` file is used to store secrets like passwords and API tokens to remove them from your configuration or code.
-Docker Compose automatically recognises the `.env` file and replaces variables like `${MY_VARIABLE}` with the variable
-from `.env`.
-
-### Step 2.1 - Start elasticsearch (Optional)
-
-The next step is to start the elasticsearch container. You can do this using the `docker compose` command:
-
-```shell
-docker compose up -d
-```
-
-![image4](images/image1.png)
-
-We can check that everything is working using the `docker ps` command.
-
-## Step 3 - Kibana
-
-Next up on our list is Kibana. Kibana can be used to visualize the data from Elasticsearch with beautiful graphs and
-dashboards. Take a look.
-
-![image5](images/image13.png)
-
-We will of course need to update the `docker-compose.yaml` file, add the following:
-
-```yaml
-# continue in services:
-kibana:
-  image: docker.elastic.co/kibana/kibana:8.12.1
-  container_name: kibana
-  ports:
-    - 5601:5601
-  environment:
-    # remember the container_name for elasticsearch?
-    # we use it here to access that container
-    - ELASTICSEARCH_URL=http://elasticsearch:9200
-    - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-    - ELASTICSEARCH_USERNAME=kibana_system
-    - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
-    # Change this to true if you want to sent
-    # telemetry data to kibana developers
-    - TELEMETRY_ENABLED=false
-```
-
-Also add the `KIBANA_PASSWORD` variable to the .env file:
-
-```shell
-# .env
-ELASTIC_PASSWORD=...
 KIBANA_PASSWORD=<your-kibana-password>
-```
-
-We also need to add another container that will start before the other containers and configure the passwords,
-place it at the top of your file in services:
-
-```yaml
-setup:
-  image: docker.elastic.co/elasticsearch/elasticsearch:8.12.1
-  environment:
-    - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-    - KIBANA_PASSWORD=${KIBANA_PASSWORD}
-  container_name: setup
-  command:
-    - bash
-    - -c
-    - |
-      echo "Waiting for Elasticsearch availability";
-      until curl -s http://elasticsearch:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
-      echo "Setting kibana_system password";
-      until curl -s -X POST -u "elastic:${ELASTIC_PASSWORD}" -H "Content-Type:
-      application/json" http://elasticsearch:9200/_security/user/kibana_system/_password -d "{\"password\":
-      \"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
-      echo "All done!";
 ```
 
 You can now run docker compose to start everything up:
@@ -196,52 +160,66 @@ You can now run docker compose to start everything up:
 docker compose up -d
 ```
 
-![image6](images/image12.png)
+Output:
 
-You can now go to Kibana on a web browser by entering <your_server>:5601 in the URL bar.
-Use the username `elastic` and the password you chose earlier in the .env file:
+```shellsession
+[+] Running 3/4
+ ⠇ Network elk-stack_default  Created
+ ✔ Container kibana           Started
+ ✔ Container setup            Started
+ ✔ Container elasticsearch    Started
+```
 
-![image7](images/image4.png)
+You can use the `docker ps` command to check if everything works as expected.
 
-If you have this screen when logging in, click on "explore on my own".
+```shell
+holu@<your_host>:~/elk-stack$ docker ps
+CONTAINER ID   IMAGE                                                  COMMAND       CREATED              STATUS              PORTS                                       NAMES
+<id>           docker.elastic.co/kibana/kibana:8.12.1                 "<command>"   About a minute ago   Up About a minute   0.0.0.0:5601->5601/tcp, :::5601->5601/tcp   kibana
+<id>           docker.elastic.co/elasticsearch/elasticsearch:8.12.1   "<command>"   About a minute ago   Up About a minute   9200/tcp, 9300/tcp                          elasticsearch
+```
 
-![image8](images/image7.png)
+You can now open Kibana in a web browser by entering `<your_server>:5601` in the URL bar.
 
-You should now be able to access the Kibana homepage. It looks like this:
+* Login with the username `elastic` and the password you set earlier in the `.env` file.
+  ![image7](images/image4.png)
 
-![image9](images/image9.png)
+* If you have this screen when logging in, click on "Explore on my own".
+  ![image8](images/image7.png)
+
+* You should now be able to access the Kibana homepage. It looks like this:
+  ![image9](images/image9.png)
 
 ## Step 4 - Logstash
 
-Now it’s time to add the final piece of the puzzle, Logstash. Logstash can analyse logs from your application(s) and
-feeds the analysed logs to elasticsearch. We will need to modify the docker-compose.yaml file:
+Now it’s time to add the final piece of the puzzle, Logstash. Logstash can analyse logs from your application(s) and it feeds the analysed logs to elasticsearch.
+
+Edit `docker-compose.yaml` and add a fourth container in the "services" section below "kibana".
 
 ```yaml
-# continue in services:
-logstash:
-  image: docker.elastic.co/logstash/logstash:8.12.1
-  container_name: logstash
-  command:
-    - /bin/bash
-    - -c
-    - |
-      cp /usr/share/logstash/pipeline/logstash.yml /usr/share/logstash/config/logstash.yml
-      echo "Waiting for Elasticsearch availability";
-      until curl -s http://elasticsearch:9200 | grep -q "missing authentication credentials"; do sleep 1; done;
-      echo "Starting logstash";
-      /usr/share/logstash/bin/logstash -f /usr/share/logstash/pipeline/logstash.conf
-  environment:
-    - xpack.monitoring.enabled=false
-    - ELASTIC_USER=elastic
-    - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-    - ELASTIC_HOSTS=http://elasticsearch:9200
-  volumes:
-    - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.12.1
+    container_name: logstash
+    command:
+      - /bin/bash
+      - -c
+      - |
+        cp /usr/share/logstash/pipeline/logstash.yml /usr/share/logstash/config/logstash.yml
+        echo "Waiting for Elasticsearch availability";
+        until curl -s http://elasticsearch:9200 | grep -q "missing authentication credentials"; do sleep 1; done;
+        echo "Starting logstash";
+        /usr/share/logstash/bin/logstash -f /usr/share/logstash/pipeline/logstash.conf
+    environment:
+      - xpack.monitoring.enabled=false
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - ELASTIC_HOSTS=http://elasticsearch:9200
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
 ```
 
-Setting up Logstash is a bit more complicated; you need one additional configuration file, `logstash.conf`. Logstash works
-on something called a "pipeline". It’s a file explaining what Logstash should do (where do logs come from, how to
-analyse the logs where to send them). The pipeline will be in the file logstash.conf.
+Setting up Logstash is a bit more complicated. You need one additional configuration file, `logstash.conf`. Logstash works on something called a "pipeline". It’s a file explaining what Logstash should do (where do logs come from, how to analyse the logs, where to send them). The pipeline will be in the file `logstash.conf`.
+
 This is one of the most basic pipelines you could have:
 
 ```text
@@ -265,29 +243,46 @@ output {
 }
 ```
 
-It’s pretty self explanatory, it takes a file as input (in this case `/var/log/dpkg.log`) and outputs to Elasticsearch
-and
-`stdout`. Put this in your logstash.conf file.
+It’s pretty self explanatory. It takes a file as input (in this case `/var/log/dpkg.log`) 
+and outputs to Elasticsearch and `stdout`.
+
+Put the example above in your `logstash.conf` file.
+
+The `elk-stack` directory should now contain the following files:
+
+```ASCII
+elk-stack/
+├── .env
+├── docker-compose.yaml
+└── logstash.conf
+```
+
 You can now start Logstash using the following command:
 
 ```shell
 docker compose up -d
 ```
 
-![image10](images/image8.png)
+Output:
 
-You can now access Logstash from Kibana. You will need to create a logstash data view first. Go on the discover page of
-"Analytics". You should see something like this:
+```shellsession
+[+] Running 4/4
+ ✔ Container logstash       Started
+ ✔ Container setup          Started
+ ✔ Container elasticsearch  Running
+ ✔ Container kibana         Running
+```
 
-![image11](images/image10.png)
+You can now access Logstash from Kibana. You will need to create a logstash data view first.
 
-Create your data view by clicking on the "Create data view" button:
+* Go on the discover page of "Analytics". You should see something like this:
+  ![image11](images/image10.png)
 
-![image12](images/image5.png)
+* Create your data view by clicking on the "Create data view" button:
+  ![image12](images/image5.png)
 
-You should now be able to see logs coming from Logstash:
-
-![image13](images/image11.png)
+* After you saved the data view, you should be able to see logs coming from Logstash:
+  ![image13](images/image11.png)
 
 ## Step 5 - Destroy the stack
 
@@ -297,11 +292,20 @@ Lastly, to stop the stack and remove the containers, run the following command:
 docker compose down
 ```
 
-![image14](images/image14.png)
+Output:
+
+```shellsession
+[+] Running 5/5
+ ✔ Container logstash         Removed
+ ✔ Container elasticsearch    Removed
+ ✔ Container kibana           Removed
+ ✔ Container setup            Removed
+ ✔ Network elk-stack_default  Removed
+```
 
 ## Conclusion
 
-That’s it! You should have a working ELK stack running with Docker Compose. Next steps would be to add log exporters such as Filebeat or check out the [official documentation](https://www.elastic.co/guide/index.html).
+That’s it! You should have a working ELK stack running with Docker Compose. Next steps would be to add log exporters such as Filebeat, or check out the [official documentation](https://www.elastic.co/guide/index.html).
 
 ##### License: MIT
 
