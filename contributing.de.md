@@ -2,7 +2,7 @@
 
 Hier findest du wichtige Informationen bezüglich allgemeiner Voraussetzungen wie [Inhalt](#inhalt), [Sprache](#sprache) und [externe Inhalte](#externe-inhalte), bezüglich dem [Review-Verfahren](#review-verfahren), [Credits](#credits) und eine [kurze Anleitung](#tutorial-beitragen---schritt-für-schritt-anleitung), wie du ein Tutorial einreichen kannst.
 
-> Wenn du ein Tutorial einreichen möchtest, solltest du dir auch das [Beispiel-Tutorial](tutorial-template.de.md) und die [Markdown-Vorschau](https://community.hetzner.com/markdown-test-suite/) ansehen!
+> Wenn du ein Tutorial einreichen möchtest, solltest du dir auch das [Beispiel-Tutorial](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.de.md) und die [Markdown-Vorschau](https://community.hetzner.com/markdown-test-suite/) ansehen!
 
 ## Allgemeine Voraussetzungen 
 
@@ -113,11 +113,11 @@ Da du dein Tutorial am besten kennst, wäre es gut, wenn du uns dabei unterstüt
    
    Hier ist ein Beispiel von einem Tutorial, das in Englisch und Deutsch geschrieben wurde und Bilder enthält.
    
-   ![example-tutorial-files](example-tutorial-files.jpg)
+   ![example-tutorial-files](https://raw.githubusercontent.com/hetzneronline/community-content/master/example-tutorial-files.jpg)
 
 3. **Beispiel-Tutorial verwenden**
    
-   Beachte, dass alle Tutorials auf Englisch verfasst sein müssen. Wenn du zusätzlich eine deutsche Übersetzung bereitstellen willst, kannst du dieses [Beispiel-Tutorial](tutorial-template.de.md) als Vorlage verwenden. Es enthält ein grundlegendes Layout für das Tutorial, einige Beispiele für die Formatierung und eine Reihe von Tipps und Tricks für die Einrichtung. Du kannst den Inhalt der Datei zu deinem Tutorial kopieren und bearbeiten.
+   Beachte, dass alle Tutorials auf Englisch verfasst sein müssen. Wenn du zusätzlich eine deutsche Übersetzung bereitstellen willst, kannst du dieses [Beispiel-Tutorial](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.de.md) als Vorlage verwenden. Es enthält ein grundlegendes Layout für das Tutorial, einige Beispiele für die Formatierung und eine Reihe von Tipps und Tricks für die Einrichtung. Du kannst den Inhalt der Datei zu deinem Tutorial kopieren und bearbeiten.
    
    - Englische Vorlage:
      
@@ -149,7 +149,7 @@ Da du dein Tutorial am besten kennst, wäre es gut, wenn du uns dabei unterstüt
    ```
    
    Abgesehen vom Titel, sollten alle anderen Header H2 sein. Wenn es zwei oder mehr Unterpunkte gibt, kannst du diese Unterpunkte mit einem H3-Header formatieren.
-   Für konkrete Beispiele, wie du ein Tutorial formatieren kannst, schaue dir bitte das [Beispiel-Tutorial](tutorial-template.md) an.
+   Für konkrete Beispiele, wie du ein Tutorial formatieren kannst, schaue dir bitte das [Beispiel-Tutorial](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.de.md) an.
    
    Beim Bearbeiten des Beispiel-Tutorials sollten noch folgende Punkte beachtet werden:
 
@@ -207,7 +207,7 @@ Da du dein Tutorial am besten kennst, wäre es gut, wenn du uns dabei unterstüt
 
    Mit der [Markdown-Vorschau](https://community.hetzner.com/markdown-test-suite/) kannst du testen, wie das Tutorial aussehen wird, nachdem es veröffentlicht wurde und prüfen, ob es an einer Stelle noch Formatierungsfehler gibt.
 
-   Beachte außerdem, dass ganz unten vom Tutorial der [License-Block](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.de.md?plain=1#L96-L125) angegeben werden muss. Ersetze an dieser Stelle `[submitter's name and email address here]` mit deinem eigenen Namen und deiner E-Mail-Adresse.
+   Beachte außerdem, dass ganz unten vom Tutorial der [License-Block](https://github.com/hetzneronline/community-content/blob/master/tutorial-template.de.md?plain=1#L109-L138) angegeben werden muss. Ersetze an dieser Stelle `[submitter's name and email address here]` mit deinem eigenen Namen und deiner E-Mail-Adresse.
 
 5. **Commit und push**
 
