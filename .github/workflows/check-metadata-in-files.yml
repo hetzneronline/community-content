@@ -1,0 +1,55 @@
+name: Check file metadata in Pull Requests
+
+on:
+  pull_request:
+    paths:
+      - '**.md'
+    types: [ labeled ]
+
+jobs:
+  changed_files:
+    if: ${{ github.event.label.name == 'ready' }}
+    runs-on: ubuntu-latest
+    name: Test changed-files
+    steps:
+      - uses: actions/setup-node@v4
+      - uses: yokawasa/action-setup-kube-tools@v0.11.0
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get all changed markdown files
+        id: changed-markdown-files
+        uses: tj-actions/changed-files@v42
+        with:
+          
+          files: |
+             **.md
+
+      - name: List all changed files markdown files
+        if: steps.changed-markdown-files.outputs.any_changed == 'true'
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-markdown-files.outputs.all_changed_files }}
+        run: |
+          # Install dependencies
+          npm install ajv-cli
+
+          for file in ${ALL_CHANGED_FILES}; do
+
+            # Remove the files from the previous loop
+            rm -rf .github/scripts-metadata/meta-converted.json .github/scripts-metadata/validation_result.txt .github/scripts-metadata/new-variables.txt .github/scripts-metadata/updated-variables.txt .github/scripts-metadata/summary-table-temp.md .github/scripts-metadata/summary-table-fin.md
+
+            # Run the bash script
+            bash .github/scripts-metadata/check-meta-files.sh $file
+
+            # Check the file
+            cat .github/scripts-metadata/updated-variables.txt
+            cp .github/scripts-metadata/summary-table.md .github/scripts-metadata/summary-table-temp.md
+
+            # Set variables for markdown table
+            sed -i 's|$markdown_file|'"$file"'|g' .github/scripts-metadata/summary-table-temp.md
+            source .github/scripts-metadata/updated-variables.txt
+            envsubst  < .github/scripts-metadata/summary-table-temp.md > .github/scripts-metadata/summary-table-fin.md
+
+            cat .github/scripts-metadata/summary-table-fin.md >> $GITHUB_STEP_SUMMARY
+          done
