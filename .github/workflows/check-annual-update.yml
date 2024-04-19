@@ -1,9 +1,9 @@
 name: Annual review
 
 on:
-#  schedule:
-#    - cron: '0 0 1 * *'
-  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *'
+#  workflow_dispatch:
 
 jobs:
   changed_files:
@@ -52,7 +52,7 @@ jobs:
                 if [ "$author" == "hetzneronline" ]; then
                     echo "| $path | $title | Hetzner |" >> summary-authors.md
                 else
-                    echo "| $path | $title | <test-author> |" >> summary-authors.md
+                    echo "| $path | $title | @$author |" >> summary-authors.md
                 fi
             else
               continue
@@ -64,7 +64,7 @@ jobs:
       - name: Create a new issue
         run: |
           gh issue create \
-            --title "[TEST] Tutorials written over a year ago ($CURRENT_MONTH_WRITTEN)" \
+            --title "Tutorials written over a year ago ($CURRENT_MONTH_WRITTEN)" \
             --body-file summary-authors.md
         env:
           GH_TOKEN: ${{ github.token }}
