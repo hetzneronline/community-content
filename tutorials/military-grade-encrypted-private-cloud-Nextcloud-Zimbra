@@ -1,0 +1,495 @@
+Create CISO-approved-production-private-cloud-military-grade-encrypted-backuped-real-time-replicated-using-cheapest-commodity-lowcost-Hetzner-servers-part-1
+
+SPDX-License-Identifier: MIT
+path: "/tutorials/CISO-approved-production-private-cloud-military-grade-encrypted-backuped-real-time-replicated-using-cheapest-commodity-lowcost-Hetzner-servers
+"
+slug: "private-cloud-military-grade-encrypted-data"
+date: "2024-08-03"
+title: "Private cloud military-grade encrypted data using Hetzner cheap servers"
+short_description: "This post provides a simple guide to securing your Ubuntu server through a combination of best practices and regular maintenance."
+tags: ["Server Management", "Security"]
+author: "Edi L00pul alfa prime TRIC"
+author_link: "https://axetel.net"
+author_description: "Tutorial describing how to create a full-featured
+working private infrastructure, liberating and consolidating ALL your emails,
+private pics, movies, and docs, dispersed currently on unsafe public,
+unencrypted servers such as Apple iCloud, Onedrive, Google Drive, or Amazon web services."
+language: "en"
+available_languages: ["en" "fr" "de" "ro"]
+header_img: ""
+cta: "cloud"
+
+Introduction
+My name is Eduard L00pul alfa prime TRIC alfa.prime@axetel.net,
+indestructible serial entrepreneur, owner and CEO of Axetel,
+one of the few leading European cyberwarfare and global influence,
+crisis and reputation management firms.
+
+I have more than 33 years of operational CISO experience counseling
+offensive and defensive cybersecurity warfare survival techniques
+in several huge corporations like Orange, Microsoft, Atos,
+Sanofi-Synthelabo, and BNP Paribas, the fifth-largest bank on the planet.
+
+For my own needs, I created a full-featured working private infrastructure,
+liberating and consolidating ALL my emails, private pics, movies, and docs,
+who were dispersed over the years on way to many different public,
+unencrypted servers such as Apple iCloud, Onedrive, Google Drive, or Amazon web services.
+
+Now all my 3 Terrabyte private data is safely stored encrypted, backuped,
+and real-time replicated on Hetzner commodity standard servers located
+in Finland and Germany eco-certified green data centers for less than 100 EUROS /month!
+
+All the intelligence and services of my private cloud are designed and securely implemented
+using exclusively open-source software such as LAMP stack, and ZFS filesystem hardware.
+
+All data is encrypted with the NSA-built NIST certififed AES-256-cbc all-purposes
+encryption algorithm, taking full benefit of ARM Hetzner servers CPU's encryption features.
+
+I am currently about to retire definitively from the IT industry, using my startup exit wealth
+to autofinance the campaign who will allow me to run for president of Romania and WIN the 2028
+national elections,I decided to write a reference cybersecurity book describing both defensive
+and offensive survival strategies allowing my readers to survive and thrive in the brutal and wild
+cyberspace. As a first public free excerpt of this book, I am sharing with you my original work
+describing l in plain English how to replicate my knowledge and implement your own set
+of operational military-grade cyber procedures to build a secure private encrypted cloud.
+
+Make no mistake, you will gain MONTHS of hard work by not reinventing the wheel and just installing
+in no time what I prepared in this tutorial for your fun and profit.
+Using my battle-
+proof server hardening settings, you benefit of three years advance beyond
+state of the art security implementation.
+It functions so fast compared with the self-proclaimed cloud-marked trio:
+GOOGLE/MICROSOFT/AMAZON AWS that you can even decide to sell commercially
+to individuals and small businesses my industrial NEXTCLOUD - ZIMBRA backed
+collaboration and electronic messaging software service.
+
+Luxembourg, august 2-nd 2024, Edi L00pul alfa prime TRIC alfa.prime@axetel.net https://axetel.net
+
+Let's start!
+
+Prerequisites
+
+5 low-end standard ARM64 servers bought from less than 100 EUROS from
+Hetzner)
+Example terminology
+
+Username: edi l00pul alfa prime main author
+CISO: Chief Information Security Officer
+infosec procedures: operating security procedures implementing ISO 2700X standard controls
+AES-256: hardware encryption algorithm used in this implementation
+Zimbra: full featured email opensource software solution
+NextCloud: dominant private cloud opensource software service
+Ubuntu Pro: Canonical professional services distribution management software
+Ubuntu Landscape: automated online inventory of existing hardware park
+snapd: innovative standard dependency-less software packaging engine
+lxd: Canonical new innovative qemu derived lightweight containerization Linux software
+juju: Canonical new cloud orchestration solution working on Linux
+xfs: filesystem on Linux
+ZFS: Openzfs maintained variant of initial Sun Microsystems implementation filesystem
+Hetzner box affordable storage space available using various protocols such as sshfs, ssh, samba, cifs, davs
+Step 1 - Hetzner servers type choice rationale
+In order to implement the private cloud, we need to choose the right servers and storage space
+Hetzner propose affordable solutions based in their Finland and Germany data centers.
+We used five vkvm servers and a storage space as follows:
+Specifications:
+
+2 CAX41 16 VCPU, 32 GB RAM, 320 GB DISK LOCAL, 28.55 EUROS/month
+3 CAX11 2 VCPU, 4 GB RAM, 40 GB DISK LOCAL, 95 GB 1 External storage VOLUME , 3.92 EUROS/month
+1 BX21 5T external storage space Storage Box
+They are designed to be used to back up files.
+Large files are not a problem at all.
+Storage Boxes support protocols like FTP, SMB, and Rsync.
+There is no web interface.
+You can use them as a stand alone Storage Box product or
+like an external drive.
+Step 1 - Initial Installation and customizations
+from the rescue shell, use Hetzner preisntalled 'installimage'
+shell script and use the following options:
+
+DRIVE1 /dev/sda
+HOSTNAME zer0.yourdomain.net
+IPV4_ONLY no
+USE_KERNEL_MODE_SETTING yes
+PART /boot/efi esp 256M
+PART / xfs all
+IMAGE /root/.oldroot/nfs/install/../images/Ubuntu-2404-noble-arm64-base.tar.gz
+
+installimage console output:
+
+starting installimage
+Hardware data:
+CPU1: Cores 16
+Memory: 31299 MB
+Disk /dev/sda: 327 GB (=> 305 GiB)
+Total capacity 305 GiB with 1 Disk
+make clean config
+SYSTYPE: vServer
+SYSMFC: Hetzner
+running swapoff -a
+running dmsetup remove_all
+stopping rescue system systemd-resolved
+updating /etc/resolv.conf
+nameserver 127.0.0.53
+-options edns0 trust-ad
+-search .
++nameserver 185.12.64.2
++nameserver 2a01:4ff:ff00::add:1
++nameserver 185.12.64.1
++nameserver 2a01:4ff:ff00::add:2
+executing setupfile
+SYSTYPE: vServer
+SYSMFC: Hetzner
+checking if the script is disabled
+starting menu...
+Image info:
+DISTRIB ID: ubuntu
+DISTRIB RELEASE/CODENAME: 2404
+chosen image: [ Ubuntu-2404-noble-arm64-base ]
+copy & create config...
+starting mcedit...
+Image info:
+DISTRIB ID: ubuntu
+DISTRIB RELEASE/CODENAME: 2404
+validating vars...
+/boot/efi : 256
+/ : all
+Image info:
+DISTRIB ID: ubuntu
+DISTRIB RELEASE/CODENAME: 2404
+Size of the first hdd is: 327684194304
+setting TAR to GNUtar
+check_dos_partitions
+#asking for confirmation...
+
+Confirmation for drive /dev/sda accepted
+executing installfile...
+SYSTYPE: vServer
+SYSMFC: Hetzner
+/boot/efi : 256
+/ : all
+check_dos_partitions
+Image info:
+DISTRIB ID: ubuntu
+DISTRIB RELEASE/CODENAME: 2404
+
+load ubuntu specific functions...
+Deleting partitions
+running swapoff -a
+running dmsetup remove_all
+
+Deleting partitions on /dev/sda
+: GPT data structures destroyed! You may now partition the disk using fdisk or
+: other utilities.
+
+Test partition size
+Using GPT partition layout.
+: check_dos_partitions
+
+Creating partitions and /etc/fstab
+Creating partitions on /dev/sda
+: deactivate all dm-devices with dmraid and dmsetup
+: no raid disks
+:
+: /dev/sda:
+: re-reading partition table
+: Creating new GPT entries in memory.
+: The operation has completed successfully.
+: The operation has completed successfully.
+: The operation has completed successfully.
+: 528384
+: The operation has completed successfully.
+: reread partition table after 5 seconds
+: deactivate all dm-devices with dmraid and dmsetup
+: no raid disks
+
+formatting /dev/sda1 with vfat
+: mkfs.fat 4.2 (2021-01-31)
+
+formatting /dev/sda2 with xfs
+: /dev/sda2: 2 bytes were erased at offset 0x00000438 (ext4): 53 ef
+
+Mounting partitions
+Sync time via ntp
+: Using standard Hetzner Online GmbH pubkey: /root/.oldroot/nfs/install/gpg/public-key.asc
+: Using standard Hetzner Online GmbH pubkey: /root/.oldroot/nfs/install/gpg/public-key-2018.asc
+: Using standard Hetzner Online GmbH pubkey: /root/.oldroot/nfs/install/gpg/public-key-2023.asc
+: gpg: directory '/root/.gnupg' created
+: gpg: keybox '/root/.gnupg/pubring.kbx' created
+
+Extracting image (local)
+verify that systemd-nspawn works
+Setting up network config
+setup network config
+setting up /etc/netplan/01-netcfg.yaml
+: configuring dhcpv4 for enp1s0
+: configuring ipv6 addr 2401:43f9:c210:d68f::2/64 for enp1s0
+netplan config: using default routes instead of gateway4 and gateway6
+: configuring ipv6 gateway fe80::1 for enp1s0
+mtab is already a symlink
+
+Setting hostname
+chroot: hostname zer0.yourcompany.net
+set new hostname 'zer0' in /installimage.BnD82/hdd/etc/hostname
+Generating new SSH keys
+Generating ramdisk
+Kernel Version found: 6.8.0-38-generic
+chroot: update-initramfs -u -k 6.8.0-38-generic
+update-initramfs: Generating /boot/initrd.img-6.8.0-38-generic
+
+Generating ntp config
+using systemd-timesyncd
+Setting up miscellaneous files
+Fetch public SSH keys
+Adding public SSH keys
+Installing bootloader grub
+Generating config for grub
+debconf RESET grub-efi-amd64 grub-efi/install_devices
+debconf RESET grub-efi-arm64 grub-efi/install_devices
+dpkg-reconfigure grub-efi-arm64
+debconf RESET grub-pc grub-efi/install_devices
+debconf set grub-efi-arm64 grub-efi/install_devices string /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_50428364-part1
+chroot: debconf-set-selections
+hroot: dpkg-reconfigure -f noninteractive grub-efi-arm64
+#Sent install.conf to statsserver: HTTP/2 201
+#debug.txt to statsserver: HTTP/2 201
+reboot
+
+Update The System
+ssh zer0
+apt update
+apt upgrade
+pro attach # attach server to free up to 5 servers Ubuntu professionnal management solution
+pro status
+#ENTITLED STATUS DESCRIPTION
+anbox-cloud yes disabled Scalable Android in the cloud
+esm-apps yes enabled Expanded Security Maintenance for Applications
+esm-infra yes enabled Expanded Security Maintenance for Infrastructure
+landscape yes disabled Management and administration tool for Ubuntu
+realtime-kernel* yes disabled Ubuntu kernel with PREEMPT_RT patches integrated
+
+pro enable landscape realtime-kernel
+reboot
+
+There is a bug in realtime-kernel installation, zfs module does not work.
+therefore we revert to the next available Ubuntu preemtive kernel
+First we disable realtime-kernel
+then we install preempt Kernel
+pro disable realtime-kernel
+apt remove linux*realtime
+apt reinstall linux-headers-lowlatency linux-image-lowlatency zfs-dkms
+reboot
+uname -a
+Linux zer0 6.8.0-39-lowlatency #39.1-Ubuntu
+SMP PREEMPT_DYNAMIC aarch64 aarch64 aarch64 GNU/Linux
+zpool list
+
+ok no complaint anymore. All working data will be stored on external volume and box using
+AES-256 native encryped ZFS zpool storage
+
+install several useful administration packages :
+apt install snapd iftop lsof atop git neovim
+snap list
+snap services
+snap install lxd juju
+snap services
+snap restart juju lxd
+snap services
+apt install crowdsec
+
+Crowdsec is a modern fail-to-ban like security global service
+selfdefending your applications against most of the current online threats
+More info and subscription here: https://app.crowdsec.net
+systemctl restart crowdsec
+
+install even more useful admin tools :
+apt install fdisk atop htop iftop sockstat git rkhunter tripwire netcat-openbsd
+
+curl -s https://install.crowdsec.net | sudo sh
+apt update
+apt upgrade
+systemctl status | grep crowd
+sudo cscli collections list
+sudo apt install crowdsec-firewall-bouncer-iptables
+sudo cscli collections list
+cat /etc/crowdsec/parsers/s00-raw/syslog-logs.yaml
+sudo cscli collections upgrade --all
+sudo cscli collections list
+sudo cscli bouncers list
+sudo cscli console enroll -e context clzdmttqr0003ld77umpgakj2
+cscli scenarios install LePresidente/adguardhome-bf
+sudo cscli collections install crowdsecurity/sshd
+sudo cscli metrics
+apt autoremove
+
+Secure SSH key-based passwordless Access
+Even is ssh unauthorised access is fully secured by Crowsec fail2ban like solution,
+it's wise to do some simple config modifications to have a very safe ssh access to servers.
+Edit the original config files:
+sudo nano /etc/ssh/sshd_config
+Disable root password access
+Disable password login
+Find "PasswordAuthentication" and set it to "no".
+Find "PubkeyAuthentication" and set it to "yes".
+Change the default SSH port**
+By changing it, we eliminate most of the automated
+bot attacks because most of them are dummy bots and
+will only try to access SSH via standard port 22.
+Find the line "#Port 22" and change it to something like
+"Port 14622"
+Save the changes and check if the port was changed successfully
+sudo systemctl restart ssh.service
+sudo systemctl status ssh
+Make sure it says 'Server listening on :: port 14622'
+sudo systemctl disable ssh.socket && sudo systemctl stop ssh.socket
+sudo systemctl restart ssh.service
+sudo systemctl status ssh
+
+ssh -p 14622 root@zer0
+Configure a Firewall
+We will use "ufw" to manage firewall rules.
+sudo apt reinstall ufw
+Next, we will deny all incoming network traffic
+unless specifically allowed by other rules.
+This is fundamental to secure your server by only allowing traffic
+that you explicitly allow. We run this command:
+sudo ufw default deny incoming
+Then, we will allow all outgoing network traffic.
+This allows the server to communicate with other
+servers or services without restriction.
+sudo ufw default allow outgoing
+Now, we need to allow our SSH port to be able to log in to our server via SSH.
+sudo ufw allow 14622/tcp
+It is now a good time to enable the above validated firewall rules:
+sudo ufw enable
+Update The System
+We need to check if there are any updates for our system.
+sudo apt update && sudo apt upgrade -y
+
+Monitor Logs
+
+You need to regularly review your system logs to detect unusual activities.
+Logwatch can help you automate this process.
+Install logwatch using this command:
+sudo apt install logwatch
+You can check more detailed information,
+how to set up daily reports, and see what a
+report look like from [here]
+(https://ubuntu.com/server/docs/how-to-install-and-configure-logwatch).
+
+Check Disk Usage
+
+To make sure you have enough space to keep your server running smooth,
+reguraly check your remaining disk space, or put it in daily crontab:
+df -h
+
+Backup Your Data
+
+You should always have multiple backups in major public clouds
+to ensure you can recover from disasters if your server
+is completely deleted or unreachable.
+Hopefully Hetzner has already an automated backup solution for cloud servers,
+and you can check it out here:
+official documentation. If you want to set up your own backups, you can use tools like "rsync" or "Duplicity."
+
+Audit User Accounts
+
+Don't forget to check user accounts on the server regularly.
+Ensure only authorized users have access to your server.
+Delete any accounts that are no longer needed.
+sudo nano /etc/passwd
+
+Check for Rootkits and Malware
+
+To make quick scans on your server,
+you can use tools like "rkhunter"
+These tools help you check for rootkits, backdoors,
+and some other local exploits, ensuring nothiing has been hacked.
+Install rkhunter then run regular checks putting the check in root crontab:
+sudo apt install rkhunter
+sudo rkhunter --check
+
+Monitor System Performance
+
+Lastly, you can quickly check system performance
+to make sure there are no resource bottlenecks
+while running your software.
+There are tools like "htop," "top," or "atop."
+Personally i prefere htop or atop:
+htop
+Step 3 - More Security Tools
+Use Intrusion Detection Systems
+
+You can use tools like "AIDE" (Advanced Intrusion Detection Environment)
+to monitor changes to your system. It generates a database for your files
+and folders and compares your system against that database to ensure file integrity.
+You can checkmuch more details here repo.
+sudo apt install aide
+Start and generate the database with these commands:
+sudo aideinit
+sudo cp /var/lib/aide/aide.db.new /var/lib/aide/aide.db
+Compare your system with the database using this command:
+sudo aide --config /etc/aide/aide.conf --check
+
+Enable Two-Factor Authentication (2FA)
+
+You can also set up 2FA (Two-Factor Authentication) for logging in to your server via SSH.
+This adds a second layer of protection and greatly reduces the risk of unauthorized access.
+sudo apt install libpam-google-authenticator
+And run this command to setup:
+google-authenticator
+
+Secure Web Applications
+
+If you are running web applications on your server,
+make sure you are following their best practices
+and updating them regularly.
+Step 4 - Business continuity and disaster recovery Plan
+This plan can be very detailed in big organizations.
+We will keep it simple here and actionable for small business servers like ours.
+For this reason, I propose to use this 3-step simple yet useful
+for desinging a business continuity and disaster recovery plan:.
+Preparation
+
+For this part, you need to create a small text file or a note in your notes app about
+your server info. Include information such as your server architecture,
+the software it is running, where your backups and logs are stored, and your configurations.
+Keep this note somewhere safe.
+You can use this example as a starting point:
+Server Information
+
+Info	Desc
+Server Name	MyServer01
+IP Address	192.168.1.100
+Operating System	Ubuntu 24.04 LTS
+CPU	4 vCPUs
+RAM	8 GB
+Storage	100 GB SSD
+SSH Port	2222
+
+Identification
+
+You might need check what the problem is with your server.
+Is the problem or breach related to your web application,
+the server itself, or one of the databases inside your server?
+If you are not sure, always assume everything is at risk.
+So you should start checking everything again, beginning with the server configs.
+
+Recovery
+
+Restore affected systems in this part.
+If you cannot reach your server, you need to restore from a server backup,
+or ssh activating via Robot a Hetzner ssh rescue session .
+Ensure everything is restored, tested, working as expected,
+that you have performed a full security check.
+Conclusion
+Installing and securing your private cloud infrastructre on Hetzner
+requires a savant mixture of best practices and regular maintenance.
+By following my CISO certified validated battle-tested military
+production grade instructions , you will significantly enhance
+the overall security of your servers and protect your precious data.
+Remember, security is a permanent ongoing process,
+so embrace it and don't forget to regularly maintain your apps,
+using my procedures as a solid starting point.
+Next steps:
+this was the first article about how to install and run a private encrypted cloud on Hetzner infrastructure spending less then 100 EUROS/month
+in the second article we will effectively install and configure two flagship opensource jewels: NextCloud and Zimbra. Stray tuned!!!
