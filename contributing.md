@@ -27,7 +27,8 @@ Below, you can find information about [content](#content), [language](#language)
  
 * **English**
   
-  * If you're fluent in another language, and are able to make a translation, you can submit your tutorial in multiple languages, as long as at least one of them is English.
+  * If you're fluent in another language, and are able to make a translation, you can submit your tutorial in multiple languages, as long as at least one of them is English.<br>
+    We support the following languages: English `en`, German `de`, Russian `ru`, Italian `it`, Bulgarian `bg`, Finnish `fi`, and Portuguese `pt`
   * If you're not fluent in English, but you have a great tutorial to share in a different language, please reach out to us. We are open to possibly making exceptions for specific tutorials.
 
 * **Easy to understand**
