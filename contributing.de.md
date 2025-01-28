@@ -27,7 +27,7 @@ Hier findest du wichtige Informationen bezüglich allgemeiner Voraussetzungen wi
  
 * **Englisch**
   
-  * Wenn du eine andere Sprache fließend beherrscht und eine Übersetzung anfertigen kannst, kannst du das Tutorial in mehreren Sprachen einreichen, sofern mindestens eine Englisch ist.
+  * Wenn du eine andere Sprache fließend beherrscht und eine Übersetzung anfertigen kannst, kannst du das Tutorial in mehreren Sprachen einreichen, sofern mindestens eine Englisch ist.<br>
     Folgende Sprachen werden unterstützt: Englisch `en`, Deutsch `de`, Russisch `ru`, Italienisch `it`, Bulgarisch `bg`, Finnisch `fi`, and Portugiesisch `pt`
   * Wenn du Englisch nicht fließend sprichst, aber ein hochwertiges Tutorial hast, dass du in einer anderen Sprache teilen kannst, kontaktiere uns bitte. Wir sind offen für die Möglichkeit, Ausnahmen für bestimmte Tutorials zu machen.
 
