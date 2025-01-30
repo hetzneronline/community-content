@@ -9,7 +9,6 @@ tags: ["Cloud", "Rescue System", "Linux"]
 author: "tim.stich"
 author_link: "https://github.com/T-stich"
 author_img: "https://avatars.githubusercontent.com/u/83845082?v=4&s=50"
-author_description: "I'm Tim, and I'm part of this project."
 language: "en"
 available_languages: ["en", "de"]
 header_img: "header-deploy-img"
