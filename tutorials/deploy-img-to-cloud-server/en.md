@@ -2,7 +2,7 @@
 SPDX-License-Identifier: MIT
 path: "/tutorials/deploy-img-hetzner-rescue/en"
 slug: "deploy-img-hetzner-rescue"
-date: "2025-01-29"
+date: "2025-01-30"
 title: "Deploying a `.img` File on a Cloud Server via Rescue System"
 short_description: "This tutorial explains how to successfully deploy a `.img` file on a cloud server using the rescue system."
 tags: ["Cloud", "Rescue System", "Linux"]
