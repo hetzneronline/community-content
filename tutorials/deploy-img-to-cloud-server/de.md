@@ -3,64 +3,54 @@ SPDX-License-Identifier: MIT
 path: "/tutorials/deploy-img-hetzner-rescue/de"
 slug: "deploy-img-hetzner-rescue"
 date: "2025-01-30"
-title: "Deployment einer `.img` Datei auf einem Cloud-Server via Rescue-System"
-short_description: "Dieses Tutorial zeigt, wie eine `.img`-Datei mit Hilfe des Rescue-Systems erfolgreich auf einem Cloud-Server bereitgestellt werden kann."
+title: "Deployment einer `.img` Datei auf einem Cloud Server via Rescue-System"
+short_description: "Dieses Tutorial zeigt, wie eine `.img`-Datei mit Hilfe des Rescue-Systems erfolgreich auf einem Cloud Server bereitgestellt werden kann."
 tags: ["Cloud", "Rescue-System", "Linux"]
 author: "tim.stich"
 author_link: "https://github.com/T-stich"
-author_img: "https://avatars.githubusercontent.com/u/83845082?v=4&s=50"
+author_img: "https://avatars.githubusercontent.com/u/83845082"
 language: "de"
 available_languages: ["en", "de"]
-header_img: "header-deploy-img"
-cta: "product"
+header_img: "header-7"
+cta: "cloud"
 ---
 
-## **Einführung**
+## Einführung 
 
-In diesem Tutorial wird gezeigt, wie eine `.img`-Datei mit Hilfe des Rescue-Systems erfolgreich auf einem Cloud-Server bereitgestellt werden kann.  
+In diesem Tutorial wird gezeigt, wie eine `.img`-Datei mit Hilfe des Rescue-Systems erfolgreich auf einem Cloud Server bereitgestellt werden kann.  
 Dies ist notwendig, wenn ein eigenes Betriebssystem-Image auf dem Server installiert werden soll.
 
-Die folgenden Themen werden behandelt:
+**Voraussetzungen**
 
-- Aktivierung des Rescue-Systems und Aufbau einer SSH-Verbindung
-- Einhängen eines **Volumes** zur Speicherung der `.img` Datei
-- Hochladen oder direktes Herunterladen der `.img` Datei
-- Deployment mit `pv | dd` als Fortschrittsanzeige oder `dd` als Standardbefehl
-- Neustart des Servers und Überprüfung des Bootvorgangs
-
-### **Voraussetzungen**
-
-- Ein Cloud-Server
-- Aktiviertes Rescue-System
-- SSH-Zugang zum Server
+- Ein Cloud Server
+  - Aktiviertes Rescue-System
+  - SSH-Zugang zum Server
 - Ein Volume zum Zwischenspeichern der `.img` Datei (da die primäre Festplatte überschrieben wird)
 - `.img` Datei eines Betriebssystems (alternativ `.qcow2`, siehe Schritt 3)
 - Grundkenntnisse im Umgang mit der Linux-Konsole
 
----
+## Schritt 1 - Rescue-System aktivieren und verbinden
 
-## **Schritt 1 - Rescue-System aktivieren und verbinden**
+* **Rescue-System aktivieren**
+  
+  1. An der Cloud-Konsole anmelden.
+  2. Den gewünschten Server auswählen und das **Rescue-System** aktivieren.
+  3. Bei Bedarf einen **SSH-Schlüssel** hinterlegen, um die Anmeldung zu erleichtern.
+  4. Den Server neu starten, damit er im Rescue-Modus bootet.
 
-### **Rescue-System aktivieren**
+<br>
 
-1. An der Cloud-Konsole anmelden.
-2. Den gewünschten Server auswählen und das **Rescue-System** aktivieren.
-3. Bei Bedarf einen **SSH-Schlüssel** hinterlegen, um die Anmeldung zu erleichtern.
-4. Den Server neu starten, damit er im Rescue-Modus bootet.
+* **Mit dem Server verbinden**
+  
+  Verbindung zum Rescue-System über SSH herstellen:
+  
+  ```bash
+  ssh root@<deine_server_ip>
+  ```
+  
+  Nach dem Login erscheint das Rescue-System-Banner.
 
-### **Mit dem Server verbinden**
-
-Verbindung zum Rescue-System über SSH herstellen:
-
-```bash
-ssh root@<dein_server_ip>
-```
-
-Nach dem Login erscheint das Rescue-System-Banner.
-
----
-
-## **Schritt 2 - Zieldatenträger identifizieren und einhängen**
+## Schritt 2 - Zieldatenträger identifizieren und einhängen
 
 Da die `.img`-Datei nicht direkt auf der primären Festplatte abgelegt werden kann, wird ein **Volume als Speicherort** verwendet.  
 Der folgende Befehl zeigt die verfügbaren Volumes an:
@@ -79,7 +69,7 @@ sdb       8:16   0  40G  0 disk
 
 Hier ist `sda` die **primäre Festplatte**, die überschrieben wird, während `sdb` das **Volume für die `.img`-Datei** ist.
 
-### **Datenträger manuell einhängen**
+### Datenträger manuell einhängen
 
 Im **Rescue-System** werden zusätzliche **Volumes standardmäßig nicht automatisch gemountet**.  
 Nun wird ein **Mount-Verzeichnis** angelegt und das Volume eingehängt:
@@ -97,40 +87,7 @@ Falls unklar ist, welches Volume verwendet werden soll, kann die Partitionstabel
 fdisk -l
 ```
 
----
-
-## **Schritt 3 - Image-Datei bereitstellen**
-
-### **Methode 1: Hochladen über SCP (Kommandozeile)**
-
-Wenn sich die `.img` Datei lokal auf einem Rechner befindet, kann sie mit **SCP** hochgeladen werden:
-
-```bash
-scp /path/to/image.img root@<your_server_ip>:/mnt/vol1/
-```
-
-### **Methode 2: Hochladen per SFTP (FileZilla)**
-
-Falls eine grafische Oberfläche bevorzugt wird, kann das Tool **FileZilla** verwendet werden:
-
-1. **FileZilla starten**.
-2. **Neue Verbindung einrichten:**
-   - **Server**: `<your_server_ip>`
-   - **Benutzername**: `root`
-   - **Passwort**: `<your_password>`
-   - **Port**: `22`
-   - **Verbindungstyp**: **SFTP - SSH-Dateiübertragungsprotokoll**
-3. Die `.img`-Datei per **Drag & Drop** in das `/mnt/vol1/`-Verzeichnis auf den Server hochladen.
-
-### **Methode 3: Herunterladen mit `wget`**
-
-Wenn die `.img`-Datei auf einem externen Server gehostet wird, kann sie direkt auf den Server heruntergeladen werden:
-
-```bash
-wget <URL_zur_image.img> -O /mnt/vol1/image.img
-```
-
-### **Falls das Image im Format `.qcow2` vorliegt**
+## Schritt 3 - Image-Datei bereitstellen
 
 Falls das hochgeladene oder heruntergeladene Image im `.qcow2`-Format vorliegt, muss es konvertiert werden:
 
@@ -138,33 +95,72 @@ Falls das hochgeladene oder heruntergeladene Image im `.qcow2`-Format vorliegt, 
 qemu-img convert -f qcow2 -O raw /mnt/vol1/source.qcow2 /mnt/vol1/destination.img
 ```
 
----
+Bei einem Image im `.img`-Format, können Sie aus drei Methoden wählen:
 
-## **Schritt 4 - Image auf den Datenträger schreiben**
+* **Methode 1:** Hochladen über SCP (Kommandozeile)
+  
+  Wenn sich die `.img` Datei lokal auf einem Rechner befindet, kann sie mit **SCP** hochgeladen werden:
+  
+  ```bash
+  scp /path/to/image.img root@<your_server_ip>:/mnt/vol1/
+  ```
 
-### **Empfohlene Methode: `pv | dd`**
-Nun wird `pv | dd` verwendet, um die Fortschrittsanzeige zu verbessern:
+<br>
 
-```bash
-pv /mnt/vol1/image.img | dd of=/dev/sda bs=4M status=progress
-```
+* **Methode 2:** Hochladen per SFTP (FileZilla)
+  
+  Falls eine grafische Oberfläche bevorzugt wird, kann das Tool **FileZilla** verwendet werden:
+  
+  1. FileZilla starten
+  2. Neue Verbindung einrichten:
+     
+     | Option             | Wert               |
+     | ------------------ | ------------------ |
+     | **Server**         | `<your_server_ip>` |
+     | **Benutzername**   | root               |
+     | **Passwort**       | `<your_password>`  |
+     | **Port**           | 22                 |
+     | **Verbindungstyp** | SFTP - SSH-Dateiübertragungsprotokoll |
+  
+  3. Die `.img`-Datei per **Drag & Drop** in das `/mnt/vol1/`-Verzeichnis auf den Server hochladen.
 
-Falls `pv` nicht installiert ist, kann es mit folgendem Befehl installiert werden:
+<br>
 
-```bash
-apt update && apt install -y pv
-```
+* **Methode 3:** Herunterladen mit `wget`
+  
+  Wenn die `.img`-Datei auf einem externen Server gehostet wird, kann sie direkt auf den Server heruntergeladen werden:
+  
+  ```bash
+  wget <URL_zur_image.img> -O /mnt/vol1/image.img
+  ```
 
-### **Alternative: `dd` direkt**
-Falls `pv` nicht verwendet werden soll, kann das Image auch direkt mit `dd` geschrieben werden:
+## Schritt 4 - Image auf den Datenträger schreiben
 
-```bash
-dd if=/mnt/vol1/image.img of=/dev/sda bs=4M status=progress
-```
+* **Empfohlene Methode: `pv | dd`**
+  
+  Nun wird `pv | dd` verwendet, um die Fortschrittsanzeige zu verbessern:
+  
+  ```bash
+  pv /mnt/vol1/image.img | dd of=/dev/sda bs=4M status=progress
+  ```
+  
+  Falls `pv` nicht installiert ist, kann es mit folgendem Befehl installiert werden:
+  
+  ```bash
+  apt update && apt install -y pv
+  ```
 
----
+<br>
 
-## **Schritt 5 - Neustart und Überprüfung des Systems**
+* **Alternative: `dd` direkt**
+  
+  Falls `pv` nicht verwendet werden soll, kann das Image auch direkt mit `dd` geschrieben werden:
+  
+  ```bash
+  dd if=/mnt/vol1/image.img of=/dev/sda bs=4M status=progress
+  ```
+
+## Schritt 5 - Neustart und Überprüfung des Systems
 
 Nachdem das Image erfolgreich geschrieben wurde, kann der Server nun neu gestartet werden.  
 
@@ -176,7 +172,7 @@ reboot
 
 Nach dem Neustart kann überprüft werden, ob das System erfolgreich bootet und erreichbar ist.
 
-### **Fehlersuche bei Bootproblemen**  
+### Fehlersuche bei Bootproblemen
 Treten Bootprobleme auf oder bootet der Server nicht korrekt, sollte zunächst die Dokumentation des verwendeten Betriebssystems konsultiert werden.  
 Gegebenenfalls ist eine Überprüfung des Bootloaders erforderlich.
 
@@ -187,10 +183,12 @@ Allgemeine Informationen zur Konfiguration des Bootloaders finden Sie hier:
 - **UEFI Spezifikation und Dokumentation:**  
   [https://uefi.org/specifications](https://uefi.org/specifications)
 
----
-
-## **Hinweis zu alternativen Image-Formaten**  
+## Hinweis zu alternativen Image-Formaten
 Einige alternative Image-Formate können möglicherweise ebenfalls konvertiert und bereitgestellt werden.  
 Es besteht jedoch das Risiko, dass sie aufgrund von Treiber- oder Hardwarekompatibilitätsproblemen nicht korrekt funktionieren.  
 
-**Cloud-Server basieren auf KVM-Virtualisierung**, daher sollte sichergestellt werden, dass das verwendete Betriebssystem KVM-kompatibel ist.
+**Cloud Server basieren auf KVM-Virtualisierung**, daher sollte sichergestellt werden, dass das verwendete Betriebssystem KVM-kompatibel ist.
+
+## Ergebnis
+
+Das eigene Betriebssystem sollte nun auf dem Server installiert sein.

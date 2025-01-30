@@ -1,6 +1,6 @@
 ---
 SPDX-License-Identifier: MIT
-path: "/tutorials/deploy-img-hetzner-rescue/en"
+path: "/tutorials/deploy-img-hetzner-rescue"
 slug: "deploy-img-hetzner-rescue"
 date: "2025-01-30"
 title: "Deploying a `.img` File on a Cloud Server via Rescue System"
@@ -8,59 +8,49 @@ short_description: "This tutorial explains how to successfully deploy a `.img` f
 tags: ["Cloud", "Rescue System", "Linux"]
 author: "tim.stich"
 author_link: "https://github.com/T-stich"
-author_img: "https://avatars.githubusercontent.com/u/83845082?v=4&s=50"
+author_img: "https://avatars.githubusercontent.com/u/83845082"
 language: "en"
 available_languages: ["en", "de"]
-header_img: "header-deploy-img"
-cta: "product"
+header_img: "header-7"
+cta: "cloud"
 ---
 
-## **Introduction**
+## Introduction
 
 This tutorial explains how to successfully deploy an `.img` file on a cloud server using the rescue system.  
 This process is required when installing a custom operating system image on the server.
 
-The following topics will be covered:
-
-- Activating the rescue system and establishing an SSH connection
-- Mounting a **volume** to store the `.img` file
-- Uploading or downloading the `.img` file
-- Deploying the image using `pv | dd` for progress monitoring or `dd` as the default method
-- Restarting the server and verifying the boot process
-
-### **Requirements**
+**Prerequisites**
 
 - A cloud server
-- Activated rescue system
-- SSH access to the server
+  - Activated rescue system
+  - SSH access to the server
 - A volume to temporarily store the `.img` file (as the primary disk will be overwritten)
 - An operating system `.img` file (or `.qcow2`, see step 3)
 - Basic Linux command-line skills
 
----
+## Step 1 - Activating and Connecting to the Rescue System
 
-## **Step 1 - Activating and Connecting to the Rescue System**
+* **Activating the Rescue System**
+  
+  1. Log in to the **cloud provider's management console**.
+  2. Select the target server and activate the **rescue system**.
+  3. If required, add an **SSH key** for easier authentication.
+  4. Reboot the server to enter rescue mode.
 
-### **Activating the Rescue System**
+<br>
 
-1. Log in to the **cloud provider's management console**.
-2. Select the target server and activate the **rescue system**.
-3. If required, add an **SSH key** for easier authentication.
-4. Reboot the server to enter rescue mode.
+* **Connecting to the Server**
+  
+  Make an SSH connection to the rescue system:
+  
+  ```bash
+  ssh root@<your_server_ip>
+  ```
+  
+  After logging in, the rescue system banner will appear.
 
-### **Connecting to the Server**
-
-Make an SSH connection to the rescue system:
-
-```bash
-ssh root@<your_server_ip>
-```
-
-After logging in, the rescue system banner will appear.
-
----
-
-## **Step 2 - Identifying the Target Disk and Mounting the Volume**
+## Step 2 - Identifying the Target Disk and Mounting the Volume
 
 Since the `.img` file cannot be stored directly on the primary disk, a **volume** is required as a storage location.  
 To list all available volumes, use the following command:
@@ -79,7 +69,7 @@ sdb       8:16   0  40G  0 disk
 
 Here, `sda` is the **primary disk** to be overwritten, while `sdb` is the **volume** to store the `.img` file.
 
-### **Manually Mounting the Volume**
+### Manually Mounting the Volume
 
 In the **rescue system**, additional **volumes are not mounted automatically**.  
 Now create a **mount directory** and mount the volume:
@@ -97,40 +87,7 @@ If you are unsure which volume to use, check the partition table:
 fdisk -l
 ```
 
----
-
-## **Step 3 - Preparing the Image File**
-
-### **Method 1: Upload via SCP (Command Line)**
-
-If the `.img` file is stored locally, it can be uploaded using **SCP**:
-
-```bash
-scp /path/to/image.img root@<your_server_ip>:/mnt/vol1/
-```
-
-### **Method 2: Upload via SFTP (FileZilla)**
-
-For users who prefer a graphical interface, **FileZilla** can be used:
-
-1. Open **FileZilla**.
-2. **Create a new connection:**
-   - **Server**: `<your_server_ip>`
-   - **Username**: `root`
-   - **Password**: `<your_password>`
-   - **Port**: `22`
-   - **Connection Type**: **SFTP - SSH File Transfer Protocol**
-3. Drag and drop the `.img` file into the `/mnt/vol1/` directory.
-
-### **Method 3: Download using `wget`**
-
-If the `.img` file is hosted externally, it can be downloaded directly to the server:
-
-```bash
-wget <URL_to_image.img> -O /mnt/vol1/image.img
-```
-
-### **If the Image is in `.qcow2` Format**
+## Step 3 - Preparing the Image File
 
 If the uploaded or downloaded image is in `.qcow2` format, it needs to be converted:
 
@@ -138,33 +95,72 @@ If the uploaded or downloaded image is in `.qcow2` format, it needs to be conver
 qemu-img convert -f qcow2 -O raw /mnt/vol1/source.qcow2 /mnt/vol1/destination.img
 ```
 
----
+With an image in `.img` format, you can choose from three methods:
 
-## **Step 4 - Writing the Image to the Target Disk**
+* **Method 1:** Upload via SCP (Command Line)
+  
+  If the `.img` file is stored locally, it can be uploaded using **SCP**:
+  
+  ```bash
+  scp /path/to/image.img root@<your_server_ip>:/mnt/vol1/
+  ```
 
-### **Recommended Method: `pv | dd`**
-Now, `pv | dd` is used for better visibility of progress:
+<br>
 
-```bash
-pv /mnt/vol1/image.img | dd of=/dev/sda bs=4M status=progress
-```
+* **Method 2:** Upload via SFTP (FileZilla)
+  
+  For users who prefer a graphical interface, **FileZilla** can be used:
+  
+  1. Open **FileZilla**.
+  2. **Create a new connection:**
+     
+     | Option              | Value              |
+     | ------------------- | ------------------ |
+     | **Server**          | `<your_server_ip>` |
+     | **Username**        | root               |
+     | **Passwort**        | `<your_password>`  |
+     | **Port**            | 22                 |
+     | **Connection Type** | SFTP - SSH File Transfer Protocol |
+  
+  3. Drag and drop the `.img` file into the `/mnt/vol1/` directory.
 
-If `pv` is not installed, it can be added with:
+<br>
 
-```bash
-apt update && apt install -y pv
-```
+* **Method 3:** Download using `wget`
+  
+  If the `.img` file is hosted externally, it can be downloaded directly to the server:
+  
+  ```bash
+  wget <URL_to_image.img> -O /mnt/vol1/image.img
+  ```
 
-### **Alternative: `dd` Directly**
-If `pv` is not used, the image can be written directly with `dd`:
+## Step 4 - Writing the Image to the Target Disk
 
-```bash
-dd if=/mnt/vol1/image.img of=/dev/sda bs=4M status=progress
-```
+* **Recommended Method: `pv | dd`**
+  
+  Now, `pv | dd` is used for better visibility of progress:
+  
+  ```bash
+  pv /mnt/vol1/image.img | dd of=/dev/sda bs=4M status=progress
+  ```
+  
+  If `pv` is not installed, it can be added with:
+  
+  ```bash
+  apt update && apt install -y pv
+  ```
 
----
+<br>
 
-## **Step 5 - Reboot and Check the System**
+* **Alternative: `dd` Directly**
+  
+  If `pv` is not used, the image can be written directly with `dd`:
+  
+  ```bash
+  dd if=/mnt/vol1/image.img of=/dev/sda bs=4M status=progress
+  ```
+
+## Step 5 - Reboot and Check the System
 
 Once the image has been successfully written, the server can be rebooted.
 
@@ -176,7 +172,7 @@ reboot
 
 After the reboot, verify that the system has booted successfully and is accessible.
 
-### **Troubleshooting Boot Problems**  
+### Troubleshooting Boot Problems
 If the system does not boot correctly, consult the operating system documentation.  
 In some cases, a bootloader check may be required.
 
@@ -187,10 +183,12 @@ For general bootloader configuration, see:
 - **UEFI Specification and Documentation:**  
   [https://uefi.org/specifications](https://uefi.org/specifications)
 
----
-
-## **Note on Alternative Image Formats**  
+## Note on Alternative Image Formats
 Some alternative image formats can also be converted and used.  
 However, there is a risk that they may not work properly due to driver or hardware compatibility issues.  
 
 **Cloud servers are based on KVM virtualization**, so ensure that the operating system you choose is KVM-compatible.
+
+## Conclusion
+
+The custom operating system should now be installed on the server.
