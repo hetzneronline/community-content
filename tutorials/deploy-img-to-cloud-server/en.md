@@ -1,14 +1,15 @@
 ---
 SPDX-License-Identifier: MIT
-path: "/tutorials/deploy-img-hetzner-rescue"
-slug: "deploy-img-hetzner-rescue"
-date: "2025-01-30"
+path: "/tutorials/deploy-img-to-cloud-server"
+slug: "deploy-img-to-cloud-server"
+date: "2025-01-31"
 title: "Deploying a `.img` File on a Cloud Server via Rescue System"
 short_description: "This tutorial explains how to successfully deploy a `.img` file on a cloud server using the rescue system."
 tags: ["Cloud", "Rescue System", "Linux"]
 author: "tim.stich"
 author_link: "https://github.com/T-stich"
 author_img: "https://avatars.githubusercontent.com/u/83845082"
+author_description: ""
 language: "en"
 available_languages: ["en", "de"]
 header_img: "header-7"
