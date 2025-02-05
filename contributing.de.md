@@ -17,6 +17,8 @@ Hier findest du wichtige Informationen bezüglich allgemeiner Voraussetzungen wi
   
   * Bevor du ein Tutorial schreibst, prüfe auf [community.hetzner.com](https://community.hetzner.com/tutorials) ob bereits ein Tutorial zum selben Thema verfügbar ist.
   * Um ganz sicher zu gehen, kannst du auch prüfen zu welchen Themen es aktuell bereits Pull Requests gibt.
+  * Bitte verweise nicht auf direkte Mitbewerber von Hetzner.
+
 
 * **Mehrwert**
   
