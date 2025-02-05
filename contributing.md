@@ -17,6 +17,7 @@ Below, you can find information about [content](#content), [language](#language)
   
   * Before you start writing your tutorial, make sure there isn't already a tutorial at [community.hetzner.com](https://community.hetzner.com/tutorials) about the exact same topic.
   * You might also want to check existing pull requests, just to be safe.
+  * Please do not include any logos/references to any Hetzner competitors.
 
 * **Provide value**
   
