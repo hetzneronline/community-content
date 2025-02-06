@@ -67,7 +67,7 @@ Hier findest du wichtige Informationen bezüglich allgemeiner Voraussetzungen wi
 3. Wenn der Community Manager keine weiteren Anmerkungen hat und das Tutorial gut aussieht, fügt der Community Manager bei deinem Pull Request das `ready`-Label hinzu.
 4. Als letzten Schritt, wird das Tutorial auf Rechtschreib- und Formatierungsfehler geprüft, bevor es schließlich veröffentlicht wird.
 
-Nachdem das Tutorial angenommen wurde, erhältst du eine E-Mail vom Hetzner Online Community Manager. Bitte beantworte diese E-Mail und gib deine Hetzner Kundennummer an, damit wir den Credit auf deinem Account hinzufügen können.
+Nachdem das Tutorial angenommen wurde, erhältst du eine E-Mail vom Hetzner Community Manager. Bitte beantworte diese E-Mail und gib deine Hetzner Kundennummer an, damit wir den Credit auf deinem Account hinzufügen können.
 
 ----------------------------------
 
