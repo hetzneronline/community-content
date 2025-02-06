@@ -66,7 +66,7 @@ Below, you can find information about [content](#content), [language](#language)
 3. Once the Community Manager has no more feedback and the tutorial looks good, the Community Manager will add the `ready` label to your pull request.
 4. Someone will then do a final check for spelling or formatting mistakes and publish the tutorial.
 
-If your tutorial is accepted, you will receive an email from a Hetzner Online Community Manager. Please respond to this email and provide your Hetzner Account number, so the reward can be added as a credit to your account.
+If your tutorial is accepted, you will receive an email from a Hetzner Community Manager. Please respond to this email and provide your Hetzner Account number, so the reward can be added as a credit to your account.
 
 ----------------------------------
 
