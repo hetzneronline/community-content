@@ -14,7 +14,7 @@ EOF
 # Print tutorial table row
 # print_row <date> <slug> <title> <author>
 print_row() {
-    echo "| $1 | [$2](https://github.com/hetzneronline/community-content/tree/master/tutorials/$2/01.en.md) | $3 | $4 |"
+    echo "| $1 | [$2](https://github.com/hetzneronline/community-content/blob/master/tutorials/$2/01.en.md) | $3 | $4 |"
 }
 
 # Create temporary files and add cleanup hook
@@ -22,9 +22,8 @@ rows="$(mktemp rows.XXXXXX.md)"
 rows_orphaned="$(mktemp rows-orphaned.XXXXXX.md)"
 trap 'rm -f "$rows" "$rows_orphaned"' EXIT
 
-# Get last year timestamp and month
-last_year_timestamp=$(date +'%s' -d '1 year ago')
-last_year_month=$(date +'%m' -d '1 year ago')
+curr_year=$(date +'%Y')
+curr_month=$(date +'%m')
 
 # Run for each english tutorial file
 for file in $(find ./tutorials -type f -name "*.en.md" | sort); do
@@ -35,12 +34,13 @@ for file in $(find ./tutorials -type f -name "*.en.md" | sort); do
     title=$(yq --front-matter extract '.title' "$file")
     author=$(yq --front-matter extract '.author_link' "$file" | sed 's|https://github.com/|@|')
 
-    # Get tutorial timestamp and month
-    date_timestamp=$(date +'%s' -d "$date")
-    date_month=$(date +'%m' -d "$date")
+    # Get tutorial year and month
+    tutor_year=$(date +'%Y' -d "$date")
+    tutor_month=$(date +'%m' -d "$date")
 
     # Check if the tutorial date is older that 1 year ago and on the same month
-    if [[ "$last_year_timestamp" -ge "$date_timestamp" && "$last_year_month" == "$date_month" ]]; then
+    # Comparing numbers as strings, it's fine here
+    if [[ "$tutor_month" == "$curr_month" && "$tutor_year" < "$curr_year" ]]; then
 
         if [[ "$author" == '@hetzneronline' ]]; then
             author=Hetzner
