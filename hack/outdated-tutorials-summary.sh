@@ -28,11 +28,7 @@ curr_month=$(date +'%m')
 # Run for each english tutorial file
 for file in $(find ./tutorials -type f -name "*.en.md" | sort); do
 
-    # Extract metadata
     date=$(yq --front-matter extract '.date' "$file")
-    slug=$(yq --front-matter extract '.slug' "$file")
-    title=$(yq --front-matter extract '.title' "$file")
-    author=$(yq --front-matter extract '.author_link' "$file" | sed 's|https://github.com/|@|')
 
     # Get tutorial year and month
     tutor_year=$(date +'%Y' -d "$date")
@@ -41,6 +37,10 @@ for file in $(find ./tutorials -type f -name "*.en.md" | sort); do
     # Check if the tutorial date is older that 1 year ago and on the same month
     # Comparing numbers as strings, it's fine here
     if [[ "$tutor_month" == "$curr_month" && "$tutor_year" < "$curr_year" ]]; then
+
+        slug=$(yq --front-matter extract '.slug' "$file")
+        title=$(yq --front-matter extract '.title' "$file")
+        author=$(yq --front-matter extract '.author_link' "$file" | sed 's|https://github.com/|@|')
 
         if [[ "$author" == '@hetzneronline' ]]; then
             author=Hetzner
