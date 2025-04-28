@@ -27,11 +27,3 @@ class PrivateDocumentAdmin(admin.ModelAdmin):
             url
         )
     get_file_url.short_description = 'Download Link'
-
-    def get_fields(self, request, obj=None):
-        fields = list(super().get_fields(request, obj))
-        # Only show the URL when editing an existing object
-        if obj:
-            fields.append('get_file_url')
-        return fields
-    

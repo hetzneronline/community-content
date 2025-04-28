@@ -66,12 +66,13 @@ http://localhost:8000/admin/
 deactivate
 ```
 
-3. Delete the virtual environment, and the database:
+3. Delete the virtual environment, the database, and the `.env` file:
 
 ```bash
 cd ..
 rm -rf venv
 rm example_project/db.sqlite3
+rm .env
 ```
 
 #### License: MIT
