@@ -1,4 +1,0 @@
-Django
-django-environ
-django-storages[boto3]
-whitenoise[brotli]
