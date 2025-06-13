@@ -11,6 +11,7 @@ Hier findest du wichtige Informationen bezüglich allgemeiner Voraussetzungen wi
 * **Original**
   
   * Es ist nicht möglich einen Text einzureichen, der bereits an anderer Stelle im Web veröffentlicht wurde, selbst wenn du selbst der Autor bist.
+  * Es ist nicht möglich einen Text einzureichen, der hauptsächlich oder vollständig von KI erstellt wurde.
   * Wenn du einen Pull Request erstellst und sich herausstellt, dass dieses Tutorial zuvor bereits an anderer Stelle im Web veröffentlicht wurde, wird der Pull Request geschlossen und das Tutorial wird nicht veröffentlicht. Zusätzlich werden auch künftig keine weiteren Tutorials von diesem Nutzer veröffentlicht. Sollte der Nutzer noch einen Pull Request öffnen, wird dieser ohne Review geschlossen.
 
 * **Thema**
