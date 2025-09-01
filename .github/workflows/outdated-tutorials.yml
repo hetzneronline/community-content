@@ -7,12 +7,12 @@ on:
     branches: [master]
     paths:
       - .github/workflows/outdated-tutorials.yml
-      - hack/outdated-tutorials-summary.sh
+      - .github/outdated-tutorials-summary.sh
   pull_request:
     branches: [master]
     paths:
       - .github/workflows/outdated-tutorials.yml
-      - hack/outdated-tutorials-summary.sh
+      - .github/outdated-tutorials-summary.sh
 
 jobs:
   summary:
@@ -29,7 +29,7 @@ jobs:
 
       - name: Generate summary
         run: |
-          hack/outdated-tutorials-summary.sh | tee summary.md $GITHUB_STEP_SUMMARY
+          .github/outdated-tutorials-summary.sh | tee summary.md $GITHUB_STEP_SUMMARY
 
       - name: Create issue
         if: github.event_name == 'schedule'
