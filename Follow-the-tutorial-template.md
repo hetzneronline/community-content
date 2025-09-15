@@ -18,8 +18,8 @@ language: ‘en’
 available_languages: [‘en’, “de”, ‘Add all languages (ISO-639-1 codes) in which the tutorial is available here’]
 header_img: ‘header-x’
 cta: ‘product’
-
 ---
+
 
 **Example names**
 Many tutorials need to include user names, host names, domains, and IPs, for example. To simplify this, all tutorials should use the same standard examples as described below.
@@ -45,7 +45,7 @@ Please note that all tutorials must be written in English. If you would like to 
 The first paragraph or paragraphs in the introduction are there to explain what the tutorial covers. Please do not simply list the individual steps, as a table of contents is added automatically. Make sure that users know exactly what they will achieve at the end if they follow your tutorial. Let them know if they need to meet certain prerequisites.
 You can refer to other tutorials on which your tutorial is based and add recommendations about what users should know.
 
-### Prerequisites
+## Prerequisites
 
 If your tutorial can only be used if certain prerequisites are met, these should be specified here.
 If there is already a tutorial that explains one of the prerequisites, it should be linked.
@@ -53,7 +53,7 @@ For example:
 * Hetzner Cloud [API token](https://docs.hetzner.com/de/cloud/api/getting-started/generating-api-token) in the [Cloud Console](https://console.hetzner.cloud/)
 * [SSH key](https://community.hetzner.com/tutorials/howto-ssh-key/de)
 
-### Step 1 (e.g. download ...)
+## Step 1 (e.g. download ...)
 
 The steps are the actual steps that users will perform to complete the tutorial.
 Each step should build on the previous one, up to the last step, which completes the tutorial.
@@ -61,7 +61,7 @@ It is important not to skip any steps, no matter how obvious or self-explanatory
 Feel free to add screenshots to show exactly what the user should see. Place all screenshots in a separate `images` folder.
 The number of steps depends entirely on how long/complicated the tutorial is.
 
-### Step 2 (e.g. install ...)
+## Step 2 (e.g. install ...)
 
 Brief introduction. (e.g. you can upload ... to your web space in two ways)
 e.g. Option 1...
@@ -91,12 +91,12 @@ s = ‘Python syntax highlighting’
 print s
 ```
 
-### Step N (e.g. Import settings ....)
+## Step N (e.g. Import settings ....)
 More instructions.
 **Result**
 At the end of the tutorial, once the user has completed all the steps, you can add a short conclusion. Summarise what the user has done and perhaps suggest various actions they can take now.
 
-#### (Optional) Next steps (links to further/interesting tutorials or support links)
+## (Optional) Next steps (links to further/interesting tutorials or support links)
 
 #### Licence: MIT
 <!--
