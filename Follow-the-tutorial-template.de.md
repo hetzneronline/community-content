@@ -18,8 +18,8 @@ language: "de"
 available_languages: ["en", "de", "Ergänze hier alle Sprachen (ISO-639-1-Codes), in denen das Tutorial verfügbar ist"]
 header_img: "header-x"
 cta: "product"
-
 ---
+
 
 **Beispiel-Benennungen**
 
@@ -49,7 +49,7 @@ Beachte, dass alle Tutorials auf Englisch verfasst sein müssen. Wenn du zusätz
 Der erste Absatz oder die ersten Absätze in der Einführung sind dafür da, um zu erklären, was im Tutorial behandelt wird. Liste bitte nicht einfach die einzelnen Schritte auf, da ein Inhaltsverzeichnis automatisch hinzugefügt wird. Stelle sicher, dass die Benutzer genau wissen, was sie am Ende erreichen werden, wenn sie deinem Tutorial folgen. Lasse sie wissen, wenn sie bestimmte Voraussetzungen benötigen.
 Du kannst auf andere Tutorials verweisen, auf denen dein Tutorial aufbaut, und Empfehlungen hinzufügen, was Benutzer wissen sollten.
 
-### Voraussetzung
+## Voraussetzung
 
 Falls dein Tutorial nur genutzt werden kann, wenn bestimmte Voraussetzungen erfüllt werden, sollten diese hier angegeben werden.
 Falls es bereits ein Tutorial gibt, in dem eine der Voraussetzungen erklärt wird, sollte dieses verlinkt werden.
@@ -60,7 +60,7 @@ Zum Beispiel:
 * [SSH-Key](https://community.hetzner.com/tutorials/howto-ssh-key/de)
 
 
-### Schritt 1 (z.B. .... herunterladen)
+## Schritt 1 (z.B. .... herunterladen)
 
 Die Schritte sind die eigentlichen Schritte, die Benutzer durchführen werden, um das Tutorial abzuschließen.
 
@@ -72,7 +72,7 @@ Du kannst gerne Screenshots hinzufügen, um genau zu zeigen, was der Benutzer se
 
 Die Anzahl der Schritte hängt ganz davon ab, wie lang/kompliziert das Tutorial ist.
 
-### Schritt 2 (z.B. ..... installieren)
+## Schritt 2 (z.B. ..... installieren)
 
 Kurze Einleitung. (z.B. du kannst .... auf zwei Wegen auf auf dein Webspace bringen)
 
@@ -106,7 +106,7 @@ s = "Python syntax highlighting"
 print s
 ```
 
-### Schritt N (z.B. Importiere Einstellungen ....)
+## Schritt N (z.B. Importiere Einstellungen ....)
 
 Noch mehr Anweisungen.
 
@@ -114,7 +114,7 @@ Noch mehr Anweisungen.
 
 Am Ende des Tutorials, sobald der Benutzer alle Schritte abgeschlossen hat, kannst du eine kurze Schlussfolgerung hinzufügen. Fasse zusammen, was der Benutzer getan hat, und schlage vielleicht verschiedene Maßnahmen vor, die er jetzt ergreifen kann.
 
-#### (Optional) Nächste Schritte (Links zu weiterführenden/interessanten Tutorials oder Support Links) 
+## (Optional) Nächste Schritte (Links zu weiterführenden/interessanten Tutorials oder Support Links) 
 
 #### License: MIT
 
