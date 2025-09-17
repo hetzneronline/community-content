@@ -1,14 +1,10 @@
-**Beispiel-Header**
-Alle Tutorials müssen die folgenden HeadZeilen ausgefüllt haben. Diese Metadaten werden von der Community verwendet, um das Tutorial zu kategorisieren und zu beschreiben. 
-
 ---
-title: "Ein tolles Beispiel-Tutorial!"
 SPDX-License-Identifier: MIT
 path: "/tutorials/tutorial-template/de"
 slug: "tutorial-template"
-date: "2023-01-01"
+date: "2025-01-01"
 title: "Ein tolles Beispiel-Tutorial!"
-short_description: "Das ist ein Beispiel-Tutorial mit Metadaten (die ersten paar Zeilen vor dem eigentlichen Tutorial). Bitte fülle so viel wie möglich selbst aus. Wenn du dir an einer Stelle nicht sicher bist, kannst du es leer lassen und der Community Manager wird es für dich anpassen. Die "short_description" sollte bei dir nicht mehr als 160 Zeichen haben."
+short_description: "Das ist ein Beispiel-Tutorial mit Metadaten (die ersten paar Zeilen vor dem eigentlichen Tutorial). Bitte fülle so viel wie möglich selbst aus. Wenn du dir an einer Stelle nicht sicher bist, kannst du es leer lassen und der Community Manager wird es für dich anpassen. Die 'short_description' sollte bei dir nicht mehr als 160 Zeichen haben."
 tags: ["Development", "Lang:Go", "Lang:JS"]
 author: "Dein Name"
 author_link: "https://github.com/....."
@@ -20,6 +16,26 @@ header_img: "header-x"
 cta: "product"
 ---
 
+## Einführung
+
+> Die obenstehenden Metadaten werden von der Community verwendet, um das Tutorial zu kategorisieren und zu beschreiben. Diese müssen am Anfang von jedem Tutorial enthalten sein.
+
+Beachte, dass alle Tutorials auf Englisch verfasst sein müssen. Wenn du zusätzlich eine deutsche Übersetzung bereitstellen willst, kannst du dieses Beispiel-Tutorial als Vorlage verwenden.
+
+Der erste Absatz oder die ersten Absätze in der Einführung sind dafür da, um zu erklären, was im Tutorial behandelt wird. Liste bitte nicht einfach die einzelnen Schritte auf, da ein Inhaltsverzeichnis automatisch hinzugefügt wird. Stelle sicher, dass die Benutzer genau wissen, was sie am Ende erreichen werden, wenn sie deinem Tutorial folgen. Lasse sie wissen, wenn sie bestimmte Voraussetzungen benötigen.
+Du kannst auf andere Tutorials verweisen, auf denen dein Tutorial aufbaut, und Empfehlungen hinzufügen, was Benutzer wissen sollten.
+
+Beachte außerdem, dass die Tutorials wie in diesem Beispiel-Tutorial gezeigt, mit Markdown geschrieben werden (siehe [Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)).
+
+**Voraussetzungen**
+
+Falls dein Tutorial nur genutzt werden kann, wenn bestimmte Voraussetzungen erfüllt werden, sollten diese hier angegeben werden.
+Falls es bereits ein Tutorial gibt, in dem eine der Voraussetzungen erklärt wird, sollte dieses verlinkt werden.
+
+Zum Beispiel:
+
+* Hetzner Cloud [API-Token](https://docs.hetzner.com/de/cloud/api/getting-started/generating-api-token) in der [Cloud Console](https://console.hetzner.cloud/)
+* [SSH-Key](https://community.hetzner.com/tutorials/howto-ssh-key/de)
 
 **Beispiel-Benennungen**
 
@@ -37,30 +53,7 @@ Viele Tutorials müssen beispielsweise Benutzernamen, Hostnamen, Domänen und IP
 
 Verwende in deinem Tutorial **niemals** echte IP-Adressen.
 
-**Formatierung**
-Die Tutorials sollten in Markdown geschrieben werden. Markdown ist eine einfache Auszeichnungssprache, die leicht zu lesen und zu schreiben ist.
-Die Einführung sollte immer in Größe #### und die zwischenüberschriften in Größe ##### geschrieben werden. (Siehe Beispiel unten)
- 
-
-## Einführung (z.B. Was ist .....?)
-
-Beachte, dass alle Tutorials auf Englisch verfasst sein müssen. Wenn du zusätzlich eine deutsche Übersetzung bereitstellen willst, kannst du dieses Beispiel-Tutorial als Vorlage verwenden.
-
-Der erste Absatz oder die ersten Absätze in der Einführung sind dafür da, um zu erklären, was im Tutorial behandelt wird. Liste bitte nicht einfach die einzelnen Schritte auf, da ein Inhaltsverzeichnis automatisch hinzugefügt wird. Stelle sicher, dass die Benutzer genau wissen, was sie am Ende erreichen werden, wenn sie deinem Tutorial folgen. Lasse sie wissen, wenn sie bestimmte Voraussetzungen benötigen.
-Du kannst auf andere Tutorials verweisen, auf denen dein Tutorial aufbaut, und Empfehlungen hinzufügen, was Benutzer wissen sollten.
-
-## Voraussetzung
-
-Falls dein Tutorial nur genutzt werden kann, wenn bestimmte Voraussetzungen erfüllt werden, sollten diese hier angegeben werden.
-Falls es bereits ein Tutorial gibt, in dem eine der Voraussetzungen erklärt wird, sollte dieses verlinkt werden.
-
-Zum Beispiel:
-
-* Hetzner Cloud [API-Token](https://docs.hetzner.com/de/cloud/api/getting-started/generating-api-token) in der [Cloud Console](https://console.hetzner.cloud/)
-* [SSH-Key](https://community.hetzner.com/tutorials/howto-ssh-key/de)
-
-
-## Schritt 1 (z.B. .... herunterladen)
+## Schritt 1 - Zusammenfassender Titel
 
 Die Schritte sind die eigentlichen Schritte, die Benutzer durchführen werden, um das Tutorial abzuschließen.
 
@@ -72,22 +65,19 @@ Du kannst gerne Screenshots hinzufügen, um genau zu zeigen, was der Benutzer se
 
 Die Anzahl der Schritte hängt ganz davon ab, wie lang/kompliziert das Tutorial ist.
 
-## Schritt 2 (z.B. ..... installieren)
+## Schritt 2 - Zusammenfassender Titel
 
-Kurze Einleitung. (z.B. du kannst .... auf zwei Wegen auf auf dein Webspace bringen)
+Kurze Einleitung.
 
-z.B. Option 1...
+Zuerst...
 
 ![Screenshot Description](images/screenshot_description.png)
 
-z.B. Option 2...
-1.
-2.
-3.
+Dann...
 
 Abschließend...
 
-### Schritt 2.1 (z.B. ein Code-Beispiel oder mehrere Möglichkeiten vorstellen)
+### Schritt 2.1 - Zusammenfassender Titel
 
 Du kannst Code-Beispiele in fast jeder Programmiersprache erstellen.
 Gib die Sprache einfach nach den ersten drei Backticks in der Markdown-Datei an.
@@ -99,24 +89,33 @@ var s = "JavaScript syntax highlighting";
 alert(s);
 ```
 
-### Schritt 2.2 (z.B. noch Code-Beispiel)
+### Schritt 2.2 - Zusammenfassender Titel
+
+Noch ein Code-Beispiel
 
 ```python
 s = "Python syntax highlighting"
 print s
 ```
 
-## Schritt N (z.B. Importiere Einstellungen ....)
+## Schritt 3 - Zusammenfassender Titel (Optional)
+
+Anweisungen für einen Schritt, der nicht zwingend notwendig ist, um das Tutorial zu beenden, der aber hilfreich sein kann.
+
+## Schritt N - Zusammenfassender Titel
 
 Noch mehr Anweisungen.
 
-**Ergebnis** 
+## Ergebnis
 
-Am Ende des Tutorials, sobald der Benutzer alle Schritte abgeschlossen hat, kannst du eine kurze Schlussfolgerung hinzufügen. Fasse zusammen, was der Benutzer getan hat, und schlage vielleicht verschiedene Maßnahmen vor, die er jetzt ergreifen kann.
+Am Ende des Tutorials, sobald der Benutzer alle Schritte abgeschlossen hat, kannst du eine kurze Schlussfolgerung hinzufügen. Fasse zusammen, was der Benutzer getan hat, und schlage vielleicht verschiedene Maßnahmen vor, die er jetzt ergreifen kann. Zusätzlich kannst du bei Bedarf noch hilfreiche Links ergänzen.
 
-## (Optional) Nächste Schritte (Links zu weiterführenden/interessanten Tutorials oder Support Links) 
+**Nächste Schritte:**
 
-#### License: MIT
+* Links zu weiterführenden/interessanten Tutorials
+* Support Links
+
+##### License: MIT
 
 <!--
 
