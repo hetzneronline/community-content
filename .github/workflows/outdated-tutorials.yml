@@ -1,0 +1,41 @@
+name: Outdated Tutorials
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/outdated-tutorials.yml
+      - .github/outdated-tutorials-summary.sh
+  pull_request:
+    branches: [master]
+    paths:
+      - .github/workflows/outdated-tutorials.yml
+      - .github/outdated-tutorials-summary.sh
+
+jobs:
+  summary:
+    name: Summary
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate summary
+        run: |
+          .github/outdated-tutorials-summary.sh | tee summary.md $GITHUB_STEP_SUMMARY
+
+      - name: Create issue
+        if: github.event_name == 'schedule'
+        run: |
+          gh issue create \
+            --title "Tutorials written over a year ago ($(date +'%B %Y'))" \
+            --body-file summary.md
+        env:
+          GH_TOKEN: ${{ github.token }}
