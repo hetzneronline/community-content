@@ -2,10 +2,10 @@
 SPDX-License-Identifier: MIT
 path: "/tutorials/configure-whm-and-cpanel-backup-on-storagebox"
 slug: "configure-whm-and-cpanel-backup-on-storagebox"
-date: "2022-21-06"
-title: "How to configure backups with WHM and cPanel to a StorageBox"
-short_description: "This tutorial explains how to configure backup for WHM and cPanel including a StorageBox"
-tags: ["Backup", "cPanel", "WHM", "StorageBox"]
+date: "2025-10-30"
+title: "How to configure backups with WHM and cPanel"
+short_description: "This tutorial explains how to configure backups for WHM and cPanel and how to save them on a Hetzner Storage Box"
+tags: ["Backup", "cPanel", "WHM", "Storage Box"]
 author: "Beatrice Richter"
 author_link: "https://github.com/RichterBea"
 author_img: ""
@@ -13,164 +13,181 @@ author_description: ""
 language: "en"
 available_languages: ["en"]
 header_img: ""
-cta: "product"
+cta: "dedicated"
 ---
 
 ## Introduction
 
-The first paragraph or paragraphs are there for you to explain what your tutorial will do. Please don't simply list the steps you will be following, a table of contents (TOC) with the steps will be automatically added.
-Make sure users know exactly what they will end up with if they follow your tutorial, and let them know if they need any specific prerequisites.
-You can link to other tutorials that your tutorial builds on, and add recommendations for what users should know.
+In this tutorial you will learn how to configure a new cron job on your cPanel account to automatically create backups. Additionally, a new storage destination will be added for the backups. In this example, a Hetzner Storage Box will be used as storage destination. Lastly, we will take a look at how to restore backups of an entire account or a single file.
 
-In this tutorial we will set up an automatic backup via cronjob for cPanel Accounts. We will also take a look how to restore backups for an entire account or single files. 
-
+> When you create a new Hetzner Dedicated Server, you can also choose from selected operating systems which are [automatically preinstalled with cPanel](https://docs.hetzner.com/robot/dedicated-server/operating-systems/cpanel/#automatic). For existing dedicated servers, you can do this via the cPanel tab of the server on Robot.
 
 **Prerequisites**
 
-We need a server with installed and licensed cPanel and a Storage Box.
-When ordering a new server, you can select an operating system which is then pre-installed on the server. If the server is already online, cPanel can be activated and installed automatically (along with an OS) via the cPanel tab of the server on Robot. Once you have restarted the server, the installation will be automatically performed. You will get an email with the login details of both the OS and cPanel once the installation is complete.
+* Server with [installed](https://docs.cpanel.net/installation-guide/install/) and [licensed](https://www.cpanel.net/pricing/) cPanel (see [free trial](https://www.cpanel.net/products/trial/))
+* Hetzner Storage Box
+
+**Example terminology**
 
 * Hostname: `whm-test`
-* StorageBox: `u111.your-storagebox.de`
-* StorageBox-User: `u111`
+* Storage Box: `u111.your-storagebox.de`
+* Storage Box user: `u111`
 * WHM: `https://whm-test:2087`
 * cPanel: `https://whm-test:2083`
 
-## Step 1 - WHM Backup
+## Step 1 - WHM Backups
 
-### Step 1.1 Configure Cronjob
+### Step 1.1 Configure Cron job
 
-At first we need to login the WHM account to configure the cronjob for interval backup. We select the category "Tools > Server Configuration > Configure cPanel Cron Jobs". Here we can configure the time and interval in which our backup should be done. Save the new settings.
+To configure the cron job, you first have to open WHM and login on your account:
+
+```
+https://<server-ip-address>:2087
+```
+
+> Make sure you add the port of the WHM control panel (default: `2087`) at the end of the URL.
+
+Once you’re logged in, select `Tools` > `Server Configuration` > `Configure cPanel Cron Jobs`. There, you can configure the time and interval in which the backups should be made. Save the new settings.
 
 ![Screenshot Description](images/backup_interval.png)
 
-### Step 1.2 - Configure Backup Options
+### Step 1.2 - Configure backup options
 
-After configuring the cronjob we need to configure the backup options. We go to "Tools > Backup > Backup Configuration".
-In the following picture we can see settings for a daily backup for every existing user account: 
+Next to the cron job, you will also have to configure the backup options. To do this, go to `Tools` > `Backup` > `Backup Configuration`.
+
+The following image shows settings for daily backups of all existing user accounts:
 
 ![Screenshot Description](images/backup_settings.png)
 
-### Step 1.3 - Back up user accouns
+### Step 1.3 - Back up user accounts
 
-To backup user account data we need to select the users. 
+To back up user account data, you have to select the users separately.
 
 ![Screenshot Description](images/user_accounts.png)
 
-Click on "Select Users".
-Here we get listed all cPanel user accounts. If the user is enabled, the WHM will backup everything for this account, like configured.
+Click on `Select Users`. This takes you to a full list of all cPanel user accounts. For enabled users, the WHM will back up the account's information as set in the configurations.
 
-### Step 1.4 - Additional Destination
+### Step 1.4 - Change the backup destination
 
-Within the "Additional Destination" tab we can create a new destination to add our Storage Box as backup destination.
+When you open the `Additional Destination` tab, you can add the Storage Box as the new backup destination.
 
 ![Screenshot Description](images/additional_destinations.png)
 
-As example we will set up the connection via Rsync:
+To transfer the backups from WHM to the Storage Box, you can use rsync, for example.
 
 ![Screenshot Description](images/additional_destination.png)
 
-If we want to authenticate with a SSH key instead of a password, we can choose "Key Authentication".
-We can us an already existing key or generate a new one. 
-A tutorial about how to use SSH key for Storage Box exist in our Hetzner Docs:
-https://docs.hetzner.com/robot/storage-box/backup-space-ssh-keys
+If you would like to authenticate via an SSH key instead of a password, you can select "Key Authentication". You can add an existing key, or generate a new one. For more information about [SSH key authentication for Storage Boxes](https://docs.hetzner.com/storage/storage-box/backup-space-ssh-keys), go to docs.hetzner.com.
 
-To check if all is successfully configured, we can validate the destination while saving. 
+You can validate the destination while saving, and check whether all configurations were set correctly and successfully.
 
 ## Step 2 - WHM Restore Backup
 
 ### Step 2.1 - Account restoration
-To restore a backup we can select between restore by acount and restore by date. 
-"Restore by account" gives us a list of accounts. After selected an account we will get shown all available backup dates. 
-At "Restore by date" we first select the date and then we will get a list of accounts, for which a backup exist.
+
+To restore backups of an entire account, go to `Tools` > `Backup` > `Backup Restoration`.
+
+Before you select a backup, you can choose between the options "Restore by Account" and "Restore by Date". 
+
+- "**Restore by Account**" allows you to select a certain account from a list of all accounts with backups. When you select one of the accounts, it will show you the dates from which backups are available.
+- "**Restore by Date**" allows you to select a certain date. You will then get a list of those accounts only which have backups from that date.
 
 ![Screenshot Description](images/restore1.png)
 
-After we selected the right date and clicked "Add Account to Queue", the account was added to the Restoration Queue. 
-If all accounts are selected which needs an backup restore we can start with the button "Restore".
+When you're happy with the selected account and date, click on "Add Account to Queue". This will add the account to the "Restoration Queue".
+
+You can add several accounts at the same time to the "Restoration Queue". As soon as you're done with the queue, you can select "Restore".
 
 ![Screenshot Description](images/restore2.png)
 
-### Step 2.1 - File and Directory restoration
+### Step 2.2 - File and Directory restoration
 
-At the category "File and Directory Restoration" we can also choose between all existing user accounts. 
-We can select files or directories by enter a path or browse all backuped directories.
+To restore backups of a file or directory, go to `Tools` > `Backup` > `File and Directory Restoration`. This will take you to a list of all user accounts. Select the user account on which the file or directory to restore was saved.
 
-By selecting a path we would restore the whole directory. The list of available backups for this directory is shown
-on the right side. 
+To select files or directories, you can choose between the options "Enter a path" and "Browse files and directories".
 
-![Screenshot Description](images/file_restore.png)
+- "**Enter a path**"
 
-By selecting via "Browse files and directories" we can restore a single file within an directory.
-Select the correct file and klick "show backups". On the right side we will get shown a list of available backups for the file.
-![Screenshot Description](images/file_restore_dir.png)
+  This option will restore the backup of an entire directory. In this example, the directory with the name `logs` and all its contents will be restored. When you enter the directory on the left, you will get a list on the right of all backups that are available for that directory.
 
+  ![Screenshot Description](images/file_restore.png)
+
+- "**Browse files and directories**"
+
+  This option will restore the backup of a single file within a directory. In this example, the file with the name `diese-domain.test-Jun-2022.gz` from the directory `logs` will be restored. When you click on one of the files and select "Show Backups", you will get a list on the right of all backups that are available for that file.
+
+  ![Screenshot Description](images/file_restore_dir.png)
 
 ## Step 3 - cPanel Backup
 
-cPanel is the account-level interface.
-This feature is only to move your account to another server or to download a copy of your account. You cannot restore Full Backups through your cPanel interface.  
+cPanel is the account-level interface. You can use the cPanel to move your account to another server, or to download a copy of your account. You cannot use the cPanel interface to restore full backups.
+
+Open the cPanel interface and login on your account:
+
+```
+https://<server-ip-address>:2083
+```
+
+> Make sure you add the port of the cPanel interface (default: `2083`) at the end of the URL.
 
 ### Step 3.1 - Backup Wizard
 
-On the Tools page at the Files category we can find the "Backup Wizard". Here we can back up and restore our website. 
-For this tutorial we choose the full backup option. As backup destination we can select home directory, FTP server, passive FTP server or SCP.
+On the `Tools` page, scroll to `Files` and select `Backup Wizard`. This is where you can choose to "Back Up" or "Restore" your website.
 
-For this account there are two existing backup listed. We can download them to our local computer. 
-To generate a backup and send it to our StorageBox we select the "Remote FTP Server" option. Enter the login credentials of your Storage Box and generate the backup.
+To download a full backup of your website, select first "Back Up", and then "Full Backup". 
+
+- In the example below, two existing backups are available for download.
+- As backup destination, you can choose from "home directory", "FTP server", "passive FTP server", and "SCP".
+
+Before you generate the backup, select "Remote FTP Server" to transfer the backup to the Storag Box. Remember to also enter the login credentials of your Storage Box. Next, generate the backup.
 
 ![Screenshot Description](images/ftp_backup.png)
 
 ### Step 3.2 - Backup
 
-The "Backup" page we can also find at the Files category. Here we can also download already existing backup.
-Full Backup - redirected us to the Backup Wizard.
-Account Backups - here we can select an existing backup and download it to our local computer.
-Partial Backups - choose between Home Directory Backup, MySQL Database Backup, Email Forwarders and Email Filters.
+On the `Tools` page, scroll to `Files` and select `Backup`.
 
-### Step 3.2 - Restore
+Here, it is also possible to download already existing backups.
 
-At the right side of the Backup section we can find the corresponding restore option. 
-To restore the user account or parts of it, we can only use local existing backup files. 
-Select the file and klick on upload. This will automatic upload and restore the backup file. 
+- "**Full Backup**" - Redirects you to `Backup Wizard`.
+- "**Account Backups**" - You can download an existing backup to the local computer.
+- "**Partial Backups**" - You can choose from "Home Directory Backup", "Database Backup", "Email Forwarders", and "Email Filters".
 
+### Step 3.3 - Restore
+
+On the `Tools` page, scroll to `Files` and select `Backup Wizard`. This is where you can choose to "Back Up" or "Restore" your website.
+
+To "restore" a user account or parts of it, you will have to upload an existing backup which you have previously saved yourself.
+
+Select the file and click on "Upload". This will automatically upload and restore information saved in the backup file. 
 
 ## Conclusion
 
-With this tutorial we have configured a daily running backup including a Storage Box as backup target in our WHM account. 
-Additionaly we 
-The Storage Box can be accessed with FTP and Rsync.
+In the previous steps you learned how to configure daily backups of your cPanel accounts and how to store them on a Hetzner Storage Box.
 
-Note: cPanel Backup does not work with SCP and a Storage Box.
+The Storage Box can be accessed with FTP and rsync.
 
+> Note: cPanel Backup does not work with SCP and a Storage Box.
 
 ##### License: MIT
 
 <!--
-
 Contributor's Certificate of Origin
-
 By making a contribution to this project, I certify that:
-
 (a) The contribution was created in whole or in part by me and I have
     the right to submit it under the license indicated in the file; or
-
 (b) The contribution is based upon previous work that, to the best of my
     knowledge, is covered under an appropriate license and I have the
     right under that license to submit that work with modifications,
     whether created in whole or in part by me, under the same license
     (unless I am permitted to submit under a different license), as
     indicated in the file; or
-
 (c) The contribution was provided directly to me by some other person
     who certified (a), (b) or (c) and I have not modified it.
-
 (d) I understand and agree that this project and the contribution are
     public and that a record of the contribution (including all personal
     information I submit with it, including my sign-off) is maintained
     indefinitely and may be redistributed consistent with this project
     or the license(s) involved.
-
 Signed-off-by: [Beatrice Richter beatrice.richter@hetzner.com]
-
 -->
