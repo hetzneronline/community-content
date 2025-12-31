@@ -1,0 +1,71 @@
+<?php
+/**
+ * Hetzner DNS Dynamic DNS configuration.
+ *
+ * Adjust the realms array below to match your zones, tokens, and preferences.
+ * Each realm can define its own TTL, API endpoint tokens, and preferred order
+ * of DNS providers (classic KonsoleH/dns plus the new Hetzner Console API).
+ *
+ * Copy this file to hetzner_dyndns.config.php, fill in the real tokens and passwords,
+ * and keep it out of version control.
+ */
+
+return [
+    // Shared password for the update/cron endpoints (used in HTTP auth or ?p=...).
+    'script_password' => 'YOUR_SECRET_PASSWORD',
+
+    // Authentication realm label used when sending WWW-Authenticate headers.
+    'auth_realm' => 'Your Realm Name',
+
+    // Local sqlite file that keeps track of pending updates.
+    'history_db' => __DIR__ . '/hetzner_dyndns.sqlite3',
+
+    // Enable verbose output when troubleshooting (false for production).
+    'debug' => false,
+
+    // Optional file path to capture debug logs instead of PHP's error log.
+    'debug_log' => null,
+
+    // Optional email notifications for update attempts.
+    'notifications' => [
+        'enabled' => false,
+        'method' => 'php', // php or smtp
+        'from' => 'ddns@example.com',
+        'recipients' => ['ops@example.com'],
+        'success_recipients' => [],
+        'failure_recipients' => [],
+        'send_on_success' => false,
+        'send_on_failure' => true,
+        'smtp' => [
+            'host' => 'smtp.example.com',
+            'port' => 587,
+            'username' => 'user',
+            'password' => 'secret',
+            'security' => 'tls', // tls or none
+        ],
+    ],
+
+    // Fallback realm if the request does not supply one.
+    'default_realm' => 'default',
+
+    // Number of seconds cron handler should wait to acquire database lock.
+    'lock_wait_seconds' => 5,
+
+    // Maximum retry attempts before cron keeps waiting for manual intervention.
+    'max_retry_attempts' => 5,
+
+    // Define your realms/zones and credentials below.
+    'realms' => [
+        'default' => [
+            'name' => 'default',
+            'ttl' => 60,
+            'dns_endpoint' => 'https://dns.hetzner.com/api/v1',
+            'console_endpoint' => 'https://api.hetzner.cloud/v1',
+            'dns_token' => 'your-dns-api-token',
+            'console_token' => 'your-console-api-token',
+            // Optional override if the zone uses a subdomain (e.g. ddns.example.com).
+            'zone_name' => 'ddns.example.com',
+            'api_order' => ['dns', 'console'],
+        ],
+    ],
+];
