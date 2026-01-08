@@ -11,12 +11,15 @@ Hier findest du wichtige Informationen bezüglich allgemeiner Voraussetzungen wi
 * **Original**
   
   * Es ist nicht möglich einen Text einzureichen, der bereits an anderer Stelle im Web veröffentlicht wurde, selbst wenn du selbst der Autor bist.
+  * Es ist nicht möglich einen Text einzureichen, der hauptsächlich oder vollständig von KI erstellt wurde.
   * Wenn du einen Pull Request erstellst und sich herausstellt, dass dieses Tutorial zuvor bereits an anderer Stelle im Web veröffentlicht wurde, wird der Pull Request geschlossen und das Tutorial wird nicht veröffentlicht. Zusätzlich werden auch künftig keine weiteren Tutorials von diesem Nutzer veröffentlicht. Sollte der Nutzer noch einen Pull Request öffnen, wird dieser ohne Review geschlossen.
 
 * **Thema**
   
   * Bevor du ein Tutorial schreibst, prüfe auf [community.hetzner.com](https://community.hetzner.com/tutorials) ob bereits ein Tutorial zum selben Thema verfügbar ist.
   * Um ganz sicher zu gehen, kannst du auch prüfen zu welchen Themen es aktuell bereits Pull Requests gibt.
+  * Bitte verweise nicht auf direkte Mitbewerber von Hetzner.
+
 
 * **Mehrwert**
   
@@ -27,7 +30,8 @@ Hier findest du wichtige Informationen bezüglich allgemeiner Voraussetzungen wi
  
 * **Englisch**
   
-  * Wenn du eine andere Sprache fließend beherrscht und eine Übersetzung anfertigen kannst, kannst du das Tutorial in mehreren Sprachen einreichen, sofern mindestens eine Englisch ist.
+  * Wenn du eine andere Sprache fließend beherrscht und eine Übersetzung anfertigen kannst, kannst du das Tutorial in mehreren Sprachen einreichen, sofern mindestens eine Englisch ist.<br>
+    Folgende Sprachen werden unterstützt: Englisch `en`, Deutsch `de`, Russisch `ru`, Italienisch `it`, Bulgarisch `bg`, Finnisch `fi`, and Portugiesisch `pt`
   * Wenn du Englisch nicht fließend sprichst, aber ein hochwertiges Tutorial hast, dass du in einer anderen Sprache teilen kannst, kontaktiere uns bitte. Wir sind offen für die Möglichkeit, Ausnahmen für bestimmte Tutorials zu machen.
 
 * **Leicht verständlich**
@@ -64,7 +68,7 @@ Hier findest du wichtige Informationen bezüglich allgemeiner Voraussetzungen wi
 3. Wenn der Community Manager keine weiteren Anmerkungen hat und das Tutorial gut aussieht, fügt der Community Manager bei deinem Pull Request das `ready`-Label hinzu.
 4. Als letzten Schritt, wird das Tutorial auf Rechtschreib- und Formatierungsfehler geprüft, bevor es schließlich veröffentlicht wird.
 
-Nachdem das Tutorial angenommen wurde, erhältst du eine E-Mail vom Hetzner Online Community Manager. Bitte beantworte diese E-Mail und gib deine Hetzner Kundennummer an, damit wir den Credit auf deinem Account hinzufügen können.
+Nachdem das Tutorial angenommen wurde, erhältst du eine E-Mail vom Hetzner Community Manager. Bitte beantworte diese E-Mail und gib deine Hetzner Kundennummer an, damit wir den Credit auf deinem Account hinzufügen können.
 
 ----------------------------------
 

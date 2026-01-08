@@ -2,7 +2,7 @@
 SPDX-License-Identifier: MIT
 path: "/tutorials/tutorial-template"
 slug: "tutorial-template"
-date: "2023-01-01"
+date: "2025-01-01"
 title: "A great Tutorial Template!"
 short_description: "This is a tutorial template, including metadata (the first few lines before the actual tutorial). Please fill in as much as possible. If you don't know what to put somewhere, just leave it empty, the Community Manager will fill it for you. Your description should be less than 160 characters."
 tags: ["Development", "Lang:Go", "Lang:JS"]
@@ -18,9 +18,13 @@ cta: "product"
 
 ## Introduction
 
+> The metadata above is used by the community to categorise and describe the tutorial. This metadata has to be added at the top of every tutorial.
+
 The first paragraph or paragraphs are there for you to explain what your tutorial will do. Please don't simply list the steps you will be following, a table of contents (TOC) with the steps will be automatically added.
 Make sure users know exactly what they will end up with if they follow your tutorial, and let them know if they need any specific prerequisites.
 You can link to other tutorials that your tutorial builds on, and add recommendations for what users should know.
+
+In addition, please note that the tutorials are written using Markdown, as shown in this example tutorial (see [Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)).
 
 **Prerequisites**
 
@@ -103,7 +107,12 @@ Yet more instructions.
 
 ## Conclusion
 
-A short conclusion summarizing what the user has done, and maybe suggesting different courses of action they can now take.
+A short conclusion summarizing what the user has done, and maybe suggesting different courses of action they can now take. If you have helpful links, you can share those as well.
+
+**Next steps:**
+
+* Links to further/interesting tutorials
+* Support links
 
 ##### License: MIT
 

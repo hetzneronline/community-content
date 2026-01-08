@@ -2,9 +2,9 @@
 SPDX-License-Identifier: MIT
 path: "/tutorials/tutorial-template/de"
 slug: "tutorial-template"
-date: "2023-01-01"
+date: "2025-01-01"
 title: "Ein tolles Beispiel-Tutorial!"
-short_description: "Das ist ein Beispiel-Tutorial mit Metadaten (die ersten paar Zeilen vor dem eigentlichen Tutorial). Bitte fülle so viel wie möglich selbst aus. Wenn du dir an einer Stelle nicht sicher bist, kannst du es leer lassen und der Community Manager wird es für dich anpassen. Die "short_description" sollte bei dir nicht mehr als 160 Zeichen haben."
+short_description: "Das ist ein Beispiel-Tutorial mit Metadaten (die ersten paar Zeilen vor dem eigentlichen Tutorial). Bitte fülle so viel wie möglich selbst aus. Wenn du dir an einer Stelle nicht sicher bist, kannst du es leer lassen und der Community Manager wird es für dich anpassen. Die 'short_description' sollte bei dir nicht mehr als 160 Zeichen haben."
 tags: ["Development", "Lang:Go", "Lang:JS"]
 author: "Dein Name"
 author_link: "https://github.com/....."
@@ -16,12 +16,16 @@ header_img: "header-x"
 cta: "product"
 ---
 
-## Einführung 
+## Einführung
+
+> Die obenstehenden Metadaten werden von der Community verwendet, um das Tutorial zu kategorisieren und zu beschreiben. Diese müssen am Anfang von jedem Tutorial enthalten sein.
 
 Beachte, dass alle Tutorials auf Englisch verfasst sein müssen. Wenn du zusätzlich eine deutsche Übersetzung bereitstellen willst, kannst du dieses Beispiel-Tutorial als Vorlage verwenden.
 
 Der erste Absatz oder die ersten Absätze in der Einführung sind dafür da, um zu erklären, was im Tutorial behandelt wird. Liste bitte nicht einfach die einzelnen Schritte auf, da ein Inhaltsverzeichnis automatisch hinzugefügt wird. Stelle sicher, dass die Benutzer genau wissen, was sie am Ende erreichen werden, wenn sie deinem Tutorial folgen. Lasse sie wissen, wenn sie bestimmte Voraussetzungen benötigen.
 Du kannst auf andere Tutorials verweisen, auf denen dein Tutorial aufbaut, und Empfehlungen hinzufügen, was Benutzer wissen sollten.
+
+Beachte außerdem, dass die Tutorials wie in diesem Beispiel-Tutorial gezeigt, mit Markdown geschrieben werden (siehe [Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)).
 
 **Voraussetzungen**
 
@@ -104,7 +108,12 @@ Noch mehr Anweisungen.
 
 ## Ergebnis
 
-Am Ende des Tutorials, sobald der Benutzer alle Schritte abgeschlossen hat, kannst du eine kurze Schlussfolgerung hinzufügen. Fasse zusammen, was der Benutzer getan hat, und schlage vielleicht verschiedene Maßnahmen vor, die er jetzt ergreifen kann.
+Am Ende des Tutorials, sobald der Benutzer alle Schritte abgeschlossen hat, kannst du eine kurze Schlussfolgerung hinzufügen. Fasse zusammen, was der Benutzer getan hat, und schlage vielleicht verschiedene Maßnahmen vor, die er jetzt ergreifen kann. Zusätzlich kannst du bei Bedarf noch hilfreiche Links ergänzen.
+
+**Nächste Schritte:**
+
+* Links zu weiterführenden/interessanten Tutorials
+* Support Links
 
 ##### License: MIT
 

@@ -1,0 +1,15 @@
+SPDX-License-Identifier=✅
+path=✅
+slug=✅
+date=✅
+title=✅
+short_description=✅
+tags=✅
+author=✅
+author_link=✅
+author_img=✅
+author_description=✅
+language=✅
+available_languages=✅
+header_img=✅
+cta=✅
