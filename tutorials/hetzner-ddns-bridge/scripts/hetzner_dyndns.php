@@ -443,7 +443,7 @@ function try_update(array $realmConfig, string $domain, string $zoneName, string
 }
 
 /**
- * Update the legacy Hetzner DNS zone/records, looking up record IDs when missing.
+ * Update the legacy Hetzner DNS Console zone/records, looking up record IDs when missing.
  */
 function update_via_dns_api(array $realmConfig, string $domain, string $zoneName, string $hostnameName, array $ips, ?string $zoneId, ?string $recordAId, ?string $recordAAAAId): array
 {
