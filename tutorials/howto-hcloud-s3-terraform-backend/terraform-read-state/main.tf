@@ -1,10 +1,13 @@
 terraform {
   backend "s3" {
    
-    bucket = "terraform-tutorial"
+    bucket = "$BUCKET_NAME"
     key    = "terraform-read-state/terraform.tfstate"
-    endpoint = "https://fsn1.your-objectstorage.com"
+    endpoints = {
+      s3 = "$ENDPOINT"
+    }
     
+    skip_requesting_account_id = true    
     skip_credentials_validation = true
     skip_metadata_api_check     = true
     skip_region_validation      = true
@@ -15,9 +18,12 @@ terraform {
 data "terraform_remote_state" "vm_state" {
   backend = "s3"
   config = {
-    bucket = "terraform-tutorial"
-    key                        = "terraform-backend-tutorial/terraform.tfstate"
-    endpoint                   = "https://fsn1.your-objectstorage.com"
+    bucket = "$BUCKET_NAME"
+    key                        = "terraform-tutorial/terraform.tfstate"
+    endpoints = {
+      s3 = "$ENDPOINT"
+    }
+    skip_requesting_account_id = true
     skip_credentials_validation = true
     skip_metadata_api_check     = true
     skip_region_validation      = true
