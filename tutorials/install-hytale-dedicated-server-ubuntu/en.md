@@ -97,17 +97,17 @@ exit
 To run a Hytale server, you need an account that already owns the **Standard Edition** of the game (currently approx. 23,79$ in Germany). You can purchase the game and download the necessary tools at [hytale.com/download](https://hytale.com/download).
 Now you need to download the Hytale server files and authenticate your server with your Hytale account.
 
-Now, download the Hytale server tools directly to your server. Switch to the `hytale` user and navigate to the installation directory:
+Switch to the hytale user and navigate to the installation directory to download the server tools:
 
 ```bash
 su - hytale
 cd /opt/hytale
 ```
 
-Extract and prepare the Hytale downloader (assuming you have already uploaded `hytale-downloader.zip` to the server):
+Use wget to download the official downloader package and extract it:
 
 ```bash
-wget [https://downloader.hytale.com/hytale-downloader.zip](https://downloader.hytale.com/hytale-downloader.zip)
+wget https://downloader.hytale.com/hytale-downloader.zip
 unzip hytale-downloader.zip
 chmod +x hytale-downloader-linux-amd64
 ./hytale-downloader-linux-amd64
