@@ -50,6 +50,7 @@ Running the Hytale server under a dedicated user account improves security by li
 
 ```bash
 sudo adduser hytale
+sudo usermod -aG sudo hytale
 ```
 
 You will be prompted to set a password and enter optional user information. You can skip the optional fields by pressing Enter.
@@ -93,9 +94,10 @@ exit
 
 ## Step 4 - Download and Authenticate
 
+To run a Hytale server, you need an account that already owns the **Standard Edition** of the game (currently approx. 23,79$ in Germany). You can purchase the game and download the necessary tools at [hytale.com/download](https://hytale.com/download).
 Now you need to download the Hytale server files and authenticate your server with your Hytale account.
 
-Switch to the `hytale` user and navigate to the installation directory:
+Now, download the Hytale server tools directly to your server. Switch to the `hytale` user and navigate to the installation directory:
 
 ```bash
 su - hytale
@@ -105,6 +107,7 @@ cd /opt/hytale
 Extract and prepare the Hytale downloader (assuming you have already uploaded `hytale-downloader.zip` to the server):
 
 ```bash
+wget [https://downloader.hytale.com/hytale-downloader.zip](https://downloader.hytale.com/hytale-downloader.zip)
 unzip hytale-downloader.zip
 chmod +x hytale-downloader-linux-amd64
 ./hytale-downloader-linux-amd64
@@ -278,6 +281,13 @@ View recent log entries from systemd:
 sudo journalctl -u hytale -n 50
 ```
 
+## Step 8 - Connecting to your Server
+
+Once the server is running, you can join your world:
+1. Start your Hytale client on your local computer.
+2. Navigate to **Multiplayer**.
+3. Click on **Direct Connect** (or Add Server).
+4. Enter your server's **IP address**. The default port is `5520`, which is used automatically unless changed.
 ---
 
 ## Conclusion
