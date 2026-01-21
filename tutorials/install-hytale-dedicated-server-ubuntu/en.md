@@ -16,7 +16,7 @@ This tutorial explains how to install and run a **Hytale Dedicated Server** on *
 * At least **4 GB RAM** (8 GB or more recommended for better performance)
 * Root or sudo access to the server
 * Basic knowledge of Linux command line operations
-* A Hytale server download package (hytale-downloader.zip)
+* A Hytale account with the Standard Edition of the game
 
 **Example terminology**
 
@@ -104,7 +104,9 @@ su - hytale
 cd /opt/hytale
 ```
 
-Use wget to download the official downloader package and extract it:
+## Step 4.1 - Download and Extract
+
+Download and run the official downloader:
 
 ```bash
 wget https://downloader.hytale.com/hytale-downloader.zip
@@ -113,9 +115,28 @@ chmod +x hytale-downloader-linux-amd64
 ./hytale-downloader-linux-amd64
 ```
 
-The downloader will fetch the necessary server files.
+The downloader fetches a version-specific zip file (e.g., 2026.01.17-4b0f30090.zip). You must identify and unzip it manually:
 
-### Step 4.1 - Authenticate the Server
+1. List the files to find the name:
+
+```bash
+ls
+```
+
+2. Unzip the identified file:
+
+```bash
+# Replace with your actual filename
+unzip 2026.01.17-4b0f30090.zip
+```
+
+Verify that the Server/ folder and Assets.zip are present:
+
+```bash
+ls -F
+```
+
+### Step 4.2 - Authenticate the Server
 
 Start the server for the first time to perform authentication:
 
