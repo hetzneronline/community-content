@@ -11,8 +11,9 @@
  */
 
 return [
-    // Shared password for the update/cron endpoints (used in HTTP auth or ?p=...).
-    'script_password' => 'YOUR_SECRET_PASSWORD',
+    // Authentication: single DynDNS username/password pair.
+    'auth_user' => 'update',
+    'auth_password' => 'YOUR_SECRET_PASSWORD',
 
     // Authentication realm label used when sending WWW-Authenticate headers.
     'auth_realm' => 'Your Realm Name',
@@ -59,14 +60,12 @@ return [
         'default' => [
             'name' => 'default',
             'ttl' => 60,
-            // Endpoint of legacy DNS Console API
             'dns_endpoint' => 'https://dns.hetzner.com/api/v1',
-            // Endpoint of Hetzner Console API
             'console_endpoint' => 'https://api.hetzner.cloud/v1',
             'dns_token' => 'your-dns-api-token',
             'console_token' => 'your-console-api-token',
             // Optional override if the zone uses a subdomain (e.g. ddns.example.com).
-            'zone_name' => 'example.com',
+            'zone_name' => 'ddns.example.com',
             'api_order' => ['dns', 'console'],
         ],
     ],

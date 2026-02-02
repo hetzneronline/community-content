@@ -176,14 +176,23 @@ function get_cron_context(): array
 function authenticate(array $config): void
 {
     $realmLabel = $config['auth_realm'] ?? 'My Dynamic DNS service';
-    $passwords = (array) $config['script_password'];
+    $user = trim((string) ($config['auth_user'] ?? ''));
+    if ($user === '') {
+        $user = 'update'; // fallback for legacy clients
+    }
+
+    // Prefer new auth_password; fall back to legacy script_password if present.
+    $passwords = (array) ($config['auth_password'] ?? $config['script_password'] ?? []);
     $passwords = array_map('strval', $passwords);
+    if (empty($passwords)) {
+        throw new RuntimeException('No authentication password configured. Set auth_password in config.');
+    }
     $authValue = $_SERVER['HTTP_X_AUTHENTICATION'] ?? null;
 
     if (isset($_SERVER['PHP_AUTH_DIGEST'])) {
         $digest = $_SERVER['PHP_AUTH_DIGEST'];
-        $expected = md5('update:' . $passwords[0]);
-        if (strpos($digest, 'username="update"') === false || strpos($digest, 'response="' . $expected . '"') === false) {
+        $expected = md5($user . ':' . $passwords[0]);
+        if (strpos($digest, 'username="' . $user . '"') === false || strpos($digest, 'response="' . $expected . '"') === false) {
             send_auth_headers($realmLabel);
         }
         return;
@@ -191,7 +200,7 @@ function authenticate(array $config): void
 
     if (isset($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
         foreach ($passwords as $password) {
-            if ($_SERVER['PHP_AUTH_USER'] === 'update' && $_SERVER['PHP_AUTH_PW'] === $password) {
+            if ($_SERVER['PHP_AUTH_USER'] === $user && $_SERVER['PHP_AUTH_PW'] === $password) {
                 return;
             }
         }
@@ -203,9 +212,9 @@ function authenticate(array $config): void
     }
 
     if (isset($_SERVER['HTTP_AUTHORIZATION']) && strpos($_SERVER['HTTP_AUTHORIZATION'], 'Basic ') === 0) {
-        [$user, $pass] = array_pad(explode(':', base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)), 2), 2, '');
+        [$basicUser, $basicPass] = array_pad(explode(':', base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)), 2), 2, '');
         foreach ($passwords as $password) {
-            if ($user === 'update' && $pass === $password) {
+            if ($basicUser === $user && $basicPass === $password) {
                 return;
             }
         }
@@ -443,7 +452,7 @@ function try_update(array $realmConfig, string $domain, string $zoneName, string
 }
 
 /**
- * Update the legacy Hetzner DNS Console zone/records, looking up record IDs when missing.
+ * Update the legacy Hetzner DNS zone/records, looking up record IDs when missing.
  */
 function update_via_dns_api(array $realmConfig, string $domain, string $zoneName, string $hostnameName, array $ips, ?string $zoneId, ?string $recordAId, ?string $recordAAAAId): array
 {
