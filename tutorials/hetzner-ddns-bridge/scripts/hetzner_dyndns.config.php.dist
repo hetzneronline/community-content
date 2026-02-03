@@ -64,8 +64,8 @@ return [
             'console_endpoint' => 'https://api.hetzner.cloud/v1',
             'dns_token' => 'your-dns-api-token',
             'console_token' => 'your-console-api-token',
-            // Optional override if the zone uses a subdomain (e.g. ddns.example.com).
-            'zone_name' => 'ddns.example.com',
+            // Optional override if the zone uses a subdomain (e.g. sub.example.com).
+            'zone_name' => 'example.com',
             'api_order' => ['dns', 'console'],
         ],
     ],
