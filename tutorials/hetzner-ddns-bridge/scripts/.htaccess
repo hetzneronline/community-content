@@ -1,0 +1,21 @@
+RewriteEngine On
+
+# Redirect DynDNS v2 API requests
+RewriteCond %{REQUEST_URI} ^/nic/update
+RewriteRule ^.*$ hetzner_dyndns.php [L,QSA]
+
+# Redirect DynDNS v3 API requests
+RewriteCond %{REQUEST_URI} ^/v3/update
+RewriteRule ^.*$ hetzner_dyndns.php [L,QSA]
+
+# Disallow access to hetzner_dyndns.php directly
+RewriteCond %{THE_REQUEST} \s/hetzner_dyndns\.php\s [NC]
+RewriteRule ^hetzner_dyndns\.php$ - [F,L]
+
+# Disallow access to .htaccess, .htpasswd, config templates, log files, and other sensitive files
+RewriteRule ^(\.htaccess|\.htpasswd|\.sqlite3|\.ini|\.env|\.gitignore|\.log|hetzner_dyndns\.config\.php|hetzner_dyndns\.config\.php\.dist|hetzner_dyndns\.debug\.log)$ - [F,L]
+
+# Disallow direct access to any PHP file except the rewrite-driven DynDNS endpoints.
+RewriteCond %{THE_REQUEST} !/nic/update
+RewriteCond %{THE_REQUEST} !/v3/update
+RewriteRule \.php$ - [F,L]
