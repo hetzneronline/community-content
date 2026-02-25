@@ -45,7 +45,7 @@ Hier findest du wichtige Informationen bezüglich allgemeiner Voraussetzungen wi
 
 * **Kostenlos und Open-Source**
   
-  * Wenn im Tutorial Produkte oder Software von Dritten vorkommen, sollte darauf geachtet werden, dass diese kostenlos genutzt werden können und open-source sind, damit jeder dem Tutorial folgen kann.
+  * Wenn im Tutorial Produkte oder Software von Dritten vorkommen, sollte darauf geachtet werden, dass diese kostenlos genutzt werden können und open-source sind, damit jeder dem Tutorial folgen kann. Wenn du über ein interessantes Thema schreiben willst, das nicht kostenlos genutzt werden kann oder nicht open-source ist, kontaktiere uns bitte über `tutorials@hetzner.com`, bevor du das Tutorial schreibst. Wir sind offen für die Möglichkeit, Ausnahmen für bestimmte Tutorials zu machen.
 
 * **Links, Docker Images, Terraform Module**
   

@@ -44,7 +44,7 @@ Below, you can find information about [content](#content), [language](#language)
 
 * **Free and open source**
   
-  * If your tutorial includes products or software of a third party, make sure they are free-of-charge and open-source, so that everyone can follow your tutorial.
+  * If your tutorial includes products or software of a third party, make sure they are free-of-charge and open-source, so that everyone can follow your tutorial. If you want to write about an interesting topic that is not free-of-charge or open-source, please reach out to us at `tutorials@hetzner.com` before you begin writing. We are open to possibly making exceptions for specific tutorials.
 
 * **Links, Docker images, Terraform modules**
   
