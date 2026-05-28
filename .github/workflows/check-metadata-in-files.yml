@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Test changed-files
     steps:
-      - uses: actions/setup-node@v4
-      - uses: yokawasa/action-setup-kube-tools@v0.11.0
-      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v6
+      - uses: yokawasa/action-setup-kube-tools@v0.13.5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
