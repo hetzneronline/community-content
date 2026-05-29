@@ -20,7 +20,7 @@ jobs:
 
       - name: Get all changed markdown files
         id: changed-markdown-files
-        uses: tj-actions/changed-files@v46
+        uses: tj-actions/changed-files@v47
         with:
           
           files: |
