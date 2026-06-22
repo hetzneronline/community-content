@@ -101,7 +101,7 @@ Differences were also found in the following Linux kernel parameters
 
 ### Command queueing (NCQ)
 
-During testing, was also observed a negative impact of NCQ (‘/sys/block/sde/device/queue_depth:32’) on speed and stability, especially during concurrent write operations.
+During testing, was also observed a negative impact of NCQ (`/sys/block/sde/device/queue_depth:32`) on speed and stability, especially during concurrent write operations.
 
 ---
 
