@@ -95,7 +95,7 @@ JMicron SATA controllers are described positively only on the manufacturer's web
 Differences were also found in the following Linux kernel parameters
 
 - large I/O sizes (`/sys/block/sde/queue/max_sectors_kb:4096`)  
-- large read-ahead (`/sys/block/sda/queue/read_ahead_kb:8192`)  
+- large read-ahead (`/sys/block/sde/queue/read_ahead_kb:8192`)  
 
 ---
 
