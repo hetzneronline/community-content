@@ -4,19 +4,20 @@ path: "/tutorials/fix-jmicron-sata-controller-issues"
 slug: "fix-jmicron-sata-controller-issues"
 date: "2026-06-21"
 title: "Fixing JMicron SATA Controller I/O Errors on Hetzner SX135 Server with 22TB HDDs"
-short_description: "Resolve I/O errors and instability on Proxmox Backup Server caused by JMicron SATA controllers with large disks on Hetzner SX135."
+short_description: "Hetzner offers the SX135 server with 8 22 TB hard drives. This is a good choice for storing backups. Unfortunately, after ordering this server and installing Proxmox Backup Server 4.2, I was only able to use the 4 drives that were connected directly to the motherboard. The other 4 drives, connected to JMicron SATA controllers, kept throwing errors. The symptoms of the problem and how to fix it are described step-by-step below."
 tags: ["Linux", "Storage", "Proxmox", "SX135", "Hardware", "Hetzner", "JMicron"]
 author: "Yaroslav"
-author_description: ""
+author_description: "Resolve I/O errors and instability on Proxmox Backup Server caused by JMicron SATA controllers with large disks on Hetzner SX135"
 language: "en"
 available_languages: ["en"]
 header_img: "header-3"
-
+author_link: "https://github.com/viosioner-ua"
+author_img: "https://avatars.githubusercontent.com/u/295812815?v=4"
 ---
 
 ## Introduction
 
-Hetzner offers the SX server series, which are equipped with 4 to 12 hard drives, each with a capacity of 16 or 22 TB. The SX135 server comes with 8 drives, each with a capacity of 22 TB, making it a good choice for backup storage. Unfortunately, after ordering this server and installing Proxmox Backup Server 4.2, I was only able to use 4 drives that were connected directly to the motherboard. The other 4 drives, connected to JMicron SATA controllers, returned errors even when tested using “hdparm”. Since Hetzner support replaced the controller and cables, hardware errors were ruled out. When testing the disks in the rescue system, all disks operated stably and without errors. Therefore, a comparison of the disk subsystem parameters between the Proxmox kernel and Debian (rescue system) was performed, and discrepancies were identified. The symptoms of the problem and how to resolve it are described step-by-step below.
+Hetzner offers the SX server series, which are equipped with 4 to 14 hard drives, each with a capacity of 16 or 22 TB. The SX135 server comes with 8 drives, making it a good choice for backup storage. Unfortunately, after ordering this server and installing Proxmox Backup Server 4.2, I was only able to use 4 drives that were connected directly to the motherboard. The other 4 drives, connected to JMicron SATA controllers, returned errors even when tested using “hdparm”. Since Hetzner support replaced the controller and cables, hardware errors were ruled out. When testing the disks in the rescue system, all disks operated stably and without errors. Therefore, a comparison of the disk subsystem parameters between the Proxmox kernel and Debian (rescue system) was performed, and discrepancies were identified. The symptoms of the problem and how to resolve it are described step-by-step below.
 
 The issue was observed on a **Hetzner SX135 server** with:
 
@@ -38,11 +39,11 @@ Under load, the system shows:
 
 - Kernel errors:
   ```
-  failed command: READ DMA EXT
+  READ DMA EXT
   WRITE FPDMA QUEUED failed
   Emask 0x40 (internal error)
+  I/O error, dev sde
   ```
-- Buffer I/O errors
 - Unstable writes under load
 - Errors only on disks connected via JMicron
 
@@ -82,11 +83,27 @@ journalctl -f
 
 ## JMicron SATA controllers
 
-JMicron SATA controllers are described positively only on the manufacturer's website :( . On forums, users often report problems with them and almost always recommend replacing them with a different model. However, this option is not available, so after analyzing the technical specifications, it was found that JMicron SATA controllers:
-
-- does not support 64-bit DMA  
-- uses 32-bit DMA only  
-- relies on additional memory translation  
+JMicron SATA controllers are described positively only on the manufacturer's website :( . On forums, users often report problems with them and almost always recommend replacing them with a different model. However, this option is not available, so after analyzing the technical specifications, it was found that JMicron SATA controllers does not support 64-bit DMA:
+  
+```bash
+ dmesg | grep -E "ahci"
+```
+Onboard Controller Parameters
+```
+ahci 0000:02:00.1: SSS flag set, parallel bus scan disabled
+ahci 0000:02:00.1: AHCI vers 0001.0301, 32 command slots, 6 Gbps, SATA mode
+ahci 0000:02:00.1: 6/6 ports implemented (port mask 0x3f)
+ahci 0000:02:00.1: flags: 64bit ncq sntf stag pm led clo only pmp pio slum part sxs deso sadm sds apst
+```
+Jmicron Controller Parameters
+```
+ahci 0000:25:00.0: controller **can't do 64bit DMA, forcing 32bit**
+ahci 0000:25:00.0: SSS flag set, parallel bus scan disabled
+ahci 0000:25:00.0: AHCI vers 0001.0301, 32 command slots, 6 Gbps, SATA mode
+ahci 0000:25:00.0: 5/5 ports implemented (port mask 0x1f)
+ahci 0000:25:00.0: flags: ncq sntf stag pm led clo pmp fbs pio slum part ccc apst boh
+```
+32-bit DMA can only address 4GB, but the server has 128GB installed. This can lead to the problems described in the article [The trouble with 64-bit DMA](https://lwn.net/Articles/904210/)
 
 ---
 
@@ -109,10 +126,10 @@ During testing, was also observed a negative impact of NCQ (`/sys/block/sde/devi
 
 To ensure stable operation of drives connected to a JMicron SATA controller, the following changes must be made:
 
-- simplifying DMA handling  
-- reducing I/O size  
-- disabling NCQ  
-
+- disable the Intel IOMMU, append the intel_iommu=off kernel parameter via bootloader. 
+  (Disabling IOMMU forces the kernel to use 32-bit physical addresses directly without the hardware remapping layer) 
+- reducing I/O size (Only for drives connected via JMicron)
+- disabling NCQ  (Only for drives connected via JMicron)
 ---
 
 ## Step 1 – Disable IOMMU
@@ -239,15 +256,10 @@ By making a contribution to this project, I certify that:
     (unless I am permitted to submit under a different license), as
     indicated in the file; or
 
-(c) The contribution was provided directly to me by some other person
-    who certified (a), (b) or (c) and I have not modified it.
+(c) I have read and understood the Contributor's Certificate of Origin available at the end of 
+	https://raw.githubusercontent.com/hetzneronline/community-content/master/tutorial-template.md
+	and I hereby certify that I meet the contribution criteria described in it.
+	Signed-off-by: Yaroslav yaroslav.solovyov@gmail.com
 
-(d) I understand and agree that this project and the contribution are
-    public and that a record of the contribution (including all personal
-    information I submit with it, including my sign-off) is maintained
-    indefinitely and may be redistributed consistent with this project
-    or the license(s) involved.
-
-Signed-off-by: Yaroslav yaroslav.solovyov@gmail.com
 
 -->
