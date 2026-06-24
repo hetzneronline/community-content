@@ -29,7 +29,6 @@ Disk layout:
 - 4 disks connected directly to the motherboard SATA controller → stable  
 - 4 disks connected via JMicron controller → I/O errors  
 
----
 
 ## Problem Description
 
@@ -47,7 +46,6 @@ Under load, the system shows:
 - Unstable writes under load
 - Errors only on disks connected via JMicron
 
----
 
 ### Example Test
 
@@ -79,7 +77,6 @@ journalctl -f
  pbs kernel: I/O error, dev sde, sector 2048 op 0x0:(READ) flags 0x4000 phys_seg 168 prio class 2
 ```
 
----
 
 ## JMicron SATA controllers
 
@@ -105,7 +102,6 @@ ahci 0000:25:00.0: flags: ncq sntf stag pm led clo pmp fbs pio slum part ccc aps
 ```
 32-bit DMA can only address 4GB, but the server has 128GB installed. This can lead to the problems described in the article [The trouble with 64-bit DMA](https://lwn.net/Articles/904210/)
 
----
 
 ### Default settings  by Proxmox kernel
 
@@ -120,7 +116,6 @@ Differences were also found in the following Linux kernel parameters
 
 During testing, was also observed a negative impact of NCQ (`/sys/block/sde/device/queue_depth:32`) on speed and stability, especially during concurrent write operations.
 
----
 
 ## Solution Overview
 
@@ -130,7 +125,7 @@ To ensure stable operation of drives connected to a JMicron SATA controller, the
   (Disabling IOMMU forces the kernel to use 32-bit physical addresses directly without the hardware remapping layer) 
 - reducing I/O size (Only for drives connected via JMicron)
 - disabling NCQ  (Only for drives connected via JMicron)
----
+
 
 ## Step 1 – Disable IOMMU
 
@@ -152,7 +147,6 @@ Apply:
 proxmox-boot-tool refresh
 ```
 
----
 
 ## Step 2 – Reduce I/O Size
 
@@ -169,7 +163,6 @@ ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="sd[e-h]", ATTR{queue/max_sect
 ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="sd[e-h]", ATTR{queue/read_ahead_kb}="128"
 ```
 
----
 
 ## Step 3 – Disable NCQ
 
@@ -187,7 +180,6 @@ udevadm trigger
 reboot
 ```
 
----
 
 ## Verification
 
@@ -207,7 +199,6 @@ max_sectors_kb = 1280
 read_ahead_kb = 128
 ```
 
----
 
 ## Testing
 
@@ -225,7 +216,7 @@ Result:
  Timing buffered disk reads: 852 MB in  3.01 seconds = 283.50 MB/sec
 ```
 
----
+
 
 ## Results
 
@@ -236,7 +227,6 @@ After applying this configuration:
 -  sequential performance around 250 MB/s  
 -  random write performance around 100 MB/s  
 
----
 
 ##### License: MIT
 
