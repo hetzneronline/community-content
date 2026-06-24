@@ -118,7 +118,6 @@ Differences were also found in the following Linux kernel parameters Proxmox and
 - large read-ahead (`cat /sys/block/sde/queue/read_ahead_kb`)  
 		Proxmox: 8192	Debian: 128 **64 times more!**
 
----
 
 ### Command queueing (NCQ)
 
