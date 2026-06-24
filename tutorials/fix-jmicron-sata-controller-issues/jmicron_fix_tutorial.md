@@ -80,7 +80,12 @@ journalctl -f
 
 ## JMicron SATA controllers
 
-JMicron SATA controllers are described positively only on the manufacturer's website :( . On forums, users often report problems with them and almost always recommend replacing them with a different model. However, this option is not available, so after analyzing the technical specifications, it was found that JMicron SATA controllers does not support 64-bit DMA:
+Users of the JMB58X AHCI SATA controller from Jmicron Technology Corp. have been complaining about issues with it on various forums. They are often advised to replace it with a different model as the simplest solution. Since this option is not available, an analysis of the controller's specifications was performed, which revealed that JMicron SATA controllers do not support 64-bit DMA:
+
+```bash
+lspci | grep -i sata
+25:00.0 SATA controller: JMicron Technology Corp. JMB58x AHCI SATA controller
+```
   
 ```bash
  dmesg | grep -E "ahci"
