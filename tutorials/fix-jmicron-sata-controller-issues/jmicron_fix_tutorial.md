@@ -80,7 +80,7 @@ journalctl -f
 
 ## JMicron SATA controllers
 
-Users of the JMB58X AHCI SATA controller from Jmicron Technology Corp. have been complaining about issues with it on various forums. They are often advised to replace it with a different model as the simplest solution. Since this option is not available, an analysis of the controller's specifications was performed, which revealed that JMicron SATA controllers do not support 64-bit DMA:
+Users of the JMB58X AHCI SATA controller from JMicron Technology Corp. have been complaining about issues with it on various forums. They are often advised to replace it with a different model as the simplest solution. Since this option is not available, it was decided to identify the causes of the errors and attempt to resolve them. An analysis of the controller's specifications revealed that the JMB58X AHCI SATA controller does not support 64-bit DMA:
 
 ```bash
 lspci | grep -i sata
@@ -97,7 +97,7 @@ ahci 0000:02:00.1: AHCI vers 0001.0301, 32 command slots, 6 Gbps, SATA mode
 ahci 0000:02:00.1: 6/6 ports implemented (port mask 0x3f)
 ahci 0000:02:00.1: flags: 64bit ncq sntf stag pm led clo only pmp pio slum part sxs deso sadm sds apst
 ```
-Jmicron Controller Parameters
+JMicron Controller Parameters
 ```
 ahci 0000:25:00.0: controller can't do 64bit DMA, forcing 32bit
 ahci 0000:25:00.0: SSS flag set, parallel bus scan disabled
@@ -255,7 +255,7 @@ By making a contribution to this project, I certify that:
     right under that license to submit that work with modifications,
     whether created in whole or in part by me, under the same license
     (unless I am permitted to submit under a different license), as
-    indicated in the file; or
+    indicated in the file.
 
 (c) I have read and understood the Contributor's Certificate of Origin available at the end of 
 	https://raw.githubusercontent.com/hetzneronline/community-content/master/tutorial-template.md
