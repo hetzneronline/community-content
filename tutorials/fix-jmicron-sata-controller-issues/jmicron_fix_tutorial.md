@@ -94,7 +94,7 @@ ahci 0000:02:00.1: flags: 64bit ncq sntf stag pm led clo only pmp pio slum part 
 ```
 Jmicron Controller Parameters
 ```
-ahci 0000:25:00.0: controller **can't do 64bit DMA, forcing 32bit**
+ahci 0000:25:00.0: controller can't do 64bit DMA, forcing 32bit
 ahci 0000:25:00.0: SSS flag set, parallel bus scan disabled
 ahci 0000:25:00.0: AHCI vers 0001.0301, 32 command slots, 6 Gbps, SATA mode
 ahci 0000:25:00.0: 5/5 ports implemented (port mask 0x1f)
