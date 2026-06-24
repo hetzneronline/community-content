@@ -112,14 +112,16 @@ ahci 0000:25:00.0: flags: ncq sntf stag pm led clo pmp fbs pio slum part ccc aps
 
 Differences were also found in the following Linux kernel parameters Proxmox and Debian. 
 
-- large I/O sizes (`cat /sys/block/sde/queue/max_sectors_kb`)
-
+- large I/O sizes 
+```bash
+cat /sys/block/sde/queue/max_sectors_kb
 		Proxmox: 4096	Debian: 1280 
-		
-- large read-ahead (`cat /sys/block/sde/queue/read_ahead_kb`)  
-
+```		
+- large read-ahead   
+```bash
+cat /sys/block/sde/queue/read_ahead_kb
 		Proxmox: 8192	Debian: 128		**64 times more!**
-
+```
 
 ### Command queueing (NCQ)
 
