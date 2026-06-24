@@ -110,10 +110,13 @@ ahci 0000:25:00.0: flags: ncq sntf stag pm led clo pmp fbs pio slum part ccc aps
 
 ### Default settings  by Proxmox kernel
 
-Differences were also found in the following Linux kernel parameters
+Differences were also found in the following Linux kernel parameters Proxmox and Debian. 
 
-- large I/O sizes (`/sys/block/sde/queue/max_sectors_kb:4096`)  
-- large read-ahead (`/sys/block/sde/queue/read_ahead_kb:8192`)  
+- large I/O sizes (`cat /sys/block/sde/queue/max_sectors_kb`)
+		Proxmox: 4096	Debian: 1280 
+		
+- large read-ahead (`cat /sys/block/sde/queue/read_ahead_kb`)  
+		Proxmox: 8192	Debian: 128 **64 times more!**
 
 ---
 
