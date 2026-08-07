@@ -2,7 +2,7 @@ terraform {
   required_providers {
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "~> 1.45"
+      version = "~> 1.68"
     }
   }
 }
@@ -65,7 +65,13 @@ resource "hcloud_server" "jenkins_controller" {
   user_data = <<-EOF
     #!/bin/bash
     set -e
-
+    
+    # Wait for network connectivity
+    until curl -fsS https://pkg.jenkins.io/ >/dev/null; do
+      echo "Waiting for network..."
+      sleep 5
+    done
+    
     # Install Java 21 and Jenkins
     apt-get update
     apt-get install -y fontconfig openjdk-21-jre-headless
