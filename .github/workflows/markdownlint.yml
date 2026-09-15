@@ -1,0 +1,41 @@
+name: Markdown lint
+
+# Advisory: this workflow reports Markdown formatting issues on pull requests
+# without blocking them.
+#
+# See https://github.com/hetzneronline/community-content/issues/1421
+
+on:
+  pull_request:
+    paths:
+      - '**.md'
+
+permissions:
+  contents: read
+
+jobs:
+  markdownlint:
+    name: Markdown lint (advisory)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Collect changed Markdown files
+        id: changed
+        uses: tj-actions/changed-files@v47
+        with:
+          files: '**.md'
+          # Comma-separated output. The lint step below must use the same
+          # separator; this follows the reference integration documented by
+          # DavidAnson/markdownlint-cli2-action (workflows/changed.yml).
+          separator: ","
+
+      - name: Lint changed Markdown files
+        if: steps.changed.outputs.any_changed == 'true'
+        continue-on-error: true
+        uses: DavidAnson/markdownlint-cli2-action@v24
+        with:
+          globs: ${{ steps.changed.outputs.all_changed_files }}
+          separator: ","
