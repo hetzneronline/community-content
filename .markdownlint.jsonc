@@ -1,0 +1,38 @@
+// markdownlint configuration for Hetzner Community tutorials.
+// https://github.com/DavidAnson/markdownlint
+//
+// Starts from the default rule set and relaxes only rules that currently fire
+// against intentional, existing conventions. The occurrence counts in the
+// comments come from running the default rule set over all tutorial and root
+// Markdown files in this repository.
+{
+  "default": true,
+
+  // Nested lists are indented inconsistently across tutorials (~130 hits with
+  // the default 2-space rule, ~1240 with 3 spaces), so no single indent fits.
+  "MD007": false,
+
+  // Two trailing spaces are a valid Markdown hard line break; anything else is
+  // still reported.
+  "MD009": { "br_spaces": 2, "strict": false },
+
+  // Long lines are unavoidable in tutorials (~16,000 hits).
+  "MD013": false,
+
+  // Headings repeat under different parent sections on purpose (e.g. per-OS
+  // sub-sections); duplicates among sibling headings are still reported.
+  "MD024": { "siblings_only": true },
+
+  // Numbered lists are often interrupted by prose and restart (~60 hits).
+  "MD029": false,
+
+  // Tutorials intentionally use inline HTML such as <details> and <ul>
+  // (~3,500 hits).
+  "MD033": false,
+
+  // Horizontal-rule style varies across existing files (~75 hits).
+  "MD035": false,
+
+  // Emphasis is sometimes used for visual grouping (~950 hits).
+  "MD036": false
+}
