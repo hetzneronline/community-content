@@ -15,6 +15,13 @@
  * `?action=cron` endpoint, which keeps history rows flagged when API calls fail.
  */
 
+// Never show PHP errors to HTTP clients: an uncaught exception (for example a
+// missing config file) would otherwise print the server path to the caller.
+// Errors still go to the web server's error log.
+if (PHP_SAPI !== 'cli') {
+    ini_set('display_errors', '0');
+}
+
 $config = load_config(__DIR__ . '/hetzner_dyndns.config.php');
 $debug = $config['debug'] ?? false;
 
