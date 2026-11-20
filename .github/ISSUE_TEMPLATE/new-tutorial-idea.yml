@@ -1,0 +1,38 @@
+name: New tutorial idea
+description: Propose a new tutorial topic before writing it.
+title: "[Idea] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea for a tutorial? Describe it here so the community and
+        the Community Managers can give feedback before you start writing.
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+      description: A working title for the tutorial.
+      placeholder: "Installing <software> on <operating system>"
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: What will the reader be able to do?
+      description: Describe the outcome and the rough steps.
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: Why is this useful?
+      description: Who is the target audience, and which problem does it solve?
+    validations:
+      required: true
+  - type: textarea
+    id: existing
+    attributes:
+      label: Related existing tutorials
+      description: Link any tutorials that are related or that this one builds on, if you know of them.
+    validations:
+      required: false

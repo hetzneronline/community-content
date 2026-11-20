@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+
+# Node tooling (metadata validation runs via ajv-cli)
+node_modules/
+
+# Generated metadata-validation artefacts
+.github/scripts-metadata/meta-converted.json
+.github/scripts-metadata/validation_result.txt
+.github/scripts-metadata/new-variables.txt
+.github/scripts-metadata/updated-variables.txt
+.github/scripts-metadata/summary-table-temp.md
+.github/scripts-metadata/summary-table-fin.md

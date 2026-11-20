@@ -2,9 +2,9 @@
 /**
  * Hetzner DNS Dynamic DNS configuration.
  *
- * Adjust the realms array below to match your zones, tokens, and preferences.
- * Each realm can define its own TTL, API endpoint tokens, and preferred order
- * of DNS providers (classic KonsoleH/dns plus the new Hetzner Console API).
+ * Adjust the realms array below to match your zones and tokens. Updates are
+ * performed via the Hetzner Console API (api.hetzner.cloud); the legacy DNS
+ * API (dns.hetzner.com) was shut down by Hetzner in May 2026.
  *
  * Copy this file to hetzner_dyndns.config.php, fill in the real tokens and passwords,
  * and keep it out of version control.
@@ -60,13 +60,11 @@ return [
         'default' => [
             'name' => 'default',
             'ttl' => 60,
-            'dns_endpoint' => 'https://dns.hetzner.com/api/v1',
+            // Hetzner Console API (project API token with DNS read/write permissions).
             'console_endpoint' => 'https://api.hetzner.cloud/v1',
-            'dns_token' => 'your-dns-api-token',
             'console_token' => 'your-console-api-token',
-            // Optional override if the zone uses a subdomain (e.g. sub.example.com).
-            'zone_name' => 'example.com',
-            'api_order' => ['dns', 'console'],
+            // Optional override if the zone uses a subdomain (e.g. ddns.example.com).
+            'zone_name' => 'ddns.example.com',
         ],
     ],
 ];

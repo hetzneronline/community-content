@@ -1,0 +1,32 @@
+name: Tutorial update request
+description: Suggest an improvement or extension to an existing tutorial.
+title: "[Update] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to suggest changes to an existing tutorial, for
+        example a new software version, an additional scenario, or clearer
+        instructions.
+  - type: input
+    id: tutorial
+    attributes:
+      label: Tutorial
+      description: URL of the published tutorial or path of the tutorial folder in this repository.
+      placeholder: https://community.hetzner.com/tutorials/... or tutorials/...
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What should be changed?
+      description: Describe the change you would like to see.
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why is this useful?
+      description: Explain who benefits and under which circumstances.
+    validations:
+      required: true

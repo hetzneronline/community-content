@@ -1,0 +1,31 @@
+# https://editorconfig.org
+#
+# Keeps contributions consistent regardless of editor. Markdown is handled
+# deliberately: trailing whitespace is *not* trimmed, because a double trailing
+# space is a hard line break and leading whitespace can carry list nesting.
+# See https://github.com/hetzneronline/community-content/issues/1421
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.{json,jsonc}]
+indent_size = 2
+
+[*.sh]
+indent_style = space
+indent_size = 4
+
+[{Makefile,makefile}]
+indent_style = tab

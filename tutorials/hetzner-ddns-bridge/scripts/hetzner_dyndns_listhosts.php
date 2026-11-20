@@ -7,8 +7,11 @@
  */
 
 if (PHP_SAPI !== 'cli') {
-    fwrite(STDERR, "This helper only runs from the command line.\n");
-    exit(1);
+    // STDERR does not exist under a web SAPI; writing to it threw a fatal
+    // error whose message exposed the server path whenever the script was
+    // reached over HTTP. Answer with a plain 403 instead.
+    http_response_code(403);
+    exit('This helper only runs from the command line.');
 }
 
 $configPath = __DIR__ . '/hetzner_dyndns.config.php';

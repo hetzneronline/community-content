@@ -1,21 +1,34 @@
 RewriteEngine On
 
-# Redirect DynDNS v2 API requests
-RewriteCond %{REQUEST_URI} ^/nic/update
-RewriteRule ^.*$ hetzner_dyndns.php [L,QSA]
+# A dyndns2 endpoint is GET-only (hetzner_dyndns.php answers 405 to anything
+# else). Rejecting other methods here keeps request bodies away from PHP's
+# request parser altogether, which is where PHP2Shell (CVE-2026-109618,
+# CVE-2026-109619) and the follow-up CVE-2026-115560 live. HEAD is allowed
+# for monitoring probes; ACME validators use GET.
+RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$
+RewriteRule ^ - [F,L]
 
-# Redirect DynDNS v3 API requests
-RewriteCond %{REQUEST_URI} ^/v3/update
-RewriteRule ^.*$ hetzner_dyndns.php [L,QSA]
+# Rewrite the DynDNS v2/v3 endpoints to the script, keeping the query string.
+RewriteRule ^(nic|v3)/update hetzner_dyndns.php [L,QSA]
 
-# Disallow access to hetzner_dyndns.php directly
-RewriteCond %{THE_REQUEST} \s/hetzner_dyndns\.php\s [NC]
-RewriteRule ^hetzner_dyndns\.php$ - [F,L]
+# Everything else is forbidden. Only two kinds of request are allowed through:
+#
+#  - the two endpoints above. After the internal rewrite the request passes
+#    through this file a second time as /hetzner_dyndns.php, so the check is
+#    made against the original request line (THE_REQUEST), not REQUEST_URI.
+#    It is anchored on the path: a query string that merely contains
+#    "/nic/update" (as in /hetzner_dyndns_listhosts.php?/nic/update) used to
+#    defeat the old, unanchored "!/nic/update" check and executed the script.
+#  - ACME challenges below /.well-known/, so TLS certificates can be renewed.
+#
+# Denying by default means the sqlite history database, debug log, config
+# template, dotfiles, backups and any stray PHP file are never served, whatever
+# they are called. A plain ^\.sqlite3$ in an earlier version only matched a
+# file literally named ".sqlite3" and left hetzner_dyndns.sqlite3 downloadable.
+RewriteCond %{THE_REQUEST} !^[A-Z]+\s/(nic|v3)/update
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteRule ^ - [F,L]
 
-# Disallow access to .htaccess, .htpasswd, config templates, log files, and other sensitive files
-RewriteRule ^(\.htaccess|\.htpasswd|\.sqlite3|\.ini|\.env|\.gitignore|\.log|hetzner_dyndns\.config\.php|hetzner_dyndns\.config\.php\.dist|hetzner_dyndns\.debug\.log)$ - [F,L]
-
-# Disallow direct access to any PHP file except the rewrite-driven DynDNS endpoints.
-RewriteCond %{THE_REQUEST} !/nic/update
-RewriteCond %{THE_REQUEST} !/v3/update
-RewriteRule \.php$ - [F,L]
+# PHP is never executed directly, not even below /.well-known/.
+RewriteCond %{THE_REQUEST} !^[A-Z]+\s/(nic|v3)/update
+RewriteRule \.(php[0-9]*|phtml|phar)$ - [F,L,NC]

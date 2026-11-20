@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Contribution guidelines
+    url: https://github.com/hetzneronline/community-content/blob/master/contributing.md
+    about: Please read this before proposing or writing a tutorial.
+  - name: Markdown preview and test suite
+    url: https://community.hetzner.com/markdown-test-suite/
+    about: Preview and check the formatting of your tutorial before submitting.
+  - name: Hetzner Forum
+    url: https://forum.hetzner.com
+    about: Ask questions and discuss with the community.

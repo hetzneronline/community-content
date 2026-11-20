@@ -1,0 +1,45 @@
+name: Broken or outdated tutorial
+description: Report a tutorial that no longer works, contains outdated information, or has broken links.
+title: "[Tutorial] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep the tutorials accurate. Please link the
+        published tutorial (community.hetzner.com) or its folder in this
+        repository.
+  - type: input
+    id: tutorial
+    attributes:
+      label: Tutorial
+      description: URL of the published tutorial or path of the tutorial folder in this repository.
+      placeholder: https://community.hetzner.com/tutorials/... or tutorials/...
+    validations:
+      required: true
+  - type: dropdown
+    id: problem
+    attributes:
+      label: What is wrong?
+      options:
+        - Commands no longer work
+        - Outdated software version or information
+        - Broken or dead links
+        - Formatting or typo
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What did you try, what happened instead, and at which step?
+      placeholder: Describe the problem, including any error messages.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested fix (optional)
+      description: If you know how to fix it, describe or link to the corrected step.
+    validations:
+      required: false
